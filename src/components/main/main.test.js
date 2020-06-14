@@ -19,6 +19,8 @@ const FILM_TITLES = [
   `No Country for Old Men`
 ];
 
+const filmTitleHandler = () => {};
+
 it(`Should Main render correctly`, () => {
   const tree = renderer
     .create(<Main
@@ -26,6 +28,7 @@ it(`Should Main render correctly`, () => {
       genre = {Film.GENRE}
       release={Film.RELEASE}
       filmTitles={FILM_TITLES}
+      onFilmTitleClick={filmTitleHandler}
     />)
     .toJSON();
 
