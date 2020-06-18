@@ -1,7 +1,7 @@
 export default [
   {
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
-    image: `fantastic-beasts-the-crimes-of-grindelwald.jpg`
+    image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`
   }, {
     title: `Bohemian Rhapsody`,
     image: `img/bohemian-rhapsody.jpg`
