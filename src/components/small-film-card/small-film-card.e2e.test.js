@@ -18,13 +18,31 @@ it(`Film data passed to callback`, () => {
   const smallFilmCard = shallow(
       <SmallFilmCard
         film={film}
-        onFilmTitleClick={() => {}}
+        onFilmTitleClick={() => { }}
         onFilmMouseOver={onCardMouseOver}
-      />);
+      />
+  );
 
   const filmCard = smallFilmCard.find(`.small-movie-card`);
   filmCard.props().onMouseOver();
 
   expect(onCardMouseOver).toHaveBeenCalledTimes(1);
   expect(onCardMouseOver.mock.calls[0][0]).toMatchObject(film);
+});
+
+it(`Should film title link be pressed`, () => {
+  const onTitleClick = jest.fn();
+
+  const smallFilmCard = shallow(
+      <SmallFilmCard
+        film={film}
+        onFilmTitleClick={onTitleClick}
+        onFilmMouseOver={() => {}}
+      />
+  );
+
+  const filmTitle = smallFilmCard.find(`.small-movie-card__link`);
+  filmTitle.simulate(`click`);
+
+  expect(onTitleClick).toHaveBeenCalledTimes(1);
 });
