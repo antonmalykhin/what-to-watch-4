@@ -1,27 +1,37 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Main from '../main/main.jsx';
 
-const filmTitleHandler = () => {};
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
 
-const App = (props) => {
-  const {title, genre, release, filmTitles} = props;
-  return (
-    <Main
-      title={title}
-      genre={genre}
-      release={release}
-      filmTitles={filmTitles}
-      onFilmTitleClick={filmTitleHandler}
-    />
-  );
-};
+  }
+
+  filmTitleHandler() {}
+
+  render() {
+    const {title, genre, release, films} = this.props;
+    return (
+      <Main
+        title={title}
+        genre={genre}
+        release={release}
+        films={films}
+        onFilmTitleClick={this.filmTitleHandler}
+      />
+    );
+  }
+}
 
 App.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   release: PropTypes.number.isRequired,
-  filmTitles: PropTypes.arrayOf(PropTypes.string.isRequired)
+  films: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired
+  }))
 };
 
 export default App;
