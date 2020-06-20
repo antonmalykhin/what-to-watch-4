@@ -165,6 +165,4 @@ class FilmPage extends PureComponent {
   }
 }
 
-FilmPage.propTypes = {};
-
 export default FilmPage;
