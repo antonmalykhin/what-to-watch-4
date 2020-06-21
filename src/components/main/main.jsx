@@ -132,10 +132,17 @@ class Main extends PureComponent {
 
 Main.propTypes = {
   promoFilm: PropTypes.shape({
+    background: PropTypes.string,
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     release: PropTypes.number.isRequired,
-  }).isRequired,
+    poster: PropTypes.string,
+    rating: PropTypes.shape({
+      score: PropTypes.number,
+      level: PropTypes.string,
+      count: PropTypes.number
+    })
+  }),
   films: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired
