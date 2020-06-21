@@ -8,25 +8,51 @@ class App extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.state = {
+      currentFilm: null
+    };
   }
 
-  filmTitleHandler() { }
+  filmTitleHandler(film) {
+    this.setState({
+      currentFilm: film
+    });
+  }
 
   _renderApp() {
-    const {title, genre, release, films} = this.props;
+    const {films} = this.props;
+    const {currentFilm} = this.state;
+    const promoFilm = films[0];
 
-    return (
-      <Main
-        title={title}
-        genre={genre}
-        release={release}
-        films={films}
-        onFilmTitleClick={this.filmTitleHandler}
-      />
-    );
+    if (!currentFilm) {
+      return (
+        <Main
+          promoFilm={promoFilm}
+          films={films}
+          onFilmClick={(film) => {
+            this.setState({currentFilm: film});
+          }}
+        />
+      );
+    }
+
+    if (currentFilm) {
+      return (
+        <FilmPage
+          film={currentFilm}
+          films={films}
+          onFilmClick={(film) => {
+            this.setState({currentFilm: film});
+          }}/>
+      );
+    }
+
+    return null;
   }
 
   render() {
+    const {films} = this.props;
+    const currentFilm = films[0];
 
     return (
       <BrowserRouter>
@@ -35,7 +61,12 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/dev-film">
-            <FilmPage />
+            <FilmPage
+              film={currentFilm}
+              films={films}
+              onFilmClick={(film) => {
+                this.setState({currentFilm: film});
+              }}/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -44,9 +75,6 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  release: PropTypes.number.isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired
