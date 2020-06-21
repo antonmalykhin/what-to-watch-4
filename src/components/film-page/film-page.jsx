@@ -12,7 +12,7 @@ class FilmPage extends PureComponent {
   }
 
   render() {
-    const {film, films, onFilmTitleClick} = this.props;
+    const {film, films, onFilmClick} = this.props;
     const {background, title, genre, release, poster, rating, description, crew} = film;
     const {score, level, count} = rating;
     const {director, starring} = crew;
@@ -114,7 +114,7 @@ class FilmPage extends PureComponent {
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
 
-            {<FilmList films={moreLikeThisFilms} onFilmTitleClick={onFilmTitleClick}/>}
+            {<FilmList films={moreLikeThisFilms} onFilmClick={onFilmClick}/>}
 
           </section>
 
@@ -159,7 +159,7 @@ FilmPage.propTypes = {
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired
   })).isRequired,
-  onFilmTitleClick: PropTypes.func.isRequired
+  onFilmClick: PropTypes.func.isRequired
 };
 
 export default FilmPage;
