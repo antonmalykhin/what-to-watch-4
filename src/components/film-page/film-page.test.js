@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from './app.jsx';
+import FilmPage from './film-page.jsx';
 
 const films = [
   {
@@ -142,11 +142,15 @@ const films = [
   }
 ];
 
-it(`Render App`, () => {
+const film = films[0];
+
+it(`Should FilmPage render correctly`, () => {
   const tree = renderer
     .create(
-        <App
+        <FilmPage
+          film={film}
           films={films}
+          onFilmClick={() => { }}
         />
     )
     .toJSON();

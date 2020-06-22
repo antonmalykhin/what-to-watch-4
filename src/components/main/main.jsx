@@ -9,8 +9,8 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {title, genre, release, films, onFilmTitleClick} = this.props;
-
+    const {promoFilm, films, onFilmClick} = this.props;
+    const {title, genre, release} = promoFilm;
     return (
       <React.Fragment>
         <section className="movie-card">
@@ -105,7 +105,7 @@ class Main extends PureComponent {
               </li>
             </ul>
 
-            {<FilmList films={films} onFilmTitleClick={onFilmTitleClick} />}
+            {<FilmList films={films} onFilmClick={onFilmClick} />}
 
             <div className="catalog__more">
               <button className="catalog__button" type="button">Show more</button>
@@ -131,14 +131,23 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  release: PropTypes.number.isRequired,
+  promoFilm: PropTypes.shape({
+    background: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    release: PropTypes.number.isRequired,
+    poster: PropTypes.string,
+    rating: PropTypes.shape({
+      score: PropTypes.number,
+      level: PropTypes.string,
+      count: PropTypes.number
+    })
+  }),
   films: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired
   })).isRequired,
-  onFilmTitleClick: PropTypes.func.isRequired
+  onFilmClick: PropTypes.func.isRequired
 };
 
 export default Main;
