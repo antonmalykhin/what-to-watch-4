@@ -6,6 +6,7 @@ export default [
     genre: `Drama`,
     release: 2014,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -23,6 +24,7 @@ export default [
     genre: `Drama`,
     release: 2014,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -40,6 +42,7 @@ export default [
     genre: `Drama`,
     release: 2014,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -57,6 +60,7 @@ export default [
     genre: `Drama`,
     release: 2014,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -74,6 +78,7 @@ export default [
     genre: `Drama`,
     release: 2014,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -91,6 +96,7 @@ export default [
     genre: `Drama`,
     release: 2014,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -108,6 +114,7 @@ export default [
     genre: `Drama`,
     release: 2014,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -125,6 +132,7 @@ export default [
     genre: `Drama`,
     release: 2014,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     rating: {
       score: 8.9,
       level: `Very good`,
