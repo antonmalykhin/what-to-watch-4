@@ -15,7 +15,7 @@ class SmallFilmCard extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.timeoutID = null;
+    this._timeoutID = null;
 
     this.state = {
       isPlaying: false
@@ -38,11 +38,11 @@ class SmallFilmCard extends PureComponent {
           className="small-movie-card__image"
           onClick={() => onFilmClick(film)}
           onMouseOver={() => {
-            this.timeoutID = setTimeout(() => this.setState({isPlaying: true}), TIMEOUT);
+            this._timeoutID = setTimeout(() => this.setState({isPlaying: true}), TIMEOUT);
           }}
           onMouseOut={() => {
             this.setState({isPlaying: false});
-            clearTimeout(this.timeoutID);
+            clearTimeout(this._timeoutID);
           }}
         >
           <VideoPlayer
@@ -54,13 +54,17 @@ class SmallFilmCard extends PureComponent {
             loop={filmPreviewSettings.LOOP}
             isPlaying={this.state.isPlaying}
           />
+          <img src={image} alt={title} width="280" height="175"/>
         </div>
 
         <h3 className="small-movie-card__title">
-          <a className="small-movie-card__link" href="movie-page.html" onClick={(evt) => {
-            evt.preventDefault();
-            onFilmClick(film);
-          }}>{title}</a>
+          <a className="small-movie-card__link" href="movie-page.html"
+            onClick={(evt) => {
+              evt.preventDefault();
+              onFilmClick(film);
+            }}>
+            {title}
+          </a>
         </h3>
       </article>
     );
