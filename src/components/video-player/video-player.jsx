@@ -20,11 +20,10 @@ class VideoPlayer extends PureComponent {
   }
 
   componentDidUpdate() {
-    const {src, isPlaying} = this.props;
+    const {isPlaying} = this.props;
     const video = this._videoRef.current;
 
     if (isPlaying) {
-      video.src = src;
       video.play();
     } else {
       video.load();
