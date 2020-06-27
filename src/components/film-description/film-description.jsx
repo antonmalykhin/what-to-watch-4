@@ -31,6 +31,7 @@ class FilmDescription extends PureComponent {
           <FilmOverview
             rating={film.rating}
             description={film.description}
+            crew={film.crew}
           />
         );
       case 1:
@@ -38,6 +39,7 @@ class FilmDescription extends PureComponent {
           <FilmDetails
             genre={film.genre}
             release={film.release}
+            runtime={film.runtime}
             crew={film.crew}
           />
         );
@@ -83,6 +85,7 @@ FilmDescription.propTypes = {
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     release: PropTypes.number.isRequired,
+    runtime: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
     rating: PropTypes.shape({
       score: PropTypes.number.isRequired,
