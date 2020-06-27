@@ -116,6 +116,7 @@ FilmPage.propTypes = {
     genre: PropTypes.string.isRequired,
     release: PropTypes.number.isRequired,
     poster: PropTypes.string.isRequired,
+    runtime: PropTypes.string.isRequired,
     rating: PropTypes.shape({
       score: PropTypes.number.isRequired,
       level: PropTypes.string.isRequired,
