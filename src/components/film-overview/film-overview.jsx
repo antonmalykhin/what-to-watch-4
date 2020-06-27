@@ -8,8 +8,9 @@ class FilmOverview extends PureComponent {
   }
 
   render() {
-    const {rating, description} = this.props;
+    const {rating, description, crew} = this.props;
     const {score, level, count} = rating;
+    const {director, starring} = crew;
 
     return (
       <React.Fragment>
@@ -22,7 +23,15 @@ class FilmOverview extends PureComponent {
         </div>
 
         <div className="movie-card__text">
-          {description}
+          <p>{description}</p>
+
+          <p className="movie-card__director">
+            <strong>Director: {director}</strong>
+          </p>
+
+          <p className="movie-card__starring">
+            <strong>Starring: {starring.split(`, `).slice(0, 4).join(`, `)} and other</strong>
+          </p>
         </div>
       </React.Fragment>
     );
@@ -35,7 +44,11 @@ FilmOverview.propTypes = {
     level: PropTypes.string.isRequired,
     count: PropTypes.number.isRequired
   }).isRequired,
-  description: PropTypes.string.isRequired
+  description: PropTypes.string.isRequired,
+  crew: PropTypes.shape({
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default FilmOverview;
