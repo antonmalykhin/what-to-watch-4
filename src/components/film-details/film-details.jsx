@@ -8,10 +8,9 @@ class FilmDetails extends PureComponent {
   }
 
   render() {
-    const {genre, release, crew} = this.props;
+    const {genre, release, runtime, crew} = this.props;
     const {director, starring} = crew;
     const cast = starring.split(`, `);
-    const runtime = `1h 39m`;
 
     return (
       <div className="movie-card__text movie-card__row">
@@ -56,6 +55,7 @@ class FilmDetails extends PureComponent {
 FilmDetails.propTypes = {
   genre: PropTypes.string.isRequired,
   release: PropTypes.number.isRequired,
+  runtime: PropTypes.string.isRequired,
   crew: PropTypes.shape({
     director: PropTypes.string.isRequired,
     starring: PropTypes.string.isRequired
