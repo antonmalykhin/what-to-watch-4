@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import FilmList from '../film-list/film-list.jsx';
+import FilmDescription from '../film-description/film-description.jsx';
 
 
 const MORE_LIKE_THIS_FILM_COUNT = 4;
@@ -13,9 +14,7 @@ class FilmPage extends PureComponent {
 
   render() {
     const {film, films, onFilmClick} = this.props;
-    const {background, title, genre, release, poster, rating, description, crew} = film;
-    const {score, level, count} = rating;
-    const {director, starring} = crew;
+    const {background, title, genre, release, poster} = film;
     const moreLikeThisFilms = films.slice(0, MORE_LIKE_THIS_FILM_COUNT);
 
     return (
@@ -77,35 +76,8 @@ class FilmPage extends PureComponent {
                 <img src={poster} alt={title} width="218" height="327" />
               </div>
 
-              <div className="movie-card__desc">
-                <nav className="movie-nav movie-card__nav">
-                  <ul className="movie-nav__list">
-                    <li className="movie-nav__item movie-nav__item--active">
-                      <a href="#" className="movie-nav__link">Overview</a>
-                    </li>
-                    <li className="movie-nav__item">
-                      <a href="#" className="movie-nav__link">Details</a>
-                    </li>
-                    <li className="movie-nav__item">
-                      <a href="#" className="movie-nav__link">Reviews</a>
-                    </li>
-                  </ul>
-                </nav>
+              {<FilmDescription film={film} />}
 
-                <div className="movie-rating">
-                  <div className="movie-rating__score">{score}</div>
-                  <p className="movie-rating__meta">
-                    <span className="movie-rating__level">{level}</span>
-                    <span className="movie-rating__count">{count} ratings</span>
-                  </p>
-                </div>
-
-                <div className="movie-card__text">
-                  <p>{description}</p>
-                  <p className="movie-card__director"><strong>Director: {director}</strong></p>
-                  <p className="movie-card__starring"><strong>Starring: {starring}</strong></p>
-                </div>
-              </div>
             </div>
           </div>
         </section>
