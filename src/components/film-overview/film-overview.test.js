@@ -1,16 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import SmallFilmCard from './small-film-card.jsx';
+import FilmOverview from './film-overview.jsx';
 
 const film = {
-  title: `Fantastic Beasts: The Crimes of Grindelwald`,
-  image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-  background: `img/bg-the-grand-budapest-hotel.jpg`,
-  genre: `Drama`,
-  release: 2014,
-  runtime: `1h 39m`,
-  poster: `img/the-grand-budapest-hotel-poster.jpg`,
-  preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   rating: {
     score: 8.9,
     level: `Very good`,
@@ -23,18 +15,15 @@ const film = {
   }
 };
 
-it(`Should SmallFilmCard render correctly`, () => {
+it(`Should FilmOverview render correctly`, () => {
   const tree = renderer
     .create(
-        <SmallFilmCard
-          film={film}
-          onFilmClick={() => {}}
-          onFilmMouseOver={() => {}}
-        />, {
-          createNodeMock: () => {
-            return {};
-          }
-        }).toJSON();
+        <FilmOverview
+          rating={film.rating}
+          description={film.description}
+          crew={film.crew}
+        />
+    ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

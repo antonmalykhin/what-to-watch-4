@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import SmallFilmCard from './small-film-card.jsx';
+import FilmDescription from './film-description.jsx';
 
 const film = {
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -23,18 +23,11 @@ const film = {
   }
 };
 
-it(`Should SmallFilmCard render correctly`, () => {
+it(`Should FilmDescription render correctly`, () => {
   const tree = renderer
     .create(
-        <SmallFilmCard
-          film={film}
-          onFilmClick={() => {}}
-          onFilmMouseOver={() => {}}
-        />, {
-          createNodeMock: () => {
-            return {};
-          }
-        }).toJSON();
+        <FilmDescription film={film}/>
+    ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });
