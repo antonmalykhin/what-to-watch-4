@@ -10,13 +10,15 @@ class VideoPlayer extends PureComponent {
 
   componentDidMount() {
     const video = this._videoRef.current;
-    const {src} = this.props;
+    const {src, muted} = this.props;
     video.src = src;
+    video.muted = muted;
   }
 
   componentWillUnmount() {
     const video = this._videoRef.current;
     video.src = ``;
+    video.muted = null;
   }
 
   componentDidUpdate() {
@@ -31,7 +33,7 @@ class VideoPlayer extends PureComponent {
   }
 
   render() {
-    const {src, poster, width, height, muted, loop} = this.props;
+    const {src, poster, width, height, loop} = this.props;
 
     return (
       <video
@@ -40,7 +42,6 @@ class VideoPlayer extends PureComponent {
         ref={this._videoRef}
         src={src}
         poster={poster}
-        muted={muted}
         loop={loop}
       />
     );
