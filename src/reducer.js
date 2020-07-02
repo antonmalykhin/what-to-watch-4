@@ -1,5 +1,5 @@
 const InitialState = {
-  genre: ``,
+  genre: `All genres`,
   films: []
 };
 
