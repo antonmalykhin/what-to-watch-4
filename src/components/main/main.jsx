@@ -32,8 +32,10 @@ class Main extends PureComponent {
       return film.genre;
     });
 
-    genres.unshift(FIRST_FILTER_ELEMENT_NAME);
-    return genres;
+    const uniqueGenres = [...new Set(genres)];
+
+    uniqueGenres.unshift(FIRST_FILTER_ELEMENT_NAME);
+    return uniqueGenres;
   }
 
   render() {
