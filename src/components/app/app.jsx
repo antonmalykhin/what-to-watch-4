@@ -86,9 +86,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onFilmCardClick(film) {
     dispatch(ActionCreator.changeCurrentFilm(film));
-  },
-  onGenreButtonClick() {
-    dispatch(ActionCreator.getFilteredFilms());
   }
 });
 
