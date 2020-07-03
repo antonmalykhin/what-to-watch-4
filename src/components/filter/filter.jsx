@@ -10,7 +10,7 @@ class Filter extends PureComponent {
 
   render() {
     const {filterItems, state, onFilterItemClick} = this.props;
-    const {activeFilter} = state;
+
     return (
       <ul className="catalog__genres-list">
         {filterItems.map((filterItem, index) => {
@@ -19,7 +19,7 @@ class Filter extends PureComponent {
               key={`${index}-${filterItem}`}
               filterTitle={filterItem}
               onFilterItemClick={onFilterItemClick}
-              isActive={activeFilter === filterItem}
+              isActive={state === filterItem}
             />
           );
         })}
@@ -30,9 +30,7 @@ class Filter extends PureComponent {
 
 Filter.propTypes = {
   filterItems: PropTypes.array.isRequired,
-  state: PropTypes.shape({
-    activeFilter: PropTypes.string.isRequired
-  }).isRequired,
+  state: PropTypes.string.isRequired,
   onFilterItemClick: PropTypes.func.isRequired,
 };
 
