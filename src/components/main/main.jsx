@@ -1,5 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer.js';
 import FilmList from '../film-list/film-list.jsx';
 import Filter from '../filter/filter.jsx';
 
@@ -8,10 +10,6 @@ const FIRST_FILTER_ELEMENT_NAME = `All genres`;
 class Main extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      activeFilter: FIRST_FILTER_ELEMENT_NAME
-    };
 
     this._getFilterItems = this._getFilterItems.bind(this);
     this._filterFilms = this._filterFilms.bind(this);
@@ -39,11 +37,11 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {promoFilm, films, onFilmClick} = this.props;
+    const {activeFilter, onFilterButtonClick, promoFilm, films, onFilmClick} = this.props;
     const {title, genre, release} = promoFilm;
 
     const filterItems = this._getFilterItems(films);
-    const filteredFilms = this._filterFilms(films, this.state.activeFilter);
+    const filteredFilms = this._filterFilms(films, activeFilter);
 
     return (
       <React.Fragment>
@@ -108,9 +106,9 @@ class Main extends PureComponent {
 
             {<Filter
               filterItems={filterItems}
-              state={this.state}
+              state={activeFilter}
               onFilterItemClick={(selectedFilter) => {
-                this.setState({activeFilter: selectedFilter});
+                onFilterButtonClick(selectedFilter);
               }}
             />}
 
@@ -122,6 +120,7 @@ class Main extends PureComponent {
             <div className="catalog__more">
               <button className="catalog__button" type="button">Show more</button>
             </div>
+
           </section>
 
           <footer className="page-footer">
@@ -143,6 +142,8 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
+  activeFilter: PropTypes.string.isRequired,
+  onFilterButtonClick: PropTypes.func.isRequired,
   promoFilm: PropTypes.shape({
     background: PropTypes.string,
     title: PropTypes.string.isRequired,
@@ -163,4 +164,19 @@ Main.propTypes = {
   onFilmClick: PropTypes.func.isRequired
 };
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    activeFilter: state.genre
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFilterButtonClick(genre) {
+      dispatch(ActionCreator.changeGenreFilter(genre));
+    }
+  };
+};
+
+export {Main};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
