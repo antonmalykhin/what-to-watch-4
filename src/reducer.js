@@ -1,4 +1,5 @@
 import films from './mock/films.js';
+import {extend} from './utils.js';
 
 const InitialState = {
   genre: `All genres`,
@@ -39,11 +40,17 @@ export const ActionCreator = {
 export const reducer = (state = InitialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_GENRE_FILTER:
-      return Object.assign({}, state, {genre: action.payload});
+      return extend(state, {
+        genre: action.payload
+      });
     case ActionType.CHANGE_CURRENT_FILM:
-      return Object.assign({}, state, {currentFilm: action.payload});
+      return extend(state, {
+        currentFilm: action.payload
+      });
     case ActionType.FILTER_FILMS:
-      return Object.assign({}, state, {films: action.payload});
+      return extend(state, {
+        films: action.payload
+      });
   }
   return state;
 };
