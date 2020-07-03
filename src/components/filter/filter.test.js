@@ -12,16 +12,12 @@ const filterItems = [
   `Romance`,
   `Sci-Fi`];
 
-const State = {
-  activeFilter: `All genres`
-};
-
 it(`Should Filter render correctly`, () => {
   const tree = renderer
   .create(
       <Filter
         filterItems={filterItems}
-        state={State}
+        state={`All genres`}
         onFilterItemClick={() => {}} />
   ).toJSON();
 
