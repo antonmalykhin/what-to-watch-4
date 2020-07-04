@@ -201,6 +201,7 @@ const film = {
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     genre: `All genres`,
+    showedFilms: 8,
     currentFilm: {},
     films
   });
@@ -209,6 +210,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
 it(`Reducer change genre by given value`, () => {
   expect(reducer({
     genre: `All genres`,
+    showedFilms: 8,
     currentFilm: {},
     films
   }, {
@@ -216,6 +218,41 @@ it(`Reducer change genre by given value`, () => {
     payload: `Comedy`
   })).toEqual({
     genre: `Comedy`,
+    showedFilms: 8,
+    currentFilm: {},
+    films
+  });
+});
+
+it(`Reducer change showedFilms by given value`, () => {
+  expect(reducer({
+    genre: `All genres`,
+    showedFilms: 8,
+    currentFilm: {},
+    films
+  }, {
+    type: ActionType.INCREMENT_SHOWED_FILM_COUNT,
+    payload: 8
+  })).toEqual({
+    genre: `All genres`,
+    showedFilms: 16,
+    currentFilm: {},
+    films
+  });
+});
+
+it(`Reducer reset showedFilms`, () => {
+  expect(reducer({
+    genre: `All genres`,
+    showedFilms: 24,
+    currentFilm: {},
+    films
+  }, {
+    type: ActionType.RESET_SHOWED_FILM_COUNT,
+    payload: 8
+  })).toEqual({
+    genre: `All genres`,
+    showedFilms: 8,
     currentFilm: {},
     films
   });
@@ -224,6 +261,7 @@ it(`Reducer change genre by given value`, () => {
 it(`Reducer change currentFilm by given value`, () => {
   expect(reducer({
     genre: `All genres`,
+    showedFilms: 8,
     currentFilm: {},
     films
   }, {
@@ -231,6 +269,7 @@ it(`Reducer change currentFilm by given value`, () => {
     payload: film
   })).toEqual({
     genre: `All genres`,
+    showedFilms: 8,
     currentFilm: {
       title: `Fantastic Beasts: The Crimes of Grindelwald`,
       image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -258,6 +297,7 @@ it(`Reducer change currentFilm by given value`, () => {
 it(`Reducer change films by given value`, () => {
   expect(reducer({
     genre: `Comedy`,
+    showedFilms: 8,
     currentFilm: {},
     films
   }, {
@@ -265,6 +305,7 @@ it(`Reducer change films by given value`, () => {
     payload: filteredFilms
   })).toEqual({
     genre: `Comedy`,
+    showedFilms: 8,
     currentFilm: {},
     films: [{
       title: `Fantastic Beasts: The Crimes of Grindelwald`,

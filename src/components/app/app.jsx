@@ -72,15 +72,13 @@ App.propTypes = {
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired
   })),
-  currentFilm: PropTypes.oneOfType([
-    PropTypes.object.isRequired
-  ]).isRequired,
-  onFilmCardClick: PropTypes.func.isRequired
+  currentFilm: PropTypes.object.isRequired,
+  onFilmCardClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   films: state.films,
-  currentFilm: state.currentFilm
+  currentFilm: state.currentFilm,
 });
 
 const mapDispatchToProps = (dispatch) => ({

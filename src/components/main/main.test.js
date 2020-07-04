@@ -165,7 +165,10 @@ it(`Should Main render correctly`, () => {
     .create(
         <Main
           activeFilter={`All genres`}
+          showedFilmCount={8}
           onFilterButtonClick={()=>{}}
+          onShowMoreButtonClick={()=>{}}
+          resetShowedFilms={()=>{}}
           promoFilm={promoFilm}
           films={films}
           onFilmClick={() => {}}

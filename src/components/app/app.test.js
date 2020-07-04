@@ -186,7 +186,8 @@ const currentFilm = {
 describe(`Render App`, () => {
   it(`Render Main`, () => {
     const store = mockStore({
-      genre: `All genres`
+      genre: `All genres`,
+      showedFilms: 8
     });
 
     const tree = renderer
@@ -209,7 +210,8 @@ describe(`Render App`, () => {
 
   it(`Render FilmPage`, () => {
     const store = mockStore({
-      genre: `All genres`
+      genre: `All genres`,
+      showedFilms: 8
     });
 
     const tree = renderer
