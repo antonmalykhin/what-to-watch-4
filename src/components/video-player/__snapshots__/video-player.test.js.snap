@@ -4,7 +4,6 @@ exports[`Should VideoPlayer render correctly 1`] = `
 <video
   height={175}
   loop={true}
-  muted={true}
   poster="img/the-grand-budapest-hotel-poster.jpg"
   src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
   width={280}

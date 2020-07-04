@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Main from './main.jsx';
+import {Main} from './main.jsx';
 
 const films = [
   {
@@ -164,6 +164,8 @@ it(`Should Main render correctly`, () => {
   const tree = renderer
     .create(
         <Main
+          activeFilter={`All genres`}
+          onFilterButtonClick={()=>{}}
           promoFilm={promoFilm}
           films={films}
           onFilmClick={() => {}}

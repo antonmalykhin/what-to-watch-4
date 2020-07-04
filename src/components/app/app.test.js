@@ -1,6 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from './app.jsx';
+import {Provider} from 'react-redux';
+import configureStore from 'redux-mock-store';
+import {App} from './app.jsx';
+
+const mockStore = configureStore([]);
 
 const films = [
   {
@@ -158,16 +162,71 @@ const films = [
   }
 ];
 
-it(`Render App`, () => {
-  const tree = renderer
-    .create(
-        <App
-          films={films}
-        />, {
-          createNodeMock: () => {
-            return {};
-          }
-        }).toJSON();
+const currentFilm = {
+  title: `Fantastic Beasts: The Crimes of Grindelwald`,
+  image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+  background: `img/bg-the-grand-budapest-hotel.jpg`,
+  genre: `Drama`,
+  release: 2014,
+  runtime: `1h 39m`,
+  poster: `img/the-grand-budapest-hotel-poster.jpg`,
+  preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+  rating: {
+    score: 8.9,
+    level: `Very good`,
+    count: 240
+  },
+  description: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege. Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
+  crew: {
+    director: `Wes Andreson`,
+    starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe, Saoirse Ronan, Tony Revoloru, Tilda Swinton, Tom Wilkinson, Owen Wilkinson, Adrien Brody, Ralph Fiennes, Jeff Goldblum`
+  }
+};
 
-  expect(tree).toMatchSnapshot();
+describe(`Render App`, () => {
+  it(`Render Main`, () => {
+    const store = mockStore({
+      genre: `All genres`
+    });
+
+    const tree = renderer
+      .create(
+          <Provider store={store}>
+            <App
+              films={films}
+              currentFilm={{}}
+              onFilmCardClick={()=>{}}
+            />
+          </Provider>, {
+            createNodeMock: () => {
+              return {};
+            }
+          }
+      ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`Render FilmPage`, () => {
+    const store = mockStore({
+      genre: `All genres`
+    });
+
+    const tree = renderer
+      .create(
+          <Provider store={store}>
+            <App
+              films={films}
+              currentFilm={currentFilm}
+              onFilmCardClick={()=>{}}
+            />
+          </Provider>, {
+            createNodeMock: () => {
+              return {};
+            }
+          }
+      ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });

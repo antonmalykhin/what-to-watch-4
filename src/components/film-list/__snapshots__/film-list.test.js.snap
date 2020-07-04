@@ -17,7 +17,6 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        muted={true}
         poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}
@@ -54,7 +53,6 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        muted={true}
         poster="img/bohemian-rhapsody.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}
@@ -91,7 +89,6 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        muted={true}
         poster="img/macbeth.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}
@@ -128,7 +125,6 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        muted={true}
         poster="img/aviator.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}
@@ -165,7 +161,6 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        muted={true}
         poster="img/we-need-to-talk-about-kevin.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}
@@ -202,7 +197,6 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        muted={true}
         poster="img/what-we-do-in-the-shadows.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}
@@ -239,7 +233,6 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        muted={true}
         poster="img/revenant.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}
@@ -276,7 +269,6 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        muted={true}
         poster="img/johnny-english.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}

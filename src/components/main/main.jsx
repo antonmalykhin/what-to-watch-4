@@ -1,16 +1,48 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer.js';
 import FilmList from '../film-list/film-list.jsx';
+import Filter from '../filter/filter.jsx';
+
+const FIRST_FILTER_ELEMENT_NAME = `All genres`;
 
 class Main extends PureComponent {
   constructor(props) {
     super(props);
 
+    this._getFilterItems = this._getFilterItems.bind(this);
+    this._filterFilms = this._filterFilms.bind(this);
+
+  }
+
+  _filterFilms(films, genre) {
+    if (genre === FIRST_FILTER_ELEMENT_NAME) {
+      return films;
+    }
+    return films.slice().filter((film) => {
+      return film.genre === genre;
+    });
+  }
+
+  _getFilterItems(films) {
+    const genres = films.map((film) => {
+      return film.genre;
+    });
+
+    const uniqueGenres = [...new Set(genres)];
+
+    uniqueGenres.unshift(FIRST_FILTER_ELEMENT_NAME);
+    return uniqueGenres;
   }
 
   render() {
-    const {promoFilm, films, onFilmClick} = this.props;
+    const {activeFilter, onFilterButtonClick, promoFilm, films, onFilmClick} = this.props;
     const {title, genre, release} = promoFilm;
+
+    const filterItems = this._getFilterItems(films);
+    const filteredFilms = this._filterFilms(films, activeFilter);
+
     return (
       <React.Fragment>
         <section className="movie-card">
@@ -72,44 +104,23 @@ class Main extends PureComponent {
           <section className="catalog">
             <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-            <ul className="catalog__genres-list">
-              <li className="catalog__genres-item catalog__genres-item--active">
-                <a href="#" className="catalog__genres-link">All genres</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Comedies</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Crime</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Documentary</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Dramas</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Horror</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Kids & Family</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Romance</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Sci-Fi</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Thrillers</a>
-              </li>
-            </ul>
+            {<Filter
+              filterItems={filterItems}
+              state={activeFilter}
+              onFilterItemClick={(selectedFilter) => {
+                onFilterButtonClick(selectedFilter);
+              }}
+            />}
 
-            {<FilmList films={films} onFilmClick={onFilmClick} />}
+            {<FilmList
+              films={filteredFilms}
+              onFilmClick={onFilmClick}
+            />}
 
             <div className="catalog__more">
               <button className="catalog__button" type="button">Show more</button>
             </div>
+
           </section>
 
           <footer className="page-footer">
@@ -131,6 +142,8 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
+  activeFilter: PropTypes.string.isRequired,
+  onFilterButtonClick: PropTypes.func.isRequired,
   promoFilm: PropTypes.shape({
     background: PropTypes.string,
     title: PropTypes.string.isRequired,
@@ -151,4 +164,19 @@ Main.propTypes = {
   onFilmClick: PropTypes.func.isRequired
 };
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    activeFilter: state.genre
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFilterButtonClick(genre) {
+      dispatch(ActionCreator.changeGenreFilter(genre));
+    }
+  };
+};
+
+export {Main};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -1,6 +1,9 @@
 import React, {PureComponent} from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {isEmptyObject} from '../../utils.js';
+import {ActionCreator} from '../../reducer.js';
 import Main from '../main/main.jsx';
 import FilmPage from '../film-page/film-page.jsx';
 
@@ -8,41 +11,31 @@ class App extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      currentFilm: null
-    };
-  }
-
-  filmTitleHandler(film) {
-    this.setState({
-      currentFilm: film
-    });
   }
 
   _renderApp() {
-    const {films} = this.props;
-    const {currentFilm} = this.state;
+    const {films, currentFilm, onFilmCardClick} = this.props;
     const promoFilm = films[0];
 
-    if (!currentFilm) {
+    if (isEmptyObject(currentFilm)) {
       return (
         <Main
           promoFilm={promoFilm}
           films={films}
           onFilmClick={(film) => {
-            this.setState({currentFilm: film});
+            onFilmCardClick(film);
           }}
         />
       );
     }
 
-    if (currentFilm) {
+    if (!isEmptyObject(currentFilm)) {
       return (
         <FilmPage
           film={currentFilm}
           films={films}
           onFilmClick={(film) => {
-            this.setState({currentFilm: film});
+            onFilmCardClick(film);
           }}/>
       );
     }
@@ -51,7 +44,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {films} = this.props;
+    const {films, onFilmCardClick} = this.props;
     const currentFilm = films[0];
 
     return (
@@ -65,7 +58,7 @@ class App extends PureComponent {
               film={currentFilm}
               films={films}
               onFilmClick={(film) => {
-                this.setState({currentFilm: film});
+                onFilmCardClick(film);
               }}/>
           </Route>
         </Switch>
@@ -78,7 +71,23 @@ App.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired
-  }))
+  })),
+  currentFilm: PropTypes.oneOfType([
+    PropTypes.object.isRequired
+  ]).isRequired,
+  onFilmCardClick: PropTypes.func.isRequired
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  films: state.films,
+  currentFilm: state.currentFilm
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFilmCardClick(film) {
+    dispatch(ActionCreator.changeCurrentFilm(film));
+  }
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
