@@ -13,11 +13,12 @@ class FilmList extends PureComponent {
 
   render() {
     const {films, onFilmClick} = this.props;
+
     return (
       <div className="catalog__movies-list">
-        {films.map((film) => (
+        {films.map((film, index) => (
           <SmallFilmCard
-            key={film.title}
+            key={`${index}-${film.title}`}
             onFilmClick={onFilmClick}
             onFilmMouseOver={(filmData) => {
               this.setState({isActive: filmData});
