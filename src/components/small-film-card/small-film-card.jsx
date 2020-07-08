@@ -7,7 +7,6 @@ const TIMEOUT = 1000;
 const filmPreviewSettings = {
   WIDTH: 280,
   HEIGHT: 175,
-  MUTED: true,
   LOOP: true
 };
 
@@ -56,7 +55,6 @@ class SmallFilmCard extends PureComponent {
             height={filmPreviewSettings.HEIGHT}
             src={preview}
             poster={image}
-            muted={filmPreviewSettings.MUTED}
             loop={filmPreviewSettings.LOOP}
             isPlaying={this.state.isPlaying}
           />
