@@ -5,25 +5,20 @@ import {ActionCreator} from '../../reducer.js';
 import FilmList from '../film-list/film-list.jsx';
 import Filter from '../filter/filter.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
+import withActiveItem from '../../hocks/with-active-item/with-active-item';
 
 const FIRST_FILTER_ELEMENT_NAME = `All genres`;
 const SHOWED_FILM_COUNT = 8;
+
+const FilmListWrapped = withActiveItem(FilmList);
+
 
 class Main extends PureComponent {
   constructor(props) {
     super(props);
 
     this._getFilterItems = this._getFilterItems.bind(this);
-    this._filterFilms = this._filterFilms.bind(this);
-  }
-
-  _filterFilms(films, genre) {
-    if (genre === FIRST_FILTER_ELEMENT_NAME) {
-      return films;
-    }
-    return films.slice().filter((film) => {
-      return film.genre === genre;
-    });
+    this._getFilterFilms = this._getFilterFilms.bind(this);
   }
 
   _getFilterItems(films) {
@@ -37,16 +32,23 @@ class Main extends PureComponent {
     return uniqueGenres;
   }
 
+  _getFilterFilms(films, genre) {
+    if (genre === FIRST_FILTER_ELEMENT_NAME) {
+      return films;
+    }
+    return films.slice().filter((film) => {
+      return film.genre === genre;
+    });
+  }
+
   render() {
     const {
-      activeFilter,
       showedFilmCount,
-      onFilterButtonClick,
       onShowMoreButtonClick,
-      resetShowedFilms,
       promoFilm,
-      films,
-      onFilmClick
+      currentFilter,
+      onFilmClick,
+      onFilterClick
     } = this.props;
 
     const {
@@ -55,12 +57,9 @@ class Main extends PureComponent {
       release
     } = promoFilm;
 
-    // Чет мне влом дописывать еще пачку фильмов в моки, пока просто скопирую имеющиеся несколько раз в _mockFilms;
-    const _mockFilms = [...films, ...films, ...films];
-
+    const _mockFilms = [...this.props.films, ...this.props.films, ...this.props.films];
     const filterItems = this._getFilterItems(_mockFilms);
-    const filteredFilms = this._filterFilms(_mockFilms, activeFilter);
-
+    const filteredFilms = this._getFilterFilms(_mockFilms, currentFilter);
     let showedFilms = filteredFilms.slice(0, showedFilmCount);
 
     return (
@@ -126,14 +125,11 @@ class Main extends PureComponent {
 
             {<Filter
               filterItems={filterItems}
-              state={activeFilter}
-              onFilterItemClick={(selectedFilter) => {
-                onFilterButtonClick(selectedFilter);
-                resetShowedFilms();
-              }}
+              currentFilter={currentFilter}
+              onFilterClick={onFilterClick}
             />}
 
-            {<FilmList
+            {<FilmListWrapped
               films={showedFilms}
               onFilmClick={onFilmClick}
             />}
@@ -165,11 +161,9 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
-  activeFilter: PropTypes.string.isRequired,
   showedFilmCount: PropTypes.number.isRequired,
-  onFilterButtonClick: PropTypes.func.isRequired,
+  currentFilter: PropTypes.string.isRequired,
   onShowMoreButtonClick: PropTypes.func.isRequired,
-  resetShowedFilms: PropTypes.func.isRequired,
   promoFilm: PropTypes.shape({
     background: PropTypes.string,
     title: PropTypes.string.isRequired,
@@ -187,26 +181,20 @@ Main.propTypes = {
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired
   })).isRequired,
-  onFilmClick: PropTypes.func.isRequired
+  onFilmClick: PropTypes.func.isRequired,
+  onFilterClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
-    activeFilter: state.genre,
     showedFilmCount: state.showedFilms
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFilterButtonClick(genre) {
-      dispatch(ActionCreator.changeGenreFilter(genre));
-    },
     onShowMoreButtonClick() {
       dispatch(ActionCreator.incrementShowedFilmCount());
-    },
-    resetShowedFilms() {
-      dispatch(ActionCreator.resetShowedFilmCount());
     }
   };
 };

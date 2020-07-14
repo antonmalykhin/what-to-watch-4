@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-
 const TIMEOUT = 1000;
+
 
 const withActivePlayer = (Component) => {
   class WithActivePlayer extends PureComponent {

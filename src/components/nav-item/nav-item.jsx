@@ -1,29 +1,29 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class NavItem extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
 
-  render() {
-    const {title, onNavItemClick, isActive} = this.props;
-    const activeClass = `movie-nav__item ${isActive ? `movie-nav__item--active` : ``}`;
+const NavItem = (props) => {
+  const {
+    title,
+    onNavItemClick,
+    isActive
+  } = props;
 
-    return (
-      <li className={activeClass}>
-        <a href="#" className="movie-nav__link"
-          onClick={(evt) => {
-            evt.preventDefault();
-            onNavItemClick();
-          }}
-        >
-          {title}
-        </a>
-      </li>
-    );
-  }
-}
+  const activeClass = `movie-nav__item ${isActive ? `movie-nav__item--active` : ``}`;
+
+  return (
+    <li className={activeClass}>
+      <a href="#" className="movie-nav__link"
+        onClick={(evt) => {
+          evt.preventDefault();
+          onNavItemClick();
+        }}
+      >
+        {title}
+      </a>
+    </li>
+  );
+};
 
 NavItem.propTypes = {
   title: PropTypes.string.isRequired,

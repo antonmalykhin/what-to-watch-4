@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import VideoPlayer from '../video-player/video-player.jsx';
-import withActivePlayer from '../../hocks/with-active-player/with-active-player.js';
 
 const filmPreviewSettings = {
   WIDTH: 280,
@@ -9,15 +8,28 @@ const filmPreviewSettings = {
   LOOP: true
 };
 
+
 const SmallFilmCard = (props) => {
-  const {film, onFilmClick, onFilmMouseOver, isPlaying, onPlayVideo, onStopVideo} = props;
-  const {title, image, preview} = film;
+  const {
+    film,
+    onFilmClick,
+    onFilmMouseOver,
+    isPlaying,
+    onPlayVideo,
+    onStopVideo
+  } = props;
+
+  const {
+    title,
+    image,
+    preview
+  } = film;
 
   return (
     <article
       className="small-movie-card catalog__movies-card"
       onMouseOver={() => {
-        onFilmMouseOver(film);
+        onFilmMouseOver();
       }}
     >
 
@@ -64,4 +76,4 @@ SmallFilmCard.propTypes = {
   onStopVideo: PropTypes.func.isRequired
 };
 
-export default withActivePlayer(SmallFilmCard);
+export default SmallFilmCard;

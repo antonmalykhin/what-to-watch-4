@@ -1,37 +1,37 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import FilterItem from '../filter-item/filter-item.jsx';
 
-class Filter extends PureComponent {
-  constructor(props) {
-    super(props);
 
-  }
+const Filter = (props) => {
+  const {
+    filterItems,
+    currentFilter,
+    onFilterClick,
+  } = props;
 
-  render() {
-    const {filterItems, state, onFilterItemClick} = this.props;
-
-    return (
-      <ul className="catalog__genres-list">
-        {filterItems.map((filterItem, index) => {
-          return (
-            <FilterItem
-              key={`${index}-${filterItem}`}
-              filterTitle={filterItem}
-              onFilterItemClick={onFilterItemClick}
-              isActive={state === filterItem}
-            />
-          );
-        })}
-      </ul>
-    );
-  }
-}
+  return (
+    <ul className="catalog__genres-list">
+      {filterItems.map((filterItem, index) => {
+        return (
+          <FilterItem
+            key={`${index}-${filterItem}`}
+            filterTitle={filterItem}
+            onFilterItemClick={() => {
+              onFilterClick(filterItem);
+            }}
+            isActive={currentFilter === filterItem}
+          />
+        );
+      })}
+    </ul>
+  );
+};
 
 Filter.propTypes = {
   filterItems: PropTypes.array.isRequired,
-  state: PropTypes.string.isRequired,
-  onFilterItemClick: PropTypes.func.isRequired,
+  currentFilter: PropTypes.string.isRequired,
+  onFilterClick: PropTypes.func.isRequired,
 };
 
 export default Filter;
