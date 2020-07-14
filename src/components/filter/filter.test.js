@@ -17,8 +17,8 @@ it(`Should Filter render correctly`, () => {
   .create(
       <Filter
         filterItems={filterItems}
-        state={`All genres`}
-        onFilterItemClick={() => {}} />
+        currentFilter={`All genres`}
+        onFilterClick={() => {}} />
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

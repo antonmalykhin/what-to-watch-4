@@ -164,14 +164,13 @@ it(`Should Main render correctly`, () => {
   const tree = renderer
     .create(
         <Main
-          activeFilter={`All genres`}
-          showedFilmCount={8}
-          onFilterButtonClick={()=>{}}
-          onShowMoreButtonClick={()=>{}}
-          resetShowedFilms={()=>{}}
+          currentFilter={`All genres`}
           promoFilm={promoFilm}
           films={films}
           onFilmClick={() => {}}
+          onFilterClick={() => {}}
+          showedFilmCount={8}
+          onShowMoreButtonClick={()=>{}}
         />, {
           createNodeMock: () => {
             return {};

@@ -1,8 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import {App} from './app.jsx';
+import { App } from './app.jsx';
 
 const mockStore = configureStore([]);
 
@@ -183,52 +183,31 @@ const currentFilm = {
   }
 };
 
-describe(`Render App`, () => {
-  it(`Render Main`, () => {
-    const store = mockStore({
-      genre: `All genres`,
-      showedFilms: 8
-    });
-
-    const tree = renderer
-      .create(
-          <Provider store={store}>
-            <App
-              films={films}
-              currentFilm={{}}
-              onFilmCardClick={()=>{}}
-            />
-          </Provider>, {
-            createNodeMock: () => {
-              return {};
-            }
-          }
-      ).toJSON();
-
-    expect(tree).toMatchSnapshot();
+it(`Render App`, () => {
+  const store = mockStore({
+    genre: `All genres`,
+    showedFilms: 8
   });
 
-  it(`Render FilmPage`, () => {
-    const store = mockStore({
-      genre: `All genres`,
-      showedFilms: 8
-    });
-
-    const tree = renderer
-      .create(
-          <Provider store={store}>
-            <App
-              films={films}
-              currentFilm={currentFilm}
-              onFilmCardClick={()=>{}}
-            />
-          </Provider>, {
-            createNodeMock: () => {
-              return {};
-            }
+  const tree = renderer
+    .create(
+        <Provider store={store}>
+          <App
+            films={films}
+            currentFilm={currentFilm}
+            currentFilter={`All genres`}
+            onFilmClick={() => { }}
+            onFilterClick={() => { }}
+            onFilmCardClick={() => { }}
+            onFilterItemClick={() => { }}
+            resetShowedFilms={() => { }}
+          />
+        </Provider>, {
+          createNodeMock: () => {
+            return {};
           }
-      ).toJSON();
+        }
+    ).toJSON();
 
-    expect(tree).toMatchSnapshot();
-  });
+  expect(tree).toMatchSnapshot();
 });
