@@ -13,9 +13,10 @@ const film = {
   background: `img/bg-the-grand-budapest-hotel.jpg`,
   genre: `Drama`,
   release: 2014,
-  runtime: `1h 39m`,
+  runtime: 99,
   poster: `img/the-grand-budapest-hotel-poster.jpg`,
   preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+  video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
   rating: {
     score: 8.9,
     level: `Very good`,
