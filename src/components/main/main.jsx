@@ -48,7 +48,8 @@ class Main extends PureComponent {
       promoFilm,
       currentFilter,
       onFilmClick,
-      onFilterClick
+      onFilterClick,
+      onPlayClick
     } = this.props;
 
     const {
@@ -101,7 +102,7 @@ class Main extends PureComponent {
                 </p>
 
                 <div className="movie-card__buttons">
-                  <button className="btn btn--play movie-card__button" type="button">
+                  <button className="btn btn--play movie-card__button" type="button" onClick={() => onPlayClick(promoFilm)}>
                     <svg viewBox="0 0 19 19" width="19" height="19">
                       <use xlinkHref="#play-s"></use>
                     </svg>
@@ -169,7 +170,7 @@ Main.propTypes = {
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     release: PropTypes.number.isRequired,
-    runtime: PropTypes.string.isRequired,
+    runtime: PropTypes.number.isRequired,
     poster: PropTypes.string,
     rating: PropTypes.shape({
       score: PropTypes.number,
@@ -182,7 +183,8 @@ Main.propTypes = {
     image: PropTypes.string.isRequired
   })).isRequired,
   onFilmClick: PropTypes.func.isRequired,
-  onFilterClick: PropTypes.func.isRequired
+  onFilterClick: PropTypes.func.isRequired,
+  onPlayClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
