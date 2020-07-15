@@ -6,6 +6,7 @@ import {isEmptyObject} from '../../utils.js';
 import {ActionCreator} from '../../reducer.js';
 import Main from '../main/main.jsx';
 import FilmPage from '../film-page/film-page.jsx';
+import MainVideoPlayer from '../main-video-player/main-video-player.jsx';
 
 
 class App extends PureComponent {
@@ -19,14 +20,16 @@ class App extends PureComponent {
       films,
       currentFilm,
       currentFilter,
+      playingFilm,
       onFilmCardClick,
       onFilterItemClick,
-      resetShowedFilms
+      resetShowedFilms,
+      onPlayButtonClick
     } = this.props;
 
     const promoFilm = films[0];
 
-    if (isEmptyObject(currentFilm)) {
+    if (isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
       return (
         <Main
           promoFilm={promoFilm}
@@ -39,18 +42,33 @@ class App extends PureComponent {
             onFilterItemClick(filterItem);
             resetShowedFilms();
           }}
+          onPlayClick={(film) => {
+            onPlayButtonClick(film);
+          }}
         />
       );
     }
 
-    if (!isEmptyObject(currentFilm)) {
+    if (!isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
       return (
         <FilmPage
           film={currentFilm}
           films={films}
           onFilmClick={(film) => {
             onFilmCardClick(film);
-          }}/>
+          }}
+          onPlayClick={(film) => {
+            onPlayButtonClick(film);
+          }}
+        />
+      );
+    }
+
+    if (!isEmptyObject(playingFilm)) {
+      return (
+        <MainVideoPlayer
+          film={playingFilm}
+        />
       );
     }
 
@@ -60,7 +78,8 @@ class App extends PureComponent {
   render() {
     const {
       films,
-      onFilmCardClick
+      onFilmCardClick,
+      onPlayButtonClick
     } = this.props;
 
     const currentFilm = films[0];
@@ -77,7 +96,16 @@ class App extends PureComponent {
               films={films}
               onFilmClick={(film) => {
                 onFilmCardClick(film);
-              }}/>
+              }}
+              onPlayClick={(film) => {
+                onPlayButtonClick(film);
+              }}
+            />
+          </Route>
+          <Route exact path="/dev-player">
+            <MainVideoPlayer
+              film={currentFilm}
+            />
           </Route>
         </Switch>
       </BrowserRouter>
@@ -92,15 +120,18 @@ App.propTypes = {
   })),
   currentFilm: PropTypes.object.isRequired,
   currentFilter: PropTypes.string.isRequired,
+  playingFilm: PropTypes.object.isRequired,
   onFilmCardClick: PropTypes.func.isRequired,
   onFilterItemClick: PropTypes.func.isRequired,
-  resetShowedFilms: PropTypes.func.isRequired
+  resetShowedFilms: PropTypes.func.isRequired,
+  onPlayButtonClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   films: state.films,
   currentFilm: state.currentFilm,
-  currentFilter: state.genre
+  currentFilter: state.genre,
+  playingFilm: state.playingFilm,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -112,6 +143,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   resetShowedFilms() {
     dispatch(ActionCreator.resetShowedFilmCount());
+  },
+  onPlayButtonClick(film) {
+    dispatch(ActionCreator.openMainPlayer(film));
   }
 });
 
