@@ -5,7 +5,6 @@ import VideoPlayer from './video-player.jsx';
 const filmPreviewSettings = {
   WIDTH: 280,
   HEIGHT: 175,
-  MUTED: true,
   LOOP: true,
   SRC: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   POSTER: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -20,7 +19,6 @@ it(`Should VideoPlayer render correctly`, () => {
           height={filmPreviewSettings.HEIGHT}
           src={filmPreviewSettings.SRC}
           poster={filmPreviewSettings.POSTER}
-          muted={filmPreviewSettings.MUTED}
           loop={filmPreviewSettings.LOOP}
           isPlaying={filmPreviewSettings.IS_PLAYING}
         />, {

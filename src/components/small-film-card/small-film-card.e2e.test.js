@@ -40,14 +40,16 @@ it(`Film data passed to callback when mouse over film card`, () => {
         film={film}
         onFilmClick={() => { }}
         onFilmMouseOver={onCardMouseOver}
+        isPlaying={false}
+        onPlayVideo={()=>{}}
+        onStopVideo={()=>{}}
       />
   );
 
   const filmCard = smallFilmCard.find(`.small-movie-card`);
-  filmCard.props().onMouseOver();
+  filmCard.simulate(`mouseover`);
 
   expect(onCardMouseOver).toHaveBeenCalledTimes(1);
-  expect(onCardMouseOver.mock.calls[0][0]).toMatchObject(film);
 });
 
 it(`Film data passed to callback when click on film title`, () => {
@@ -57,6 +59,9 @@ it(`Film data passed to callback when click on film title`, () => {
         film={film}
         onFilmClick={onTitleClick}
         onFilmMouseOver={() => { }}
+        isPlaying={false}
+        onPlayVideo={()=>{}}
+        onStopVideo={()=>{}}
       />
   );
 
@@ -74,6 +79,9 @@ it(`Film data passed to callback when click on film image`, () => {
         film={film}
         onFilmClick={onImageClick}
         onFilmMouseOver={() => { }}
+        isPlaying={false}
+        onPlayVideo={()=>{}}
+        onStopVideo={()=>{}}
       />
   );
 

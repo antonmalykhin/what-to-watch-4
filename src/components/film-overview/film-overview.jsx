@@ -1,42 +1,49 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class FilmOverview extends PureComponent {
-  constructor(props) {
-    super(props);
 
-  }
+const FilmOverview = (props) => {
+  const {
+    rating,
+    description,
+    crew
+  } = props;
 
-  render() {
-    const {rating, description, crew} = this.props;
-    const {score, level, count} = rating;
-    const {director, starring} = crew;
+  const {
+    score,
+    level,
+    count
+  } = rating;
 
-    return (
-      <React.Fragment>
-        <div className="movie-rating">
-          <div className="movie-rating__score">{score}</div>
-          <p className="movie-rating__meta">
-            <span className="movie-rating__level">{level}</span>
-            <span className="movie-rating__count">{count} ratings</span>
-          </p>
-        </div>
+  const {
+    director,
+    starring
+  } = crew;
 
-        <div className="movie-card__text">
-          <p>{description}</p>
+  return (
+    <React.Fragment>
+      <div className="movie-rating">
+        <div className="movie-rating__score">{score}</div>
+        <p className="movie-rating__meta">
+          <span className="movie-rating__level">{level}</span>
+          <span className="movie-rating__count">{count} ratings</span>
+        </p>
+      </div>
 
-          <p className="movie-card__director">
-            <strong>Director: {director}</strong>
-          </p>
+      <div className="movie-card__text">
+        <p>{description}</p>
 
-          <p className="movie-card__starring">
-            <strong>Starring: {starring.split(`, `).slice(0, 4).join(`, `)} and other</strong>
-          </p>
-        </div>
-      </React.Fragment>
-    );
-  }
-}
+        <p className="movie-card__director">
+          <strong>Director: {director}</strong>
+        </p>
+
+        <p className="movie-card__starring">
+          <strong>Starring: {starring.split(`, `).slice(0, 4).join(`, `)} and other</strong>
+        </p>
+      </div>
+    </React.Fragment>
+  );
+};
 
 FilmOverview.propTypes = {
   rating: PropTypes.shape({

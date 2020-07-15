@@ -5,28 +5,20 @@ import FilmOverview from '../film-overview/film-overview.jsx';
 import FilmDetails from '../film-details/film-details.jsx';
 import FilmReviews from '../film-reviews/film-reviews.jsx';
 
-const NAV_ITEMS = [
-  `Overview`,
-  `Details`,
-  `Reviews`
-];
-
 class FilmDescription extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      currentTab: 0
-    };
   }
 
   _renderTab() {
-    const {currentTab} = this.state;
+    const {
+      tabs,
+      activeItem,
+      film
+    } = this.props;
 
-    const {film} = this.props;
-
-    switch (currentTab) {
-      case 0:
+    switch (activeItem) {
+      case tabs[0]:
         return (
           <FilmOverview
             rating={film.rating}
@@ -34,7 +26,7 @@ class FilmDescription extends PureComponent {
             crew={film.crew}
           />
         );
-      case 1:
+      case tabs[1]:
         return (
           <FilmDetails
             genre={film.genre}
@@ -43,7 +35,7 @@ class FilmDescription extends PureComponent {
             crew={film.crew}
           />
         );
-      case 2:
+      case tabs[2]:
         return (
           <FilmReviews />
         );
@@ -53,19 +45,25 @@ class FilmDescription extends PureComponent {
   }
 
   render() {
+    const {
+      tabs,
+      activeItem,
+      onActiveItemChange
+    } = this.props;
+
     return (
       <div className="movie-card__desc">
         <nav className="movie-nav movie-card__nav">
           <ul className="movie-nav__list">
-            {NAV_ITEMS.map((item, index) => {
+            {tabs.map((tab, index) => {
               return (
                 <NavItem
-                  key={`${item}-${index}`}
-                  title={item}
+                  key={`${tab}-${index}`}
+                  title={tab}
                   onNavItemClick={() => {
-                    this.setState({currentTab: index});
+                    onActiveItemChange(tab);
                   }}
-                  isActive={index === this.state.currentTab}
+                  isActive={activeItem === tab}
                 />
               );
             })}
@@ -80,6 +78,7 @@ class FilmDescription extends PureComponent {
 }
 
 FilmDescription.propTypes = {
+  tabs: PropTypes.array.isRequired,
   film: PropTypes.shape({
     background: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -98,6 +97,9 @@ FilmDescription.propTypes = {
       starring: PropTypes.string.isRequired
     }).isRequired
   }).isRequired,
+  activeItem: PropTypes.string.isRequired,
+  onActiveItemChange: PropTypes.func.isRequired
+
 };
 
 export default FilmDescription;

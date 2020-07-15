@@ -23,10 +23,21 @@ const film = {
   }
 };
 
+const TABS = [
+  `Overview`,
+  `Details`,
+  `Reviews`
+];
+
 it(`Should FilmDescription render correctly`, () => {
   const tree = renderer
     .create(
-        <FilmDescription film={film}/>
+        <FilmDescription
+          film={film}
+          tabs={TABS}
+          onActiveItemChange={()=>{}}
+          activeItem={`Overview`}
+        />
     ).toJSON();
 
   expect(tree).toMatchSnapshot();
