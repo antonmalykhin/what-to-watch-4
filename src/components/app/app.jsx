@@ -7,7 +7,9 @@ import {ActionCreator} from '../../reducer.js';
 import Main from '../main/main.jsx';
 import FilmPage from '../film-page/film-page.jsx';
 import MainVideoPlayer from '../main-video-player/main-video-player.jsx';
+import withActiveMainPlayer from '../../hocks/with-active-main-player/with-active-main-player.js';
 
+const MainVideoPlayerWrapped = withActiveMainPlayer(MainVideoPlayer);
 
 class App extends PureComponent {
   constructor(props) {
@@ -67,7 +69,7 @@ class App extends PureComponent {
 
     if (!isEmptyObject(playingFilm)) {
       return (
-        <MainVideoPlayer
+        <MainVideoPlayerWrapped
           film={playingFilm}
           onExitClick={() => {
             onExitButtonClick();
@@ -108,7 +110,7 @@ class App extends PureComponent {
             />
           </Route>
           <Route exact path="/dev-player">
-            <MainVideoPlayer
+            <MainVideoPlayerWrapped
               film={currentFilm}
               onExitClick={() => {
                 onExitButtonClick();
