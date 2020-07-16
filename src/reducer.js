@@ -18,7 +18,8 @@ export const ActionType = {
   RESET_SHOWED_FILM_COUNT: `RESET_SHOWED_FILM_COUNT`,
   CHANGE_CURRENT_FILM: `CHANGE_CURRENT_FILM`,
   FILTER_FILMS: `FILTER_FILMS`,
-  OPEN_MAIN_PLAYER: `OPEN_MAIN_PLAYER`
+  OPEN_MAIN_PLAYER: `OPEN_MAIN_PLAYER`,
+  CLOSE_MAIN_PLAYER: `CLOSE_MAIN_PLAYER`
 };
 
 export const ActionCreator = {
@@ -62,6 +63,13 @@ export const ActionCreator = {
       type: ActionType.OPEN_MAIN_PLAYER,
       payload: film
     };
+  },
+
+  closeMainPlayer: () => {
+    return {
+      type: ActionType.CLOSE_MAIN_PLAYER,
+      payload: {}
+    };
   }
 };
 
@@ -88,6 +96,10 @@ export const reducer = (state = InitialState, action) => {
         films: action.payload
       });
     case ActionType.OPEN_MAIN_PLAYER:
+      return extend(state, {
+        playingFilm: action.payload
+      });
+    case ActionType.CLOSE_MAIN_PLAYER:
       return extend(state, {
         playingFilm: action.payload
       });
