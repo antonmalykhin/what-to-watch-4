@@ -24,7 +24,8 @@ class App extends PureComponent {
       onFilmCardClick,
       onFilterItemClick,
       resetShowedFilms,
-      onPlayButtonClick
+      onPlayButtonClick,
+      onExitButtonClick
     } = this.props;
 
     const promoFilm = films[0];
@@ -68,6 +69,9 @@ class App extends PureComponent {
       return (
         <MainVideoPlayer
           film={playingFilm}
+          onExitClick={() => {
+            onExitButtonClick();
+          }}
         />
       );
     }
@@ -79,7 +83,8 @@ class App extends PureComponent {
     const {
       films,
       onFilmCardClick,
-      onPlayButtonClick
+      onPlayButtonClick,
+      onExitButtonClick
     } = this.props;
 
     const currentFilm = films[0];
@@ -105,6 +110,9 @@ class App extends PureComponent {
           <Route exact path="/dev-player">
             <MainVideoPlayer
               film={currentFilm}
+              onExitClick={() => {
+                onExitButtonClick();
+              }}
             />
           </Route>
         </Switch>
@@ -124,7 +132,8 @@ App.propTypes = {
   onFilmCardClick: PropTypes.func.isRequired,
   onFilterItemClick: PropTypes.func.isRequired,
   resetShowedFilms: PropTypes.func.isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired
+  onPlayButtonClick: PropTypes.func.isRequired,
+  onExitButtonClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -146,6 +155,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onPlayButtonClick(film) {
     dispatch(ActionCreator.openMainPlayer(film));
+  },
+  onExitButtonClick() {
+    dispatch(ActionCreator.closeMainPlayer());
   }
 });
 
