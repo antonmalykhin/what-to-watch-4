@@ -12,8 +12,8 @@ const TABS = [
   `Reviews`
 ];
 
-const FilmDescriptionWrapped = withActiveItem(FilmDescription);
-const FilmListWrapped = withActiveItem(FilmList);
+const FilmDescriptionWrapped = withActiveItem(FilmDescription, `tabs`);
+const FilmListWrapped = withActiveItem(FilmList, `films`);
 
 const FilmPage = (props) => {
 

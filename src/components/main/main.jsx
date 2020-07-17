@@ -10,7 +10,7 @@ import withActiveItem from '../../hocks/with-active-item/with-active-item';
 const FIRST_FILTER_ELEMENT_NAME = `All genres`;
 const SHOWED_FILM_COUNT = 8;
 
-const FilmListWrapped = withActiveItem(FilmList);
+const FilmListWrapped = withActiveItem(FilmList, `films`);
 
 
 class Main extends PureComponent {
