@@ -7,11 +7,12 @@ const films = [
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
     image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     background: `img/bg-the-grand-budapest-hotel.jpg`,
-    genre: `Drama`,
+    genre: `Comedy`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -26,11 +27,12 @@ const films = [
     title: `Bohemian Rhapsody`,
     image: `img/bohemian-rhapsody.jpg`,
     background: `img/bg-the-grand-budapest-hotel.jpg`,
-    genre: `Drama`,
+    genre: `Crime`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -45,11 +47,12 @@ const films = [
     title: `Macbeth`,
     image: `img/macbeth.jpg`,
     background: `img/bg-the-grand-budapest-hotel.jpg`,
-    genre: `Drama`,
+    genre: `Documentary`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -66,9 +69,10 @@ const films = [
     background: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Drama`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -83,11 +87,12 @@ const films = [
     title: `We need to talk about Kevin`,
     image: `img/we-need-to-talk-about-kevin.jpg`,
     background: `img/bg-the-grand-budapest-hotel.jpg`,
-    genre: `Drama`,
+    genre: `Horror`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -102,11 +107,12 @@ const films = [
     title: `What We Do in the Shadows`,
     image: `img/what-we-do-in-the-shadows.jpg`,
     background: `img/bg-the-grand-budapest-hotel.jpg`,
-    genre: `Drama`,
+    genre: `Kids & Family`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -121,11 +127,12 @@ const films = [
     title: `Revenant`,
     image: `img/revenant.jpg`,
     background: `img/bg-the-grand-budapest-hotel.jpg`,
-    genre: `Drama`,
+    genre: `Romance`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -140,11 +147,12 @@ const films = [
     title: `Johnny English`,
     image: `img/johnny-english.jpg`,
     background: `img/bg-the-grand-budapest-hotel.jpg`,
-    genre: `Drama`,
+    genre: `Sci-Fi`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -171,6 +179,10 @@ it(`Should Main render correctly`, () => {
           onFilterClick={() => {}}
           showedFilmCount={8}
           onShowMoreButtonClick={()=>{}}
+          onPlayClick={()=>{}}
+          duration={99}
+          progress={0}
+          isPlaying={false}
         />, {
           createNodeMock: () => {
             return {};
