@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import withActiveItem from './with-active-item';
+import withActiveItem from './with-active-item.js';
 
 Enzyme.configure({
   adapter: new Adapter()
@@ -16,12 +16,12 @@ const mock = {
 };
 
 const MockComponent = () => <div />;
-const MockComponentWrapped = withActiveItem(MockComponent);
+const MockTabsWrapped = withActiveItem(MockComponent, `tabs`);
 
-it(`Should change items`, () => {
+it(`Should change tabs`, () => {
   const wrapper = shallow(
-      <MockComponentWrapped
-        items={mock.tabs}
+      <MockTabsWrapped
+        tabs={mock.tabs}
       />);
 
   expect(wrapper.props().activeItem).toEqual(`Overview`);
