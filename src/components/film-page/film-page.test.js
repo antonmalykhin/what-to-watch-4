@@ -175,6 +175,7 @@ it(`Should FilmPage render correctly`, () => {
           film={film}
           films={films}
           onFilmClick={() => { }}
+          onPlayClick={() => { }}
         />, {
           createNodeMock: () => {
             return {};

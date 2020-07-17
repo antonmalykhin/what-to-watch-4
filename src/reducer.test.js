@@ -7,9 +7,10 @@ const films = [
     background: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Comedy`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -26,9 +27,10 @@ const films = [
     background: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Crime`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -45,9 +47,10 @@ const films = [
     background: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Documentary`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -64,9 +67,10 @@ const films = [
     background: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Drama`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -83,9 +87,10 @@ const films = [
     background: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Horror`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -102,9 +107,10 @@ const films = [
     background: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Kids & Family`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -121,9 +127,10 @@ const films = [
     background: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Romance`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -140,9 +147,10 @@ const films = [
     background: `img/bg-the-grand-budapest-hotel.jpg`,
     genre: `Sci-Fi`,
     release: 2014,
-    runtime: `1h 39m`,
+    runtime: 99,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
     rating: {
       score: 8.9,
       level: `Very good`,
@@ -162,9 +170,10 @@ const filteredFilms = [{
   background: `img/bg-the-grand-budapest-hotel.jpg`,
   genre: `Comedy`,
   release: 2014,
-  runtime: `1h 39m`,
+  runtime: 99,
   poster: `img/the-grand-budapest-hotel-poster.jpg`,
   preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+  video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
   rating: {
     score: 8.9,
     level: `Very good`,
@@ -183,9 +192,10 @@ const film = {
   background: `img/bg-the-grand-budapest-hotel.jpg`,
   genre: `Comedy`,
   release: 2014,
-  runtime: `1h 39m`,
+  runtime: 99,
   poster: `img/the-grand-budapest-hotel-poster.jpg`,
   preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+  video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
   rating: {
     score: 8.9,
     level: `Very good`,
@@ -203,6 +213,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     genre: `All genres`,
     showedFilms: 8,
     currentFilm: {},
+    playingFilm: {},
     films
   });
 });
@@ -212,6 +223,7 @@ it(`Reducer change genre by given value`, () => {
     genre: `All genres`,
     showedFilms: 8,
     currentFilm: {},
+    playingFilm: {},
     films
   }, {
     type: ActionType.CHANGE_GENRE_FILTER,
@@ -220,6 +232,7 @@ it(`Reducer change genre by given value`, () => {
     genre: `Comedy`,
     showedFilms: 8,
     currentFilm: {},
+    playingFilm: {},
     films
   });
 });
@@ -229,6 +242,7 @@ it(`Reducer change showedFilms by given value`, () => {
     genre: `All genres`,
     showedFilms: 8,
     currentFilm: {},
+    playingFilm: {},
     films
   }, {
     type: ActionType.INCREMENT_SHOWED_FILM_COUNT,
@@ -237,6 +251,7 @@ it(`Reducer change showedFilms by given value`, () => {
     genre: `All genres`,
     showedFilms: 16,
     currentFilm: {},
+    playingFilm: {},
     films
   });
 });
@@ -246,6 +261,7 @@ it(`Reducer reset showedFilms`, () => {
     genre: `All genres`,
     showedFilms: 24,
     currentFilm: {},
+    playingFilm: {},
     films
   }, {
     type: ActionType.RESET_SHOWED_FILM_COUNT,
@@ -254,6 +270,7 @@ it(`Reducer reset showedFilms`, () => {
     genre: `All genres`,
     showedFilms: 8,
     currentFilm: {},
+    playingFilm: {},
     films
   });
 });
@@ -263,6 +280,7 @@ it(`Reducer change currentFilm by given value`, () => {
     genre: `All genres`,
     showedFilms: 8,
     currentFilm: {},
+    playingFilm: {},
     films
   }, {
     type: ActionType.CHANGE_CURRENT_FILM,
@@ -276,9 +294,50 @@ it(`Reducer change currentFilm by given value`, () => {
       background: `img/bg-the-grand-budapest-hotel.jpg`,
       genre: `Comedy`,
       release: 2014,
-      runtime: `1h 39m`,
+      runtime: 99,
       poster: `img/the-grand-budapest-hotel-poster.jpg`,
       preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+      video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
+      rating: {
+        score: 8.9,
+        level: `Very good`,
+        count: 240
+      },
+      description: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege. Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
+      crew: {
+        director: `Wes Andreson`,
+        starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe, Saoirse Ronan, Tony Revoloru, Tilda Swinton, Tom Wilkinson, Owen Wilkinson, Adrien Brody, Ralph Fiennes, Jeff Goldblum`
+      }
+    },
+    playingFilm: {},
+    films
+  });
+});
+
+it(`Reducer change playingFilm by given value`, () => {
+  expect(reducer({
+    genre: `All genres`,
+    showedFilms: 8,
+    currentFilm: {},
+    playingFilm: {},
+    films
+  }, {
+    type: ActionType.OPEN_MAIN_PLAYER,
+    payload: film
+  })).toEqual({
+    genre: `All genres`,
+    showedFilms: 8,
+    currentFilm: {},
+    playingFilm: {
+      title: `Fantastic Beasts: The Crimes of Grindelwald`,
+      image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+      background: `img/bg-the-grand-budapest-hotel.jpg`,
+      genre: `Comedy`,
+      release: 2014,
+      runtime: 99,
+      poster: `img/the-grand-budapest-hotel-poster.jpg`,
+      preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+      video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
       rating: {
         score: 8.9,
         level: `Very good`,
@@ -294,11 +353,51 @@ it(`Reducer change currentFilm by given value`, () => {
   });
 });
 
+it(`Reducer reset playingFilm by the closure`, () => {
+  expect(reducer({
+    genre: `All genres`,
+    showedFilms: 8,
+    currentFilm: {},
+    playingFilm: {
+      title: `Fantastic Beasts: The Crimes of Grindelwald`,
+      image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+      background: `img/bg-the-grand-budapest-hotel.jpg`,
+      genre: `Comedy`,
+      release: 2014,
+      runtime: 99,
+      poster: `img/the-grand-budapest-hotel-poster.jpg`,
+      preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+      video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
+      rating: {
+        score: 8.9,
+        level: `Very good`,
+        count: 240
+      },
+      description: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege. Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
+      crew: {
+        director: `Wes Andreson`,
+        starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe, Saoirse Ronan, Tony Revoloru, Tilda Swinton, Tom Wilkinson, Owen Wilkinson, Adrien Brody, Ralph Fiennes, Jeff Goldblum`
+      }
+    },
+    films
+  }, {
+    type: ActionType.CLOSE_MAIN_PLAYER,
+    payload: {}
+  })).toEqual({
+    genre: `All genres`,
+    showedFilms: 8,
+    currentFilm: {},
+    playingFilm: {},
+    films
+  });
+});
+
 it(`Reducer change films by given value`, () => {
   expect(reducer({
     genre: `Comedy`,
     showedFilms: 8,
     currentFilm: {},
+    playingFilm: {},
     films
   }, {
     type: ActionType.FILTER_FILMS,
@@ -307,15 +406,17 @@ it(`Reducer change films by given value`, () => {
     genre: `Comedy`,
     showedFilms: 8,
     currentFilm: {},
+    playingFilm: {},
     films: [{
       title: `Fantastic Beasts: The Crimes of Grindelwald`,
       image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
       background: `img/bg-the-grand-budapest-hotel.jpg`,
       genre: `Comedy`,
       release: 2014,
-      runtime: `1h 39m`,
+      runtime: 99,
       poster: `img/the-grand-budapest-hotel-poster.jpg`,
       preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+      video: `https://upload.wikimedia.org/wikipedia/commons/4/41/Big_Buck_Bunny_medium.ogv`,
       rating: {
         score: 8.9,
         level: `Very good`,

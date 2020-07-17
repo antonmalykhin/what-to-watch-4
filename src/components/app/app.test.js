@@ -205,11 +205,14 @@ it(`Render App`, () => {
             films={films}
             currentFilm={currentFilm}
             currentFilter={`All genres`}
+            playingFilm={currentFilm}
             onFilmClick={() => { }}
             onFilterClick={() => { }}
             onFilmCardClick={() => { }}
             onFilterItemClick={() => { }}
             resetShowedFilms={() => { }}
+            onPlayButtonClick={() => { }}
+            onExitButtonClick={() => { }}
           />
         </Provider>, {
           createNodeMock: () => {

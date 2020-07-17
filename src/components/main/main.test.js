@@ -179,6 +179,10 @@ it(`Should Main render correctly`, () => {
           onFilterClick={() => {}}
           showedFilmCount={8}
           onShowMoreButtonClick={()=>{}}
+          onPlayClick={()=>{}}
+          duration={99}
+          progress={0}
+          isPlaying={false}
         />, {
           createNodeMock: () => {
             return {};
