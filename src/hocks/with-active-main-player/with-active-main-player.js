@@ -25,9 +25,9 @@ const withActiveMainPlayer = (Component) => {
       film.poster = background;
       film.src = video;
 
-      // film.oncanplaythrough = () => this.setState({
-      //   isPlaying: true
-      // });
+      film.oncanplaythrough = () => this.setState({
+        isPlaying: true
+      });
 
       film.onloadedmetadata = () => this.setState({
         duration: Math.floor(film.duration)
