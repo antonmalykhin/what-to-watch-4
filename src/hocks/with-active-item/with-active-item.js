@@ -1,21 +1,16 @@
 import React, {PureComponent} from 'react';
 
 
-const withActiveItem = (Component) => {
+const withActiveItem = (Component, items) => {
   class WithActiveItem extends PureComponent {
     constructor(props) {
       super(props);
 
       this.state = {
-        activeItem: this._setInitActiveItem()
+        activeItem: this.props[items][0]
       };
 
       this._handleActiveItem = this._handleActiveItem.bind(this);
-      this._setInitActiveItem = this._setInitActiveItem.bind(this);
-    }
-
-    _setInitActiveItem() {
-      return Object.entries(this.props)[0][1][0];
     }
 
     _handleActiveItem(item) {

@@ -84,7 +84,7 @@ FilmDescription.propTypes = {
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     release: PropTypes.number.isRequired,
-    runtime: PropTypes.string.isRequired,
+    runtime: PropTypes.number.isRequired,
     poster: PropTypes.string.isRequired,
     rating: PropTypes.shape({
       score: PropTypes.number.isRequired,

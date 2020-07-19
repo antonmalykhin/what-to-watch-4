@@ -1,12 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render App 1`] = `
+exports[`Should MainVideoPlayer render correctly 1`] = `
 <div
   className="player"
 >
-  <video
-    className="player__video"
-  />
+  <video />
   <button
     className="player__exit"
     onClick={[Function]}
@@ -25,14 +23,14 @@ exports[`Render App 1`] = `
       >
         <progress
           className="player__progress"
-          max={0}
+          max={99}
           value={0}
         />
         <div
           className="player__toggler"
           style={
             Object {
-              "left": "NaN%",
+              "left": "0%",
             }
           }
         >
@@ -42,7 +40,7 @@ exports[`Render App 1`] = `
       <div
         className="player__time-value"
       >
-        0:00:00
+        0:01:39
       </div>
     </div>
     <div

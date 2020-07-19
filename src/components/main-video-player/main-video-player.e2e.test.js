@@ -1,12 +1,17 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import FilmDescription from './film-description.jsx';
+import Enzyme, {mount} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import MainVideoPlayer from './main-video-player';
+
+Enzyme.configure({
+  adapter: new Adapter()
+});
 
 const film = {
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
   image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
   background: `img/bg-the-grand-budapest-hotel.jpg`,
-  genre: `Drama`,
+  genre: `Comedy`,
   release: 2014,
   runtime: 99,
   poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -24,22 +29,45 @@ const film = {
   }
 };
 
-const TABS = [
-  `Overview`,
-  `Details`,
-  `Reviews`
-];
+it(`Should Exit button be pressed`, () => {
+  const onExitButtonClick = jest.fn();
 
-it(`Should FilmDescription render correctly`, () => {
-  const tree = renderer
-    .create(
-        <FilmDescription
-          film={film}
-          tabs={TABS}
-          onActiveItemChange={()=>{}}
-          activeItem={`Overview`}
-        />
-    ).toJSON();
+  const mainVideoPlayer = mount(
+      <MainVideoPlayer
+        film={film}
+        onExitClick={onExitButtonClick}
+        progress={0}
+        duration={99}
+        isPlaying={false}
+        onPlayButtonClick={() => {}}
+        onFullscreenButtonClick={() => {}}
+      >
+        <video />
+      </MainVideoPlayer>
+  );
 
-  expect(tree).toMatchSnapshot();
+  mainVideoPlayer.find(`.player__exit`).simulate(`click`);
+  expect(onExitButtonClick).toHaveBeenCalledTimes(1);
 });
+
+it(`Should Fullscreen button be pressed`, () => {
+  const onFullScreenButtonClick = jest.fn();
+
+  const mainVideoPlayer = mount(
+      <MainVideoPlayer
+        film={film}
+        onExitClick={() => {}}
+        progress={0}
+        duration={99}
+        isPlaying={false}
+        onPlayButtonClick={() => {}}
+        onFullscreenButtonClick={onFullScreenButtonClick}
+      >
+        <video />
+      </MainVideoPlayer>
+  );
+
+  mainVideoPlayer.find(`.player__full-screen`).simulate(`click`);
+  expect(onFullScreenButtonClick).toHaveBeenCalledTimes(1);
+});
+

@@ -1,12 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import FilmDescription from './film-description.jsx';
+import MainVideoPlayer from './main-video-player.jsx';
 
 const film = {
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
   image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
   background: `img/bg-the-grand-budapest-hotel.jpg`,
-  genre: `Drama`,
+  genre: `Comedy`,
   release: 2014,
   runtime: 99,
   poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -24,22 +24,20 @@ const film = {
   }
 };
 
-const TABS = [
-  `Overview`,
-  `Details`,
-  `Reviews`
-];
-
-it(`Should FilmDescription render correctly`, () => {
-  const tree = renderer
-    .create(
-        <FilmDescription
-          film={film}
-          tabs={TABS}
-          onActiveItemChange={()=>{}}
-          activeItem={`Overview`}
-        />
-    ).toJSON();
+it(`Should MainVideoPlayer render correctly`, () => {
+  const tree = renderer.create(
+      <MainVideoPlayer
+        film={film}
+        onExitClick={() => {}}
+        onPlayButtonClick={() => {}}
+        onFullscreenButtonClick={() => {}}
+        duration={99}
+        progress={0}
+        isPlaying={false}
+      >
+        <video />
+      </MainVideoPlayer>
+  ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

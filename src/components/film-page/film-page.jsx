@@ -12,15 +12,16 @@ const TABS = [
   `Reviews`
 ];
 
-const FilmDescriptionWrapped = withActiveItem(FilmDescription);
-const FilmListWrapped = withActiveItem(FilmList);
+const FilmDescriptionWrapped = withActiveItem(FilmDescription, `tabs`);
+const FilmListWrapped = withActiveItem(FilmList, `films`);
 
 const FilmPage = (props) => {
 
   const {
     film,
     films,
-    onFilmClick
+    onFilmClick,
+    onPlayClick
   } = props;
 
   const {
@@ -68,7 +69,7 @@ const FilmPage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => onPlayClick(film)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -137,7 +138,7 @@ FilmPage.propTypes = {
     genre: PropTypes.string.isRequired,
     release: PropTypes.number.isRequired,
     poster: PropTypes.string.isRequired,
-    runtime: PropTypes.string.isRequired,
+    runtime: PropTypes.number.isRequired,
     rating: PropTypes.shape({
       score: PropTypes.number.isRequired,
       level: PropTypes.string.isRequired,
@@ -153,7 +154,8 @@ FilmPage.propTypes = {
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired
   })).isRequired,
-  onFilmClick: PropTypes.func.isRequired
+  onFilmClick: PropTypes.func.isRequired,
+  onPlayClick: PropTypes.func.isRequired
 };
 
 export default FilmPage;

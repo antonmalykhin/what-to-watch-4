@@ -3,10 +3,12 @@ import {extend} from './utils.js';
 
 const FILM_COUNT_ON_START = 8;
 const INCREMENT_FILM_COUNT = 8;
+
 const InitialState = {
   genre: `All genres`,
   showedFilms: FILM_COUNT_ON_START,
   currentFilm: {},
+  playingFilm: {},
   films
 };
 
@@ -15,7 +17,9 @@ export const ActionType = {
   INCREMENT_SHOWED_FILM_COUNT: `INCREMENT_SHOWED_FILM_COUNT`,
   RESET_SHOWED_FILM_COUNT: `RESET_SHOWED_FILM_COUNT`,
   CHANGE_CURRENT_FILM: `CHANGE_CURRENT_FILM`,
-  FILTER_FILMS: `FILTER_FILMS`
+  FILTER_FILMS: `FILTER_FILMS`,
+  OPEN_MAIN_PLAYER: `OPEN_MAIN_PLAYER`,
+  CLOSE_MAIN_PLAYER: `CLOSE_MAIN_PLAYER`
 };
 
 export const ActionCreator = {
@@ -52,9 +56,22 @@ export const ActionCreator = {
       type: ActionType.FILTER_FILMS,
       payload: filteredFilms
     };
+  },
+
+  openMainPlayer: (film) => {
+    return {
+      type: ActionType.OPEN_MAIN_PLAYER,
+      payload: film
+    };
+  },
+
+  closeMainPlayer: () => {
+    return {
+      type: ActionType.CLOSE_MAIN_PLAYER,
+      payload: {}
+    };
   }
 };
-
 
 export const reducer = (state = InitialState, action) => {
   switch (action.type) {
@@ -77,6 +94,14 @@ export const reducer = (state = InitialState, action) => {
     case ActionType.FILTER_FILMS:
       return extend(state, {
         films: action.payload
+      });
+    case ActionType.OPEN_MAIN_PLAYER:
+      return extend(state, {
+        playingFilm: action.payload
+      });
+    case ActionType.CLOSE_MAIN_PLAYER:
+      return extend(state, {
+        playingFilm: action.payload
       });
   }
   return state;
