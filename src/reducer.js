@@ -1,5 +1,5 @@
-import films from './mock/films.js';
 import {extend} from './utils.js';
+import {filmAdapter, filmsAdapter} from './adapters/film-adapter.js';
 
 const FILM_COUNT_ON_START = 8;
 const INCREMENT_FILM_COUNT = 8;
@@ -9,7 +9,8 @@ const InitialState = {
   showedFilms: FILM_COUNT_ON_START,
   currentFilm: {},
   playingFilm: {},
-  films
+  promoFilm: {},
+  films: []
 };
 
 export const ActionType = {
@@ -19,7 +20,9 @@ export const ActionType = {
   CHANGE_CURRENT_FILM: `CHANGE_CURRENT_FILM`,
   FILTER_FILMS: `FILTER_FILMS`,
   OPEN_MAIN_PLAYER: `OPEN_MAIN_PLAYER`,
-  CLOSE_MAIN_PLAYER: `CLOSE_MAIN_PLAYER`
+  CLOSE_MAIN_PLAYER: `CLOSE_MAIN_PLAYER`,
+  LOAD_FILMS: `LOAD_FILMS`,
+  LOAD_PROMO_FILM: `LOAD_PROMO_FILM`
 };
 
 export const ActionCreator = {
@@ -70,6 +73,20 @@ export const ActionCreator = {
       type: ActionType.CLOSE_MAIN_PLAYER,
       payload: {}
     };
+  },
+
+  loadFilms: (films) => {
+    return {
+      type: ActionType.LOAD_FILMS,
+      payload: films
+    };
+  },
+
+  loadPromoFilm: (film) => {
+    return {
+      type: ActionType.LOAD_PROMO_FILM,
+      payload: film
+    };
   }
 };
 
@@ -103,7 +120,41 @@ export const reducer = (state = InitialState, action) => {
       return extend(state, {
         playingFilm: action.payload
       });
+    case ActionType.LOAD_FILMS:
+      return extend(state, {
+        films: action.payload
+      });
+    case ActionType.LOAD_PROMO_FILM:
+      return extend(state, {
+        promoFilm: action.payload
+      });
   }
   return state;
+};
+
+export const OperationGetFilms = {
+  loadFilms: () => (dispatch, getState, api) => {
+    return api.get(`/films`)
+      .then((response) => {
+        const films = filmsAdapter(response.data);
+        dispatch(ActionCreator.loadFilms(films));
+      })
+      .catch((error) => {
+        throw error;
+      });
+  },
+};
+
+export const OperationGetPromoFilm = {
+  loadPromoFilm: () => (dispatch, getState, api) => {
+    return api.get(`/films/promo`)
+      .then((response) => {
+        const promoFilm = filmAdapter(response.data);
+        dispatch(ActionCreator.loadPromoFilm(promoFilm));
+      })
+      .catch((error) => {
+        throw error;
+      });
+  }
 };
 
