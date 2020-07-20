@@ -20,6 +20,7 @@ class App extends PureComponent {
   _renderApp() {
     const {
       films,
+      promoFilm,
       currentFilm,
       currentFilter,
       playingFilm,
@@ -29,8 +30,6 @@ class App extends PureComponent {
       onPlayButtonClick,
       onExitButtonClick
     } = this.props;
-
-    const promoFilm = films[0];
 
     if (isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
       return (
@@ -82,40 +81,11 @@ class App extends PureComponent {
   }
 
   render() {
-    const {
-      films,
-      onFilmCardClick,
-      onPlayButtonClick,
-      onExitButtonClick
-    } = this.props;
-
-    const currentFilm = films[0];
-
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
             {this._renderApp()}
-          </Route>
-          <Route exact path="/dev-film">
-            <FilmPage
-              film={currentFilm}
-              films={films}
-              onFilmClick={(film) => {
-                onFilmCardClick(film);
-              }}
-              onPlayClick={(film) => {
-                onPlayButtonClick(film);
-              }}
-            />
-          </Route>
-          <Route exact path="/dev-player">
-            <MainVideoPlayerWrapped
-              film={currentFilm}
-              onExitClick={() => {
-                onExitButtonClick();
-              }}
-            />
           </Route>
         </Switch>
       </BrowserRouter>
@@ -124,10 +94,8 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired
-  })),
+  films: PropTypes.array.isRequired,
+  promoFilm: PropTypes.object.isRequired,
   currentFilm: PropTypes.object.isRequired,
   currentFilter: PropTypes.string.isRequired,
   playingFilm: PropTypes.object.isRequired,
@@ -140,6 +108,7 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   films: state.films,
+  promoFilm: state.promoFilm,
   currentFilm: state.currentFilm,
   currentFilter: state.genre,
   playingFilm: state.playingFilm,

@@ -8,6 +8,7 @@ import FilmReviews from '../film-reviews/film-reviews.jsx';
 class FilmDescription extends PureComponent {
   constructor(props) {
     super(props);
+
   }
 
   _renderTab() {
@@ -88,18 +89,16 @@ FilmDescription.propTypes = {
     poster: PropTypes.string.isRequired,
     rating: PropTypes.shape({
       score: PropTypes.number.isRequired,
-      level: PropTypes.string.isRequired,
       count: PropTypes.number.isRequired
     }).isRequired,
     description: PropTypes.string.isRequired,
     crew: PropTypes.shape({
       director: PropTypes.string.isRequired,
-      starring: PropTypes.string.isRequired
+      starring: PropTypes.array.isRequired
     }).isRequired
   }).isRequired,
   activeItem: PropTypes.string.isRequired,
   onActiveItemChange: PropTypes.func.isRequired
-
 };
 
 export default FilmDescription;

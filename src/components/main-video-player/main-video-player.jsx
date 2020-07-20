@@ -15,9 +15,7 @@ const MainVideoPlayer = (props) => {
     onFullscreenButtonClick
   } = props;
 
-  const {
-    title,
-  } = film;
+  const {title} = film;
 
   const remainingTime = duration - progress;
   const formattedRemainingTime = formatTime(remainingTime);
@@ -79,9 +77,7 @@ const MainVideoPlayer = (props) => {
 };
 
 MainVideoPlayer.propTypes = {
-  film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-  }).isRequired,
+  film: PropTypes.object.isRequired,
   onExitClick: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
