@@ -6,7 +6,9 @@ const Style = {
   textAlign: `center`
 };
 
+
 const LoadingMessage = () => {
   return <p style={Style}>Loading...</p>;
 };
+
 export default LoadingMessage;
