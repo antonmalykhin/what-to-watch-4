@@ -47,3 +47,13 @@ export const getRaringLevel = (scores) => {
 
   return ``;
 };
+
+export const getFilterItems = (films) => {
+  const genres = films.map((film) => {
+    return film.genre;
+  });
+
+  const uniqueGenres = [...new Set(genres)];
+
+  return uniqueGenres;
+};
