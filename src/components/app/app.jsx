@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {isEmptyObject} from '../../utils.js';
 import Main from '../main/main.jsx';
 import FilmPage from '../film-page/film-page.jsx';
+import SignIn from '../sign-in/sign-in.jsx';
 import MainVideoPlayer from '../main-video-player/main-video-player.jsx';
 import withActiveMainPlayer from '../../hocks/with-active-main-player/with-active-main-player.js';
 import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
@@ -87,6 +88,9 @@ class App extends PureComponent {
         <Switch>
           <Route exact path="/">
             {this._renderApp()}
+          </Route>
+          <Route exact path="/dev-sign-in">
+            <SignIn />
           </Route>
         </Switch>
       </BrowserRouter>

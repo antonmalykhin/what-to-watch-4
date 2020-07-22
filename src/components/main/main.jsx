@@ -52,7 +52,7 @@ class Main extends PureComponent {
           promoFilm={promoFilm}
           onPlayClick={onPlayClick}
         >
-          <Header>
+          <Header classNameModifier={`movie-card`}>
             <div className="user-block">
 
               {authorizationStatus === AuthorizationStatus.AUTH ? <div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div> : <a href="sign-in.html" className="user-block__link">Sign in</a>}

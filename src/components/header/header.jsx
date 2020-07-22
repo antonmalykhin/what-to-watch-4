@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Header = (props) => {
-  const {children} = props;
+  const {children, classNameModifier} = props;
   return (
     <React.Fragment>
       <h1 className="visually-hidden">WTW</h1>
 
-      <header className="page-header movie-card__head">
+      <header className={`page-header ${classNameModifier}__head`}>
         <div className="logo">
           <a className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
@@ -24,6 +24,7 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
+  classNameModifier: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node

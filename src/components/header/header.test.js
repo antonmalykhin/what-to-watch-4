@@ -5,7 +5,7 @@ import Header from './header.jsx';
 
 it(`Header render`, () => {
   const tree = renderer.create(
-      <Header >
+      <Header classNameModifier={`user-page`}>
         <div />
       </Header>
   ).toJSON();
