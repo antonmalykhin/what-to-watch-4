@@ -28,6 +28,7 @@ class Main extends PureComponent {
 
   render() {
     const {
+      authorizationStatus,
       currentYear,
       films,
       promoFilm,
@@ -50,7 +51,7 @@ class Main extends PureComponent {
           promoFilm={promoFilm}
           onPlayClick={onPlayClick}
         >
-          <Header />
+          <Header authorizationStatus={authorizationStatus}/>
         </FilmCard>
 
 
@@ -92,6 +93,7 @@ Main.propTypes = {
   promoFilm: PropTypes.object.isRequired,
   films: PropTypes.array.isRequired,
   currentYear: PropTypes.number.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
   onFilmClick: PropTypes.func.isRequired,
   filterItems: PropTypes.array.isRequired,
   onFilterButtonClick: PropTypes.func.isRequired,

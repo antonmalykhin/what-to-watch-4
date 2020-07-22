@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {AuthorizationStatus} from '../../reducer/user/user';
 
-
-const Header = () => {
+const Header = (props) => {
+  const {authorizationStatus} = props;
   return (
     <React.Fragment>
       <h1 className="visually-hidden">WTW</h1>
@@ -16,13 +18,18 @@ const Header = () => {
         </div>
 
         <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-          </div>
+
+          {authorizationStatus === AuthorizationStatus.AUTH ? <div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div> : <a href="sign-in.html" className="user-block__link">Sign in</a>}
+
+
         </div>
       </header>
     </React.Fragment>
   );
+};
+
+Header.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 export default Header;

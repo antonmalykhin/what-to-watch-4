@@ -10,6 +10,7 @@ import withActiveMainPlayer from '../../hocks/with-active-main-player/with-activ
 import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
 import {getCurrentFilm, getPlayingFilm, getCurrentYear} from '../../reducer/app/selectors.js';
 import {getFilteredFilms, getPromoFilm} from '../../reducer/data/selectors.js';
+import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 
 const MainVideoPlayerWrapped = withActiveMainPlayer(MainVideoPlayer);
 
@@ -26,6 +27,7 @@ class App extends PureComponent {
       currentFilm,
       playingFilm,
       currentYear,
+      authorizationStatus,
       onFilmCardClick,
       onPlayButtonClick,
       onExitButtonClick
@@ -34,6 +36,7 @@ class App extends PureComponent {
     if (isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
       return (
         <Main
+          authorizationStatus={authorizationStatus}
           currentYear={currentYear}
           promoFilm={promoFilm}
           films={films}
@@ -96,6 +99,7 @@ App.propTypes = {
   currentFilm: PropTypes.object.isRequired,
   playingFilm: PropTypes.object.isRequired,
   currentYear: PropTypes.number.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
   onFilmCardClick: PropTypes.func.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   onExitButtonClick: PropTypes.func.isRequired
@@ -106,7 +110,8 @@ const mapStateToProps = (state) => ({
   promoFilm: getPromoFilm(state),
   currentFilm: getCurrentFilm(state),
   playingFilm: getPlayingFilm(state),
-  currentYear: getCurrentYear(state)
+  currentYear: getCurrentYear(state),
+  authorizationStatus: getAuthorizationStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

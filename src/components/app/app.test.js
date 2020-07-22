@@ -249,6 +249,7 @@ it(`Render App`, () => {
             currentFilm={currentFilm}
             playingFilm={currentFilm}
             currentYear={2020}
+            authorizationStatus={`AUTH`}
             onFilmClick={() => { }}
             onFilmCardClick={() => { }}
             onPlayButtonClick={() => { }}
