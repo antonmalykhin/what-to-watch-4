@@ -80,23 +80,7 @@ class FilmDescription extends PureComponent {
 
 FilmDescription.propTypes = {
   tabs: PropTypes.array.isRequired,
-  film: PropTypes.shape({
-    background: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    release: PropTypes.number.isRequired,
-    runtime: PropTypes.number.isRequired,
-    poster: PropTypes.string.isRequired,
-    rating: PropTypes.shape({
-      score: PropTypes.number.isRequired,
-      count: PropTypes.number.isRequired
-    }).isRequired,
-    description: PropTypes.string.isRequired,
-    crew: PropTypes.shape({
-      director: PropTypes.string.isRequired,
-      starring: PropTypes.array.isRequired
-    }).isRequired
-  }).isRequired,
+  film: PropTypes.object.isRequired,
   activeItem: PropTypes.string.isRequired,
   onActiveItemChange: PropTypes.func.isRequired
 };

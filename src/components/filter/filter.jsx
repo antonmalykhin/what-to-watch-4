@@ -8,6 +8,7 @@ const Filter = (props) => {
     filterItems,
     currentFilter,
     onFilterClick,
+    resetShowedFilms
   } = props;
 
   return (
@@ -19,6 +20,7 @@ const Filter = (props) => {
             filterTitle={filterItem}
             onFilterItemClick={() => {
               onFilterClick(filterItem);
+              resetShowedFilms();
             }}
             isActive={currentFilter === filterItem}
           />
@@ -32,6 +34,7 @@ Filter.propTypes = {
   filterItems: PropTypes.array.isRequired,
   currentFilter: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
+  resetShowedFilms: PropTypes.func.isRequired
 };
 
 export default Filter;

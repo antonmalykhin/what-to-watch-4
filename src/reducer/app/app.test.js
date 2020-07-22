@@ -27,24 +27,6 @@ const film = {
 describe(`Reducer changes the state correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(void 0, {})).toEqual({
-      genre: `All genres`,
-      showedFilms: 8,
-      currentFilm: {},
-      playingFilm: {},
-    });
-  });
-
-  it(`Reducer change genre by given value`, () => {
-    expect(reducer({
-      genre: `All genres`,
-      showedFilms: 8,
-      currentFilm: {},
-      playingFilm: {},
-    }, {
-      type: ActionType.CHANGE_GENRE_FILTER,
-      payload: `Comedy`
-    })).toEqual({
-      genre: `Comedy`,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {},
@@ -53,7 +35,6 @@ describe(`Reducer changes the state correctly`, () => {
 
   it(`Reducer change showedFilms by given value`, () => {
     expect(reducer({
-      genre: `All genres`,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {},
@@ -61,7 +42,6 @@ describe(`Reducer changes the state correctly`, () => {
       type: ActionType.INCREMENT_SHOWED_FILM_COUNT,
       payload: 8
     })).toEqual({
-      genre: `All genres`,
       showedFilms: 16,
       currentFilm: {},
       playingFilm: {},
@@ -70,7 +50,6 @@ describe(`Reducer changes the state correctly`, () => {
 
   it(`Reducer reset showedFilms`, () => {
     expect(reducer({
-      genre: `All genres`,
       showedFilms: 24,
       currentFilm: {},
       playingFilm: {},
@@ -78,7 +57,6 @@ describe(`Reducer changes the state correctly`, () => {
       type: ActionType.RESET_SHOWED_FILM_COUNT,
       payload: 8
     })).toEqual({
-      genre: `All genres`,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {},
@@ -87,7 +65,6 @@ describe(`Reducer changes the state correctly`, () => {
 
   it(`Reducer change currentFilm by given value`, () => {
     expect(reducer({
-      genre: `All genres`,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {},
@@ -95,7 +72,6 @@ describe(`Reducer changes the state correctly`, () => {
       type: ActionType.CHANGE_CURRENT_FILM,
       payload: film
     })).toEqual({
-      genre: `All genres`,
       showedFilms: 8,
       currentFilm: {
         id: 1,
@@ -126,7 +102,6 @@ describe(`Reducer changes the state correctly`, () => {
 
   it(`Reducer change playingFilm by given value`, () => {
     expect(reducer({
-      genre: `All genres`,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {},
@@ -134,7 +109,6 @@ describe(`Reducer changes the state correctly`, () => {
       type: ActionType.OPEN_MAIN_PLAYER,
       payload: film
     })).toEqual({
-      genre: `All genres`,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {
@@ -165,7 +139,6 @@ describe(`Reducer changes the state correctly`, () => {
 
   it(`Reducer reset playingFilm by the closure`, () => {
     expect(reducer({
-      genre: `All genres`,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {
@@ -195,7 +168,6 @@ describe(`Reducer changes the state correctly`, () => {
       type: ActionType.CLOSE_MAIN_PLAYER,
       payload: {}
     })).toEqual({
-      genre: `All genres`,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {},
@@ -204,13 +176,6 @@ describe(`Reducer changes the state correctly`, () => {
 });
 
 describe(`Action creators work correctly`, () => {
-  it(`Action creator for change genre returns correct action`, () => {
-    expect(ActionCreator.changeGenreFilter(`Comedy`)).toEqual({
-      type: ActionType.CHANGE_GENRE_FILTER,
-      payload: `Comedy`
-    });
-  });
-
   it(`Action creator for increment showed films count returns correct action`, () => {
     expect(ActionCreator.incrementShowedFilmCount()).toEqual({
       type: ActionType.INCREMENT_SHOWED_FILM_COUNT,
@@ -219,15 +184,15 @@ describe(`Action creators work correctly`, () => {
   });
 
   it(`Action creator for reset showed films count returns correct action`, () => {
-    expect(ActionCreator.incrementShowedFilmCount()).toEqual({
+    expect(ActionCreator.resetShowedFilmCount()).toEqual({
       type: ActionType.RESET_SHOWED_FILM_COUNT,
       payload: 8
     });
   });
 
-  it(`Action creator change current film returns correct action`, () => {
+  it(`Action creator for change current film returns correct action`, () => {
     expect(ActionCreator.changeCurrentFilm(film)).toEqual({
-      type: ActionType.RESET_SHOWED_FILM_COUNT,
+      type: ActionType.CHANGE_CURRENT_FILM,
       payload: {
         id: 1,
         isFavorite: false,
@@ -256,7 +221,7 @@ describe(`Action creators work correctly`, () => {
 
   it(`Action creator for open main player returns correct action`, () => {
     expect(ActionCreator.openMainPlayer(film)).toEqual({
-      type: ActionType.RESET_SHOWED_FILM_COUNT,
+      type: ActionType.OPEN_MAIN_PLAYER,
       payload: {
         id: 1,
         isFavorite: false,

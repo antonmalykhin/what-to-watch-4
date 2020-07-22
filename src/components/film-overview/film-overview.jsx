@@ -47,18 +47,11 @@ const FilmOverview = (props) => {
   );
 };
 
-// FilmOverview.propTypes = {
-//   rating: PropTypes.shape({
-//     score: PropTypes.number.isRequired,
-//     level: PropTypes.string.isRequired,
-//     count: PropTypes.number.isRequired
-//   }).isRequired,
-//   description: PropTypes.string.isRequired,
-//   crew: PropTypes.shape({
-//     director: PropTypes.string.isRequired,
-//     starring: PropTypes.string.isRequired
-//   }).isRequired
-// };
+FilmOverview.propTypes = {
+  rating: PropTypes.object.isRequired,
+  description: PropTypes.string.isRequired,
+  crew: PropTypes.object.isRequired
+};
 
 export default FilmOverview;
 

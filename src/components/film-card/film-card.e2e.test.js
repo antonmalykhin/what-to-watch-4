@@ -3,7 +3,7 @@ import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import FilmCard from './film-card.jsx';
 
-Enzyme.conf({
+Enzyme.configure({
   adapter: new Adapter()
 });
 

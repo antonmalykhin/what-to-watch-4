@@ -3,11 +3,13 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {isEmptyObject} from '../../utils.js';
-import {ActionCreator} from '../../reducer.js';
 import Main from '../main/main.jsx';
 import FilmPage from '../film-page/film-page.jsx';
 import MainVideoPlayer from '../main-video-player/main-video-player.jsx';
 import withActiveMainPlayer from '../../hocks/with-active-main-player/with-active-main-player.js';
+import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
+import {getCurrentFilm, getPlayingFilm} from '../../reducer/app/selectors.js';
+import {getFilteredFilms, getPromoFilm} from '../../reducer/data/selectors.js';
 
 const MainVideoPlayerWrapped = withActiveMainPlayer(MainVideoPlayer);
 
@@ -22,11 +24,8 @@ class App extends PureComponent {
       films,
       promoFilm,
       currentFilm,
-      currentFilter,
       playingFilm,
       onFilmCardClick,
-      onFilterItemClick,
-      resetShowedFilms,
       onPlayButtonClick,
       onExitButtonClick
     } = this.props;
@@ -35,14 +34,9 @@ class App extends PureComponent {
       return (
         <Main
           promoFilm={promoFilm}
-          currentFilter={currentFilter}
           films={films}
           onFilmClick={(film) => {
             onFilmCardClick(film);
-          }}
-          onFilterClick={(filterItem) => {
-            onFilterItemClick(filterItem);
-            resetShowedFilms();
           }}
           onPlayClick={(film) => {
             onPlayButtonClick(film);
@@ -97,38 +91,31 @@ App.propTypes = {
   films: PropTypes.array.isRequired,
   promoFilm: PropTypes.object.isRequired,
   currentFilm: PropTypes.object.isRequired,
-  currentFilter: PropTypes.string.isRequired,
   playingFilm: PropTypes.object.isRequired,
   onFilmCardClick: PropTypes.func.isRequired,
-  onFilterItemClick: PropTypes.func.isRequired,
-  resetShowedFilms: PropTypes.func.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   onExitButtonClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
-  promoFilm: state.promoFilm,
-  currentFilm: state.currentFilm,
-  currentFilter: state.genre,
-  playingFilm: state.playingFilm,
+  films: getFilteredFilms(state),
+  promoFilm: getPromoFilm(state),
+  currentFilm: getCurrentFilm(state),
+  playingFilm: getPlayingFilm(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onFilmCardClick(film) {
-    dispatch(ActionCreator.changeCurrentFilm(film));
-  },
-  onFilterItemClick(filterItem) {
-    dispatch(ActionCreator.changeGenreFilter(filterItem));
+    dispatch(AppActionCreator.changeCurrentFilm(film));
   },
   resetShowedFilms() {
-    dispatch(ActionCreator.resetShowedFilmCount());
+    dispatch(AppActionCreator.resetShowedFilmCount());
   },
   onPlayButtonClick(film) {
-    dispatch(ActionCreator.openMainPlayer(film));
+    dispatch(AppActionCreator.openMainPlayer(film));
   },
   onExitButtonClick() {
-    dispatch(ActionCreator.closeMainPlayer());
+    dispatch(AppActionCreator.closeMainPlayer());
   }
 });
 

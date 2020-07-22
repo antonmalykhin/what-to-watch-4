@@ -1,8 +1,9 @@
 import MockAdapter from "axios-mock-adapter";
 import {reducer, ActionCreator, ActionType, Operation} from './data.js';
 import {createAPI} from '../../api.js';
+import {filmAdapter, filmsAdapter} from '../../adapters/film-adapter.js';
 
-const api = createAPI(() => { });
+const api = createAPI(() => {});
 
 const films = [
   {
@@ -184,6 +185,66 @@ const films = [
   }
 ];
 
+const filmsRAW = [
+  {
+    "id": 1,
+    "name": `The Grand Budapest Hotel`,
+    "poster_image": `img/the-grand-budapest-hotel-poster.jpg`,
+    "preview_image": `img/the-grand-budapest-hotel.jpg`,
+    "background_image": `img/the-grand-budapest-hotel-bg.jpg`,
+    "background_color": `#ffffff`,
+    "video_link": `https://some-link`,
+    "preview_video_link": `https://some-link`,
+    "description": `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
+    "rating": 8.9,
+    "scores_count": 240,
+    "director": `Wes Andreson`,
+    "starring": [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
+    "run_time": 99,
+    "genre": `Comedy`,
+    "released": 2014,
+    "is_favorite": false
+  }, {
+    "id": 2,
+    "name": `The Grand Budapest Hotel`,
+    "poster_image": `img/the-grand-budapest-hotel-poster.jpg`,
+    "preview_image": `img/the-grand-budapest-hotel.jpg`,
+    "background_image": `img/the-grand-budapest-hotel-bg.jpg`,
+    "background_color": `#ffffff`,
+    "video_link": `https://some-link`,
+    "preview_video_link": `https://some-link`,
+    "description": `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
+    "rating": 8.9,
+    "scores_count": 240,
+    "director": `Wes Andreson`,
+    "starring": [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
+    "run_time": 99,
+    "genre": `Comedy`,
+    "released": 2014,
+    "is_favorite": false
+  }
+];
+
+const promoFilmRAW = {
+  "id": 1,
+  "name": `The Grand Budapest Hotel`,
+  "poster_image": `img/the-grand-budapest-hotel-poster.jpg`,
+  "preview_image": `img/the-grand-budapest-hotel.jpg`,
+  "background_image": `img/the-grand-budapest-hotel-bg.jpg`,
+  "background_color": `#ffffff`,
+  "video_link": `https://some-link`,
+  "preview_video_link": `https://some-link`,
+  "description": `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
+  "rating": 8.9,
+  "scores_count": 240,
+  "director": `Wes Andreson`,
+  "starring": [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
+  "run_time": 99,
+  "genre": `Comedy`,
+  "released": 2014,
+  "is_favorite": false
+};
+
 const promoFilm = {
   id: 9,
   isFavorite: false,
@@ -208,9 +269,22 @@ const promoFilm = {
   }
 };
 
+const filters = [
+  `All genres`,
+  `Crime`,
+  `Adventure`,
+  `Action`,
+  `Comedy`,
+  `Drama`,
+  `Fantasy`,
+  `Thriller`
+];
+
 describe(`Reducer changes the state correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(void 0, {})).toEqual({
+      activeFilter: `All genres`,
+      filters: [],
       films: [],
       promoFilm: {}
     });
@@ -218,12 +292,16 @@ describe(`Reducer changes the state correctly`, () => {
 
   it(`Reducer should update films by load films data`, () => {
     expect(reducer({
+      activeFilter: `All genres`,
+      filters: [],
       films: [],
       promoFilm: {}
     }, {
       type: ActionType.LOAD_FILMS,
       payload: films
     })).toEqual({
+      activeFilter: `All genres`,
+      filters: [],
       films,
       promoFilm: {}
     });
@@ -231,14 +309,52 @@ describe(`Reducer changes the state correctly`, () => {
 
   it(`Reducer should update promo film by load promo film data`, () => {
     expect(reducer({
+      activeFilter: `All genres`,
+      filters: [],
       films: [],
       promoFilm: {}
     }, {
       type: ActionType.LOAD_PROMO_FILM,
       payload: promoFilm
     })).toEqual({
+      activeFilter: `All genres`,
+      filters: [],
       films: [],
       promoFilm
+    });
+  });
+
+  it(`Reducer should update filters by given value`, () => {
+    expect(reducer({
+      activeFilter: `All genres`,
+      filters: [],
+      films: [],
+      promoFilm: {}
+    }, {
+      type: ActionType.LOAD_FILTERS,
+      payload: filters
+    })).toEqual({
+      activeFilter: `All genres`,
+      filters,
+      films: [],
+      promoFilm: {}
+    });
+  });
+
+  it(`Reducer should update genre by given value`, () => {
+    expect(reducer({
+      activeFilter: `All genres`,
+      filters: [],
+      films: [],
+      promoFilm: {}
+    }, {
+      type: ActionType.CHANGE_GENRE_FILTER,
+      payload: `Comedy`
+    })).toEqual({
+      activeFilter: `Comedy`,
+      filters: [],
+      films: [],
+      promoFilm: {}
     });
   });
 });
@@ -257,6 +373,20 @@ describe(`Action creators work correctly`, () => {
       payload: promoFilm
     });
   });
+
+  it(`Action creator for loading filters returns correct action`, () => {
+    expect(ActionCreator.loadFilters(filters)).toEqual({
+      type: ActionType.LOAD_FILTERS,
+      payload: filters
+    });
+  });
+
+  it(`Action creator for change active filter returns correct action`, () => {
+    expect(ActionCreator.changeGenreFilter(`Comedy`)).toEqual({
+      type: ActionType.CHANGE_GENRE_FILTER,
+      payload: `Comedy`
+    });
+  });
 });
 
 describe(`Operation works correctly`, () => {
@@ -267,14 +397,13 @@ describe(`Operation works correctly`, () => {
 
     apiMock
       .onGet(`/films`)
-      .reply(200, [{fake: true}]);
+      .reply(200, filmsRAW);
 
     return filmsLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(dispatch).toHaveBeenCalledWith({
           type: ActionType.LOAD_FILMS,
-          payload: [{fake: true}],
+          payload: filmsAdapter(filmsRAW),
         });
       });
   });
@@ -286,14 +415,13 @@ describe(`Operation works correctly`, () => {
 
     apiMock
       .onGet(`/films/promo`)
-      .reply(200, [{fake: true}]);
+      .reply(200, promoFilmRAW);
 
     return promoFilmLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(dispatch).toHaveBeenCalledWith({
           type: ActionType.LOAD_PROMO_FILM,
-          payload: [{fake: true}],
+          payload: filmAdapter(promoFilmRAW),
         });
       });
   });

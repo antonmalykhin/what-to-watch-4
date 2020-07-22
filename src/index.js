@@ -4,7 +4,8 @@ import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import App from './components/app/app.jsx';
-import {reducer, OperationGetFilms, OperationGetPromoFilm} from './reducer.js';
+import reducer from './reducer/reducer.js';
+import {Operation} from './reducer/data/data.js';
 import {createAPI} from './api.js';
 
 const api = createAPI();
@@ -14,8 +15,8 @@ const store = createStore(
     applyMiddleware(thunk.withExtraArgument(api))
 );
 
-store.dispatch(OperationGetFilms.loadFilms());
-store.dispatch(OperationGetPromoFilm.loadPromoFilm());
+store.dispatch(Operation.loadFilms());
+store.dispatch(Operation.loadPromoFilm());
 
 ReactDOM.render(
     <Provider store={store}>
