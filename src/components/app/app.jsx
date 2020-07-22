@@ -53,6 +53,7 @@ class App extends PureComponent {
     if (!isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
       return (
         <FilmPage
+          authorizationStatus={authorizationStatus}
           currentYear={currentYear}
           film={currentFilm}
           films={films}

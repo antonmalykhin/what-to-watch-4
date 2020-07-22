@@ -5,7 +5,9 @@ import Header from './header.jsx';
 
 it(`Header render`, () => {
   const tree = renderer.create(
-      <Header authorizationStatus={`AUTH`}/>
+      <Header >
+        <div />
+      </Header>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

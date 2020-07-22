@@ -13,6 +13,7 @@ import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
 import {ActionCreator as DataActionCreator} from '../../reducer/data/data.js';
 import {getShowedFilms} from '../../reducer/app/selectors.js';
 import {getFilterItems, getActiveFilter} from '../../reducer/data/selectors.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 
 const SHOWED_FILM_COUNT = 8;
@@ -51,7 +52,13 @@ class Main extends PureComponent {
           promoFilm={promoFilm}
           onPlayClick={onPlayClick}
         >
-          <Header authorizationStatus={authorizationStatus}/>
+          <Header>
+            <div className="user-block">
+
+              {authorizationStatus === AuthorizationStatus.AUTH ? <div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div> : <a href="sign-in.html" className="user-block__link">Sign in</a>}
+
+            </div>
+          </Header>
         </FilmCard>
 
 
@@ -79,7 +86,7 @@ class Main extends PureComponent {
             />}
           </section> : <LoadingMessage />}
 
-          <Footer year={currentYear}/>
+          <Footer year={currentYear} />
         </div>
       </React.Fragment>
     );
@@ -125,5 +132,5 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export {Main};
+export { Main };
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

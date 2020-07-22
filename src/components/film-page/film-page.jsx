@@ -5,6 +5,7 @@ import FilmDescription from '../film-description/film-description.jsx';
 import withActiveItem from '../../hocks/with-active-item/with-active-item.js';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const MORE_LIKE_THIS_FILM_COUNT = 4;
 
@@ -19,6 +20,7 @@ const FilmListWrapped = withActiveItem(FilmList, `films`);
 
 const FilmPage = (props) => {
   const {
+    authorizationStatus,
     currentYear,
     film,
     films,
@@ -45,7 +47,13 @@ const FilmPage = (props) => {
             <img src={background} alt={title} />
           </div>
 
-          {<Header />}
+          {<Header>
+            <div className="user-block">
+
+              {authorizationStatus === AuthorizationStatus.AUTH ? <div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div> : <a href="sign-in.html" className="user-block__link">Sign in</a>}
+
+            </div>
+          </Header>}
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -107,6 +115,7 @@ const FilmPage = (props) => {
 };
 
 FilmPage.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
   currentYear: PropTypes.number.isRequired,
   film: PropTypes.object.isRequired,
   films: PropTypes.array.isRequired,
