@@ -248,6 +248,7 @@ it(`Render App`, () => {
             promoFilm={promoFilm}
             currentFilm={currentFilm}
             playingFilm={currentFilm}
+            currentYear={2020}
             onFilmClick={() => { }}
             onFilmCardClick={() => { }}
             onPlayButtonClick={() => { }}

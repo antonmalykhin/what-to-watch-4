@@ -222,6 +222,7 @@ it(`Should Main render correctly`, () => {
   const tree = renderer
     .create(
         <Main
+          currentYear={2020}
           showedFilmCount={8}
           activeFilterItem={`All genres`}
           onShowMoreButtonClick={()=>{}}

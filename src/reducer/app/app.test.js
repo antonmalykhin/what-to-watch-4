@@ -27,14 +27,16 @@ const film = {
 describe(`Reducer changes the state correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(void 0, {})).toEqual({
+      currentYear: 0,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {},
     });
   });
 
-  it(`Reducer change showedFilms by given value`, () => {
+  it(`Reducer changes showedFilms by given value`, () => {
     expect(reducer({
+      currentYear: 0,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {},
@@ -42,6 +44,7 @@ describe(`Reducer changes the state correctly`, () => {
       type: ActionType.INCREMENT_SHOWED_FILM_COUNT,
       payload: 8
     })).toEqual({
+      currentYear: 0,
       showedFilms: 16,
       currentFilm: {},
       playingFilm: {},
@@ -50,6 +53,7 @@ describe(`Reducer changes the state correctly`, () => {
 
   it(`Reducer reset showedFilms`, () => {
     expect(reducer({
+      currentYear: 0,
       showedFilms: 24,
       currentFilm: {},
       playingFilm: {},
@@ -57,14 +61,16 @@ describe(`Reducer changes the state correctly`, () => {
       type: ActionType.RESET_SHOWED_FILM_COUNT,
       payload: 8
     })).toEqual({
+      currentYear: 0,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {},
     });
   });
 
-  it(`Reducer change currentFilm by given value`, () => {
+  it(`Reducer changes currentFilm by given value`, () => {
     expect(reducer({
+      currentYear: 0,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {},
@@ -72,6 +78,7 @@ describe(`Reducer changes the state correctly`, () => {
       type: ActionType.CHANGE_CURRENT_FILM,
       payload: film
     })).toEqual({
+      currentYear: 0,
       showedFilms: 8,
       currentFilm: {
         id: 1,
@@ -100,8 +107,9 @@ describe(`Reducer changes the state correctly`, () => {
     });
   });
 
-  it(`Reducer change playingFilm by given value`, () => {
+  it(`Reducer changes playingFilm by given value`, () => {
     expect(reducer({
+      currentYear: 0,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {},
@@ -109,6 +117,7 @@ describe(`Reducer changes the state correctly`, () => {
       type: ActionType.OPEN_MAIN_PLAYER,
       payload: film
     })).toEqual({
+      currentYear: 0,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {
@@ -139,6 +148,7 @@ describe(`Reducer changes the state correctly`, () => {
 
   it(`Reducer reset playingFilm by the closure`, () => {
     expect(reducer({
+      currentYear: 0,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {
@@ -168,6 +178,24 @@ describe(`Reducer changes the state correctly`, () => {
       type: ActionType.CLOSE_MAIN_PLAYER,
       payload: {}
     })).toEqual({
+      currentYear: 0,
+      showedFilms: 8,
+      currentFilm: {},
+      playingFilm: {},
+    });
+  });
+
+  it(`Reducer changes currentYear by given value`, () => {
+    expect(reducer({
+      currentYear: 0,
+      showedFilms: 8,
+      currentFilm: {},
+      playingFilm: {},
+    }, {
+      type: ActionType.GET_CURRENT_YEAR,
+      payload: 2020
+    })).toEqual({
+      currentYear: 2020,
       showedFilms: 8,
       currentFilm: {},
       playingFilm: {},
@@ -252,6 +280,13 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.closeMainPlayer()).toEqual({
       type: ActionType.CLOSE_MAIN_PLAYER,
       payload: {}
+    });
+  });
+
+  it(`Action creator for set current year returns correct action`, () => {
+    expect(ActionCreator.getCurrentYear(2020)).toEqual({
+      type: ActionType.GET_CURRENT_YEAR,
+      payload: 2020
     });
   });
 });

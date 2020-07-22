@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import App from './components/app/app.jsx';
 import reducer from './reducer/reducer.js';
 import {Operation} from './reducer/data/data.js';
+import {Operation as appOperation} from './reducer/app/app.js';
 import {createAPI} from './api.js';
 
 const api = createAPI();
@@ -17,6 +18,7 @@ const store = createStore(
 
 store.dispatch(Operation.loadFilms());
 store.dispatch(Operation.loadPromoFilm());
+store.dispatch(appOperation.getCurrentYear());
 
 ReactDOM.render(
     <Provider store={store}>

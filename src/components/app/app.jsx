@@ -8,7 +8,7 @@ import FilmPage from '../film-page/film-page.jsx';
 import MainVideoPlayer from '../main-video-player/main-video-player.jsx';
 import withActiveMainPlayer from '../../hocks/with-active-main-player/with-active-main-player.js';
 import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
-import {getCurrentFilm, getPlayingFilm} from '../../reducer/app/selectors.js';
+import {getCurrentFilm, getPlayingFilm, getCurrentYear} from '../../reducer/app/selectors.js';
 import {getFilteredFilms, getPromoFilm} from '../../reducer/data/selectors.js';
 
 const MainVideoPlayerWrapped = withActiveMainPlayer(MainVideoPlayer);
@@ -25,6 +25,7 @@ class App extends PureComponent {
       promoFilm,
       currentFilm,
       playingFilm,
+      currentYear,
       onFilmCardClick,
       onPlayButtonClick,
       onExitButtonClick
@@ -33,6 +34,7 @@ class App extends PureComponent {
     if (isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
       return (
         <Main
+          currentYear={currentYear}
           promoFilm={promoFilm}
           films={films}
           onFilmClick={(film) => {
@@ -48,6 +50,7 @@ class App extends PureComponent {
     if (!isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
       return (
         <FilmPage
+          currentYear={currentYear}
           film={currentFilm}
           films={films}
           onFilmClick={(film) => {
@@ -92,6 +95,7 @@ App.propTypes = {
   promoFilm: PropTypes.object.isRequired,
   currentFilm: PropTypes.object.isRequired,
   playingFilm: PropTypes.object.isRequired,
+  currentYear: PropTypes.number.isRequired,
   onFilmCardClick: PropTypes.func.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   onExitButtonClick: PropTypes.func.isRequired
@@ -102,6 +106,7 @@ const mapStateToProps = (state) => ({
   promoFilm: getPromoFilm(state),
   currentFilm: getCurrentFilm(state),
   playingFilm: getPlayingFilm(state),
+  currentYear: getCurrentYear(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
