@@ -10,7 +10,8 @@ const filterItems = [
   `Horror`,
   `Kids & Family`,
   `Romance`,
-  `Sci-Fi`];
+  `Sci-Fi`
+];
 
 it(`Should Filter render correctly`, () => {
   const tree = renderer
@@ -18,7 +19,10 @@ it(`Should Filter render correctly`, () => {
       <Filter
         filterItems={filterItems}
         currentFilter={`All genres`}
-        onFilterClick={() => {}} />
+        onFilterClick={() => {}}
+        resetShowedFilms={() => {}}
+
+      />
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

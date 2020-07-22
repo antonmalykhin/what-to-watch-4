@@ -27,3 +27,33 @@ export const formatTimeToDisplay = (timeInMinute) => {
   const minutes = Math.floor(timeInSeconds / 60) % 60;
   return `${hours ? `${hours}h` : ``} ${addZero(minutes)}m`;
 };
+
+export const getRaringLevel = (scores) => {
+  if (scores < 3) {
+    return `Bad`;
+  }
+  if (scores >= 3 && scores < 5) {
+    return `Normal`;
+  }
+  if (scores >= 5 && scores < 8) {
+    return `Good`;
+  }
+  if (scores >= 8 && scores < 10) {
+    return `Very good`;
+  }
+  if (scores >= 10) {
+    return `Awesome`;
+  }
+
+  return ``;
+};
+
+export const getFilterItems = (films) => {
+  const genres = films.map((film) => {
+    return film.genre;
+  });
+
+  const uniqueGenres = [...new Set(genres)];
+
+  return uniqueGenres;
+};

@@ -14,9 +14,9 @@ const FilmList = (props) => {
 
   return (
     <div className="catalog__movies-list">
-      {films.map((film, index) => (
+      {films.map((film) => (
         <SmallFilmCardWrapped
-          key={`${index}-${film.title}`}
+          key={film.id}
           onFilmClick={onFilmClick}
           onFilmMouseOver={() => {
             onActiveItemChange(film);
@@ -28,10 +28,7 @@ const FilmList = (props) => {
 };
 
 FilmList.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired
-  })).isRequired,
+  films: PropTypes.array.isRequired,
   onFilmClick: PropTypes.func.isRequired,
   onActiveItemChange: PropTypes.func.isRequired,
 };

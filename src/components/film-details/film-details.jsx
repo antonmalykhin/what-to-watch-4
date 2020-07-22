@@ -16,7 +16,6 @@ const FilmDetails = (props) => {
     starring
   } = crew;
 
-  const cast = starring.split(`, `);
   const formattedRuntime = formatTimeToDisplay(runtime);
 
   return (
@@ -30,7 +29,7 @@ const FilmDetails = (props) => {
           <strong className="movie-card__details-name">Starring</strong>
           <span className="movie-card__details-value">
 
-            {cast.map((item, index) => {
+            {starring.map((item, index) => {
               return (
                 <React.Fragment key={`${item}-${index}`}>
                   {item}<br />
@@ -66,7 +65,7 @@ FilmDetails.propTypes = {
   runtime: PropTypes.number.isRequired,
   crew: PropTypes.shape({
     director: PropTypes.string.isRequired,
-    starring: PropTypes.string.isRequired
+    starring: PropTypes.array.isRequired
   }).isRequired
 };
 

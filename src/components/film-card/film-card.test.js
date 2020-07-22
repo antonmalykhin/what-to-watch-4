@@ -1,13 +1,8 @@
 import React from 'react';
-import Enzyme, {mount} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import MainVideoPlayer from './main-video-player';
+import renderer from 'react-test-renderer';
+import FilmCard from './film-card.jsx';
 
-Enzyme.configure({
-  adapter: new Adapter()
-});
-
-const film = {
+const promoFilm = {
   id: 1,
   isFavorite: false,
   backgroundColor: `#A6B7AC`,
@@ -31,45 +26,18 @@ const film = {
   }
 };
 
-it(`Should Exit button be pressed`, () => {
-  const onExitButtonClick = jest.fn();
+const children = <div />;
 
-  const mainVideoPlayer = mount(
-      <MainVideoPlayer
-        film={film}
-        onExitClick={onExitButtonClick}
-        progress={0}
-        duration={99}
-        isPlaying={false}
-        onPlayButtonClick={() => {}}
-        onFullscreenButtonClick={() => {}}
+
+it(`FilmCard render`, () => {
+  const tree = renderer.create(
+      <FilmCard
+        promoFilm={promoFilm}
+        onPlayClick={() => {}}
       >
-        <video />
-      </MainVideoPlayer>
-  );
+        {children}
+      </FilmCard>
+  ).toJSON();
 
-  mainVideoPlayer.find(`.player__exit`).simulate(`click`);
-  expect(onExitButtonClick).toHaveBeenCalledTimes(1);
+  expect(tree).toMatchSnapshot();
 });
-
-it(`Should Fullscreen button be pressed`, () => {
-  const onFullScreenButtonClick = jest.fn();
-
-  const mainVideoPlayer = mount(
-      <MainVideoPlayer
-        film={film}
-        onExitClick={() => {}}
-        progress={0}
-        duration={99}
-        isPlaying={false}
-        onPlayButtonClick={() => {}}
-        onFullscreenButtonClick={onFullScreenButtonClick}
-      >
-        <video />
-      </MainVideoPlayer>
-  );
-
-  mainVideoPlayer.find(`.player__full-screen`).simulate(`click`);
-  expect(onFullScreenButtonClick).toHaveBeenCalledTimes(1);
-});
-

@@ -95,10 +95,7 @@ const withActiveMainPlayer = (Component) => {
   }
 
   WithActiveMainPlayer.propTypes = {
-    film: PropTypes.shape({
-      video: PropTypes.string.isRequired,
-      background: PropTypes.string.isRequired
-    }).isRequired,
+    film: PropTypes.object,
     onExitClick: PropTypes.func.isRequired
   };
 

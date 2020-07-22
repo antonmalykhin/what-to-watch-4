@@ -29,7 +29,6 @@ Array [
         >
           <a
             className="logo__link"
-            href="main.html"
           >
             <span
               className="logo__letter logo__letter--1"
@@ -80,7 +79,7 @@ Array [
             <span
               className="movie-card__genre"
             >
-              Comedy
+              Drama
             </span>
             <span
               className="movie-card__year"
@@ -311,14 +310,14 @@ Array [
             <video
               height={175}
               loop={true}
-              poster="img/bohemian-rhapsody.jpg"
+              poster="img/gangs-of-new-york.jpg"
               src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
               width={280}
             />
             <img
-              alt="Bohemian Rhapsody"
+              alt="Gangs of new york"
               height="175"
-              src="img/bohemian-rhapsody.jpg"
+              src="img/gangs-of-new-york.jpg"
               width="280"
             />
           </div>
@@ -330,7 +329,7 @@ Array [
               href="movie-page.html"
               onClick={[Function]}
             >
-              Bohemian Rhapsody
+              Gangs of new york
             </a>
           </h3>
         </article>
@@ -347,14 +346,14 @@ Array [
             <video
               height={175}
               loop={true}
-              poster="img/macbeth.jpg"
+              poster="img/moonrise-kingdom.jpg"
               src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
               width={280}
             />
             <img
-              alt="Macbeth"
+              alt="Moonrise Kingdom"
               height="175"
-              src="img/macbeth.jpg"
+              src="img/moonrise-kingdom.jpg"
               width="280"
             />
           </div>
@@ -366,7 +365,7 @@ Array [
               href="movie-page.html"
               onClick={[Function]}
             >
-              Macbeth
+              Moonrise Kingdom
             </a>
           </h3>
         </article>
@@ -383,14 +382,14 @@ Array [
             <video
               height={175}
               loop={true}
-              poster="img/aviator.jpg"
+              poster="img/pulp-fiction.jpg"
               src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
               width={280}
             />
             <img
-              alt="Aviator"
+              alt="Pulp Fiction"
               height="175"
-              src="img/aviator.jpg"
+              src="img/pulp-fiction.jpg"
               width="280"
             />
           </div>
@@ -402,7 +401,7 @@ Array [
               href="movie-page.html"
               onClick={[Function]}
             >
-              Aviator
+              Pulp Fiction
             </a>
           </h3>
         </article>
