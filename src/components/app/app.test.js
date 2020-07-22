@@ -254,6 +254,7 @@ it(`Render App`, () => {
             onFilmCardClick={() => { }}
             onPlayButtonClick={() => { }}
             onExitButtonClick={() => { }}
+            login={() => {}}
           />
         </Provider>, {
           createNodeMock: () => {

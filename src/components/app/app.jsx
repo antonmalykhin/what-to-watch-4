@@ -12,6 +12,7 @@ import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
 import {getCurrentFilm, getPlayingFilm, getCurrentYear} from '../../reducer/app/selectors.js';
 import {getFilteredFilms, getPromoFilm} from '../../reducer/data/selectors.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
+import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
 
 const MainVideoPlayerWrapped = withActiveMainPlayer(MainVideoPlayer);
 
@@ -31,51 +32,57 @@ class App extends PureComponent {
       authorizationStatus,
       onFilmCardClick,
       onPlayButtonClick,
-      onExitButtonClick
+      onExitButtonClick,
+      login
     } = this.props;
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      if (isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
+        return (
+          <Main
+            authorizationStatus={authorizationStatus}
+            currentYear={currentYear}
+            promoFilm={promoFilm}
+            films={films}
+            onFilmClick={(film) => {
+              onFilmCardClick(film);
+            }}
+            onPlayClick={(film) => {
+              onPlayButtonClick(film);
+            }}
+          />
+        );
+      }
 
-    if (isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
-      return (
-        <Main
-          authorizationStatus={authorizationStatus}
-          currentYear={currentYear}
-          promoFilm={promoFilm}
-          films={films}
-          onFilmClick={(film) => {
-            onFilmCardClick(film);
-          }}
-          onPlayClick={(film) => {
-            onPlayButtonClick(film);
-          }}
-        />
-      );
-    }
+      if (!isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
+        return (
+          <FilmPage
+            authorizationStatus={authorizationStatus}
+            currentYear={currentYear}
+            film={currentFilm}
+            films={films}
+            onFilmClick={(film) => {
+              onFilmCardClick(film);
+            }}
+            onPlayClick={(film) => {
+              onPlayButtonClick(film);
+            }}
+          />
+        );
+      }
 
-    if (!isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
+      if (!isEmptyObject(playingFilm)) {
+        return (
+          <MainVideoPlayerWrapped
+            film={playingFilm}
+            onExitClick={() => {
+              onExitButtonClick();
+            }}
+          />
+        );
+      }
+    } else if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
       return (
-        <FilmPage
-          authorizationStatus={authorizationStatus}
-          currentYear={currentYear}
-          film={currentFilm}
-          films={films}
-          onFilmClick={(film) => {
-            onFilmCardClick(film);
-          }}
-          onPlayClick={(film) => {
-            onPlayButtonClick(film);
-          }}
-        />
-      );
-    }
-
-    if (!isEmptyObject(playingFilm)) {
-      return (
-        <MainVideoPlayerWrapped
-          film={playingFilm}
-          onExitClick={() => {
-            onExitButtonClick();
-          }}
-        />
+        <SignIn onSubmit={login} />
       );
     }
 
@@ -83,6 +90,7 @@ class App extends PureComponent {
   }
 
   render() {
+    const {login} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -90,7 +98,7 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/dev-sign-in">
-            <SignIn />
+            <SignIn onSubmit={login}/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -107,7 +115,8 @@ App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   onFilmCardClick: PropTypes.func.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
-  onExitButtonClick: PropTypes.func.isRequired
+  onExitButtonClick: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -131,6 +140,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onExitButtonClick() {
     dispatch(AppActionCreator.closeMainPlayer());
+  },
+  login(authData) {
+    dispatch(UserOperation.login(authData));
   }
 });
 
