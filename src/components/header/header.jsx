@@ -7,7 +7,7 @@ const Header = (props) => {
     <React.Fragment>
       <h1 className="visually-hidden">WTW</h1>
 
-      <header className={`page-header ${classNameModifier}__head`}>
+      <header className={`page-header ${classNameModifier ? `${classNameModifier}__head` : ``}`}>
         <div className="logo">
           <a className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
