@@ -2,6 +2,7 @@ import {extend} from '../../utils.js';
 import {filmAdapter, filmsAdapter} from '../../adapters/film-adapter.js';
 import {getFilterItems} from '../../utils.js';
 import {FIRST_FILTER_ELEMENT_NAME} from '../../const';
+import app from '../../components/app/app.jsx';
 
 const InitialState = {
   activeFilter: FIRST_FILTER_ELEMENT_NAME,
@@ -71,6 +72,13 @@ export const Operation = {
       .catch((error) => {
         throw error;
       });
+  },
+
+  postComment: (filmID, postData) => (dispatch, getState, api) => {
+    return api.post(`/comments/${filmID}`, {
+      rating: postData.rating,
+      comment: postData.comment
+    });
   }
 };
 
