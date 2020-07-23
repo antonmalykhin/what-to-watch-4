@@ -1,19 +1,15 @@
-import films from './mock/films.js';
-import {extend} from './utils.js';
+import {extend} from '../../utils.js';
 
 const FILM_COUNT_ON_START = 8;
 const INCREMENT_FILM_COUNT = 8;
 
 const InitialState = {
-  genre: `All genres`,
   showedFilms: FILM_COUNT_ON_START,
   currentFilm: {},
   playingFilm: {},
-  films
 };
 
 export const ActionType = {
-  CHANGE_GENRE_FILTER: `CHANGE_GENRE_FILTER`,
   INCREMENT_SHOWED_FILM_COUNT: `INCREMENT_SHOWED_FILM_COUNT`,
   RESET_SHOWED_FILM_COUNT: `RESET_SHOWED_FILM_COUNT`,
   CHANGE_CURRENT_FILM: `CHANGE_CURRENT_FILM`,
@@ -23,13 +19,6 @@ export const ActionType = {
 };
 
 export const ActionCreator = {
-  changeGenreFilter: (genre) => {
-    return {
-      type: ActionType.CHANGE_GENRE_FILTER,
-      payload: genre
-    };
-  },
-
   incrementShowedFilmCount: () => {
     return {
       type: ActionType.INCREMENT_SHOWED_FILM_COUNT,
@@ -70,15 +59,11 @@ export const ActionCreator = {
       type: ActionType.CLOSE_MAIN_PLAYER,
       payload: {}
     };
-  }
+  },
 };
 
 export const reducer = (state = InitialState, action) => {
   switch (action.type) {
-    case ActionType.CHANGE_GENRE_FILTER:
-      return extend(state, {
-        genre: action.payload
-      });
     case ActionType.INCREMENT_SHOWED_FILM_COUNT:
       return extend(state, {
         showedFilms: state.showedFilms + action.payload
@@ -106,4 +91,3 @@ export const reducer = (state = InitialState, action) => {
   }
   return state;
 };
-

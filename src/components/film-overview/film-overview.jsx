@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {getRaringLevel} from '../../utils';
 
 
 const FilmOverview = (props) => {
@@ -11,7 +12,6 @@ const FilmOverview = (props) => {
 
   const {
     score,
-    level,
     count
   } = rating;
 
@@ -19,6 +19,8 @@ const FilmOverview = (props) => {
     director,
     starring
   } = crew;
+
+  const level = getRaringLevel(score);
 
   return (
     <React.Fragment>
@@ -38,7 +40,7 @@ const FilmOverview = (props) => {
         </p>
 
         <p className="movie-card__starring">
-          <strong>Starring: {starring.split(`, `).slice(0, 4).join(`, `)} and other</strong>
+          <strong>Starring: {starring.slice(0, 4).join(`, `)} and other</strong>
         </p>
       </div>
     </React.Fragment>
@@ -46,16 +48,9 @@ const FilmOverview = (props) => {
 };
 
 FilmOverview.propTypes = {
-  rating: PropTypes.shape({
-    score: PropTypes.number.isRequired,
-    level: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired
-  }).isRequired,
+  rating: PropTypes.object.isRequired,
   description: PropTypes.string.isRequired,
-  crew: PropTypes.shape({
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.string.isRequired
-  }).isRequired
+  crew: PropTypes.object.isRequired
 };
 
 export default FilmOverview;

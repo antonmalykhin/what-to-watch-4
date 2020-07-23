@@ -1,13 +1,18 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer.js';
 import FilmList from '../film-list/film-list.jsx';
 import Filter from '../filter/filter.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
-import withActiveItem from '../../hocks/with-active-item/with-active-item';
+import withActiveItem from '../../hocks/with-active-item/with-active-item.js';
+import FilmCard from '../film-card/film-card.jsx';
+import Header from '../header/header.jsx';
+import LoadingMessage from '../loading-message/loading-message.jsx';
+import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
+import {ActionCreator as DataActionCreator} from '../../reducer/data/data.js';
+import {getShowedFilms} from '../../reducer/app/selectors.js';
+import {getFilterItems, getActiveFilter} from '../../reducer/data/selectors.js';
 
-const FIRST_FILTER_ELEMENT_NAME = `All genres`;
 const SHOWED_FILM_COUNT = 8;
 
 const FilmListWrapped = withActiveItem(FilmList, `films`);
@@ -16,118 +21,45 @@ const FilmListWrapped = withActiveItem(FilmList, `films`);
 class Main extends PureComponent {
   constructor(props) {
     super(props);
-
-    this._getFilterItems = this._getFilterItems.bind(this);
-    this._getFilterFilms = this._getFilterFilms.bind(this);
-  }
-
-  _getFilterItems(films) {
-    const genres = films.map((film) => {
-      return film.genre;
-    });
-
-    const uniqueGenres = [...new Set(genres)];
-
-    uniqueGenres.unshift(FIRST_FILTER_ELEMENT_NAME);
-    return uniqueGenres;
-  }
-
-  _getFilterFilms(films, genre) {
-    if (genre === FIRST_FILTER_ELEMENT_NAME) {
-      return films;
-    }
-    return films.slice().filter((film) => {
-      return film.genre === genre;
-    });
   }
 
   render() {
     const {
+      films,
+      promoFilm,
+      filterItems,
+      activeFilterItem,
       showedFilmCount,
       onShowMoreButtonClick,
-      promoFilm,
-      currentFilter,
+      onFilterButtonClick,
+      resetShowedFilms,
       onFilmClick,
-      onFilterClick,
       onPlayClick
     } = this.props;
 
-    const {
-      title,
-      genre,
-      release
-    } = promoFilm;
-
-    const _mockFilms = [...this.props.films, ...this.props.films, ...this.props.films];
-    const filterItems = this._getFilterItems(_mockFilms);
-    const filteredFilms = this._getFilterFilms(_mockFilms, currentFilter);
-    let showedFilms = filteredFilms.slice(0, showedFilmCount);
+    let showedFilms = films.slice(0, showedFilmCount);
 
     return (
       <React.Fragment>
-        <section className="movie-card">
-          <div className="movie-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
-          </div>
 
-          <h1 className="visually-hidden">WTW</h1>
+        <FilmCard
+          promoFilm={promoFilm}
+          onPlayClick={onPlayClick}
+        >
+          <Header />
+        </FilmCard>
 
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <a className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </div>
-          </header>
-
-          <div className="movie-card__wrap">
-            <div className="movie-card__info">
-              <div className="movie-card__poster">
-                <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
-              </div>
-
-              <div className="movie-card__desc">
-                <h2 className="movie-card__title">{title}</h2>
-                <p className="movie-card__meta">
-                  <span className="movie-card__genre">{genre}</span>
-                  <span className="movie-card__year">{release}</span>
-                </p>
-
-                <div className="movie-card__buttons">
-                  <button className="btn btn--play movie-card__button" type="button" onClick={() => onPlayClick(promoFilm)}>
-                    <svg viewBox="0 0 19 19" width="19" height="19">
-                      <use xlinkHref="#play-s"></use>
-                    </svg>
-                    <span>Play</span>
-                  </button>
-                  <button className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
-                    </svg>
-                    <span>My list</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         <div className="page-content">
-          <section className="catalog">
+
+          {films.length ? <section className="catalog">
             <h2 className="catalog__title visually-hidden">Catalog</h2>
 
             {<Filter
               filterItems={filterItems}
-              currentFilter={currentFilter}
-              onFilterClick={onFilterClick}
+              currentFilter={activeFilterItem}
+              onFilterClick={onFilterButtonClick}
+              resetShowedFilms={resetShowedFilms}
             />}
 
             {<FilmListWrapped
@@ -135,13 +67,12 @@ class Main extends PureComponent {
               onFilmClick={onFilmClick}
             />}
 
-            {(showedFilms.length === _mockFilms.length || showedFilms.length < SHOWED_FILM_COUNT) ? null : <ShowMoreButton
+            {(showedFilms.length === films.length || showedFilms.length < SHOWED_FILM_COUNT) ? null : <ShowMoreButton
               onButtonClick={() => {
                 onShowMoreButtonClick();
               }}
             />}
-
-          </section>
+          </section> : <LoadingMessage />}
 
           <footer className="page-footer">
             <div className="logo">
@@ -163,40 +94,37 @@ class Main extends PureComponent {
 
 Main.propTypes = {
   showedFilmCount: PropTypes.number.isRequired,
-  currentFilter: PropTypes.string.isRequired,
+  activeFilterItem: PropTypes.string.isRequired,
   onShowMoreButtonClick: PropTypes.func.isRequired,
-  promoFilm: PropTypes.shape({
-    background: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    release: PropTypes.number.isRequired,
-    runtime: PropTypes.number.isRequired,
-    poster: PropTypes.string,
-    rating: PropTypes.shape({
-      score: PropTypes.number,
-      level: PropTypes.string,
-      count: PropTypes.number
-    })
-  }),
-  films: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired
-  })).isRequired,
+  promoFilm: PropTypes.object.isRequired,
+  films: PropTypes.array.isRequired,
   onFilmClick: PropTypes.func.isRequired,
-  onFilterClick: PropTypes.func.isRequired,
-  onPlayClick: PropTypes.func.isRequired
+  filterItems: PropTypes.array.isRequired,
+  onFilterButtonClick: PropTypes.func.isRequired,
+  onPlayClick: PropTypes.func.isRequired,
+  resetShowedFilms: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
-    showedFilmCount: state.showedFilms
+    showedFilmCount: getShowedFilms(state),
+    filterItems: getFilterItems(state),
+    activeFilterItem: getActiveFilter(state)
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onShowMoreButtonClick() {
-      dispatch(ActionCreator.incrementShowedFilmCount());
+      dispatch(AppActionCreator.incrementShowedFilmCount());
+    },
+
+    resetShowedFilms() {
+      dispatch(AppActionCreator.resetShowedFilmCount());
+    },
+
+    onFilterButtonClick(genre) {
+      dispatch(DataActionCreator.changeGenreFilter(genre));
     }
   };
 };

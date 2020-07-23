@@ -53,14 +53,14 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        poster="img/bohemian-rhapsody.jpg"
+        poster="img/gangs-of-new-york.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}
       />
       <img
-        alt="Bohemian Rhapsody"
+        alt="Gangs of new york"
         height="175"
-        src="img/bohemian-rhapsody.jpg"
+        src="img/gangs-of-new-york.jpg"
         width="280"
       />
     </div>
@@ -72,7 +72,7 @@ exports[`Should FilmList render correctly 1`] = `
         href="movie-page.html"
         onClick={[Function]}
       >
-        Bohemian Rhapsody
+        Gangs of new york
       </a>
     </h3>
   </article>
@@ -89,14 +89,14 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        poster="img/macbeth.jpg"
+        poster="img/moonrise-kingdom.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}
       />
       <img
-        alt="Macbeth"
+        alt="Moonrise Kingdom"
         height="175"
-        src="img/macbeth.jpg"
+        src="img/moonrise-kingdom.jpg"
         width="280"
       />
     </div>
@@ -108,7 +108,7 @@ exports[`Should FilmList render correctly 1`] = `
         href="movie-page.html"
         onClick={[Function]}
       >
-        Macbeth
+        Moonrise Kingdom
       </a>
     </h3>
   </article>
@@ -125,14 +125,14 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        poster="img/aviator.jpg"
+        poster="img/pulp-fiction.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}
       />
       <img
-        alt="Aviator"
+        alt="Pulp Fiction"
         height="175"
-        src="img/aviator.jpg"
+        src="img/pulp-fiction.jpg"
         width="280"
       />
     </div>
@@ -144,7 +144,7 @@ exports[`Should FilmList render correctly 1`] = `
         href="movie-page.html"
         onClick={[Function]}
       >
-        Aviator
+        Pulp Fiction
       </a>
     </h3>
   </article>
@@ -161,14 +161,14 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        poster="img/we-need-to-talk-about-kevin.jpg"
+        poster="img/bronson.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}
       />
       <img
-        alt="We need to talk about Kevin"
+        alt="Bronson"
         height="175"
-        src="img/we-need-to-talk-about-kevin.jpg"
+        src="img/bronson.jpg"
         width="280"
       />
     </div>
@@ -180,7 +180,7 @@ exports[`Should FilmList render correctly 1`] = `
         href="movie-page.html"
         onClick={[Function]}
       >
-        We need to talk about Kevin
+        Bronson
       </a>
     </h3>
   </article>
@@ -197,14 +197,14 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        poster="img/what-we-do-in-the-shadows.jpg"
+        poster="img/midnight-special.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}
       />
       <img
-        alt="What We Do in the Shadows"
+        alt="Midnight Special"
         height="175"
-        src="img/what-we-do-in-the-shadows.jpg"
+        src="img/midnight-special.jpg"
         width="280"
       />
     </div>
@@ -216,7 +216,7 @@ exports[`Should FilmList render correctly 1`] = `
         href="movie-page.html"
         onClick={[Function]}
       >
-        What We Do in the Shadows
+        Midnight Special
       </a>
     </h3>
   </article>
@@ -233,14 +233,14 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        poster="img/revenant.jpg"
+        poster="img/matrix.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}
       />
       <img
-        alt="Revenant"
+        alt="Matrix"
         height="175"
-        src="img/revenant.jpg"
+        src="img/matrix.jpg"
         width="280"
       />
     </div>
@@ -252,7 +252,7 @@ exports[`Should FilmList render correctly 1`] = `
         href="movie-page.html"
         onClick={[Function]}
       >
-        Revenant
+        Matrix
       </a>
     </h3>
   </article>
@@ -269,14 +269,14 @@ exports[`Should FilmList render correctly 1`] = `
       <video
         height={175}
         loop={true}
-        poster="img/johnny-english.jpg"
+        poster="img/once-upon-a-time-in-america.jpg"
         src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width={280}
       />
       <img
-        alt="Johnny English"
+        alt="Once Upon a Time in America"
         height="175"
-        src="img/johnny-english.jpg"
+        src="img/once-upon-a-time-in-america.jpg"
         width="280"
       />
     </div>
@@ -288,7 +288,7 @@ exports[`Should FilmList render correctly 1`] = `
         href="movie-page.html"
         onClick={[Function]}
       >
-        Johnny English
+        Once Upon a Time in America
       </a>
     </h3>
   </article>

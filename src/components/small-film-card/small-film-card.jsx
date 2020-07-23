@@ -64,11 +64,7 @@ const SmallFilmCard = (props) => {
 };
 
 SmallFilmCard.propTypes = {
-  film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired,
-  }).isRequired,
+  film: PropTypes.object.isRequired,
   onFilmMouseOver: PropTypes.func.isRequired,
   onFilmClick: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingMessage render 1`] = `
+<p
+  style={
+    Object {
+      "color": "#eee5b5",
+      "fontWeight": "bold",
+      "textAlign": "center",
+    }
+  }
+>
+  Loading...
+</p>
+`;

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FilmList from '../film-list/film-list.jsx';
 import FilmDescription from '../film-description/film-description.jsx';
 import withActiveItem from '../../hocks/with-active-item/with-active-item.js';
+import Header from '../header/header.jsx';
 
 const MORE_LIKE_THIS_FILM_COUNT = 4;
 
@@ -16,7 +17,6 @@ const FilmDescriptionWrapped = withActiveItem(FilmDescription, `tabs`);
 const FilmListWrapped = withActiveItem(FilmList, `films`);
 
 const FilmPage = (props) => {
-
   const {
     film,
     films,
@@ -35,6 +35,7 @@ const FilmPage = (props) => {
   const moreLikeThisFilms = films.slice(0, MORE_LIKE_THIS_FILM_COUNT);
 
   return (
+
     <React.Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
@@ -42,23 +43,7 @@ const FilmPage = (props) => {
             <img src={background} alt={title} />
           </div>
 
-          <h1 className="visually-hidden">WTW</h1>
-
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </div>
-          </header>
+          {<Header />}
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -132,28 +117,8 @@ const FilmPage = (props) => {
 };
 
 FilmPage.propTypes = {
-  film: PropTypes.shape({
-    background: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    release: PropTypes.number.isRequired,
-    poster: PropTypes.string.isRequired,
-    runtime: PropTypes.number.isRequired,
-    rating: PropTypes.shape({
-      score: PropTypes.number.isRequired,
-      level: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired
-    }).isRequired,
-    description: PropTypes.string.isRequired,
-    crew: PropTypes.shape({
-      director: PropTypes.string.isRequired,
-      starring: PropTypes.string.isRequired
-    }).isRequired
-  }).isRequired,
-  films: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired
-  })).isRequired,
+  film: PropTypes.object.isRequired,
+  films: PropTypes.array.isRequired,
   onFilmClick: PropTypes.func.isRequired,
   onPlayClick: PropTypes.func.isRequired
 };
