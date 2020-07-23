@@ -4,6 +4,8 @@ import FilmList from '../film-list/film-list.jsx';
 import FilmDescription from '../film-description/film-description.jsx';
 import withActiveItem from '../../hocks/with-active-item/with-active-item.js';
 import Header from '../header/header.jsx';
+import Footer from '../footer/footer.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const MORE_LIKE_THIS_FILM_COUNT = 4;
 
@@ -18,6 +20,8 @@ const FilmListWrapped = withActiveItem(FilmList, `films`);
 
 const FilmPage = (props) => {
   const {
+    authorizationStatus,
+    currentYear,
     film,
     films,
     onFilmClick,
@@ -43,7 +47,13 @@ const FilmPage = (props) => {
             <img src={background} alt={title} />
           </div>
 
-          {<Header />}
+          {<Header classNameModifier={`movie-card`}>
+            <div className="user-block">
+
+              {authorizationStatus === AuthorizationStatus.AUTH ? <div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div> : <a href="sign-in.html" className="user-block__link">Sign in</a>}
+
+            </div>
+          </Header>}
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -98,25 +108,15 @@ const FilmPage = (props) => {
 
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer year={currentYear}/>
       </div>
     </React.Fragment>
   );
 };
 
 FilmPage.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  currentYear: PropTypes.number.isRequired,
   film: PropTypes.object.isRequired,
   films: PropTypes.array.isRequired,
   onFilmClick: PropTypes.func.isRequired,

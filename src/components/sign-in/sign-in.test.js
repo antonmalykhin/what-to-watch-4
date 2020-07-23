@@ -1,13 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Header from './header.jsx';
+import SignIn from './sign-in';
 
 
-it(`Header render`, () => {
+it(`SignIn render correctly`, () => {
   const tree = renderer.create(
-      <Header classNameModifier={`user-page`}>
-        <div />
-      </Header>
+      <SignIn
+        onSubmit={() => {}}
+      />
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -4,6 +4,7 @@ const FILM_COUNT_ON_START = 8;
 const INCREMENT_FILM_COUNT = 8;
 
 const InitialState = {
+  currentYear: 0,
   showedFilms: FILM_COUNT_ON_START,
   currentFilm: {},
   playingFilm: {},
@@ -15,7 +16,8 @@ export const ActionType = {
   CHANGE_CURRENT_FILM: `CHANGE_CURRENT_FILM`,
   FILTER_FILMS: `FILTER_FILMS`,
   OPEN_MAIN_PLAYER: `OPEN_MAIN_PLAYER`,
-  CLOSE_MAIN_PLAYER: `CLOSE_MAIN_PLAYER`
+  CLOSE_MAIN_PLAYER: `CLOSE_MAIN_PLAYER`,
+  GET_CURRENT_YEAR: `GET_CURRENT_YEAR`
 };
 
 export const ActionCreator = {
@@ -60,6 +62,13 @@ export const ActionCreator = {
       payload: {}
     };
   },
+
+  getCurrentYear: (year) => {
+    return {
+      type: ActionType.GET_CURRENT_YEAR,
+      payload: year
+    };
+  }
 };
 
 export const reducer = (state = InitialState, action) => {
@@ -88,6 +97,17 @@ export const reducer = (state = InitialState, action) => {
       return extend(state, {
         playingFilm: action.payload
       });
+    case ActionType.GET_CURRENT_YEAR:
+      return extend(state, {
+        currentYear: action.payload
+      });
   }
   return state;
+};
+
+export const Operation = {
+  getCurrentYear: () => (dispatch) => {
+    const year = new Date().getFullYear();
+    dispatch(ActionCreator.getCurrentYear(year));
+  }
 };
