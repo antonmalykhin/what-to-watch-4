@@ -210,6 +210,8 @@ it(`Should FilmPage render correctly`, () => {
   const tree = renderer
     .create(
         <FilmPage
+          authorizationStatus={`AUTH`}
+          currentYear={2020}
           film={film}
           films={films}
           onFilmClick={() => { }}

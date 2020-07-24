@@ -13,3 +13,7 @@ export const getCurrentFilm = (state) => {
 export const getPlayingFilm = (state) => {
   return state[NAME_SPACE].playingFilm;
 };
+
+export const getCurrentYear = (state) => {
+  return state[NAME_SPACE].currentYear;
+};

@@ -248,10 +248,13 @@ it(`Render App`, () => {
             promoFilm={promoFilm}
             currentFilm={currentFilm}
             playingFilm={currentFilm}
+            currentYear={2020}
+            authorizationStatus={`AUTH`}
             onFilmClick={() => { }}
             onFilmCardClick={() => { }}
             onPlayButtonClick={() => { }}
             onExitButtonClick={() => { }}
+            login={() => {}}
           />
         </Provider>, {
           createNodeMock: () => {

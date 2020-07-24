@@ -1,13 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Header from './header.jsx';
+import Footer from './footer';
 
-
-it(`Header render`, () => {
+it(`Footer render correctly`, () => {
   const tree = renderer.create(
-      <Header classNameModifier={`user-page`}>
-        <div />
-      </Header>
+      <Footer year={2020}/>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

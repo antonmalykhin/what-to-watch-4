@@ -7,11 +7,14 @@ import ShowMoreButton from '../show-more-button/show-more-button.jsx';
 import withActiveItem from '../../hocks/with-active-item/with-active-item.js';
 import FilmCard from '../film-card/film-card.jsx';
 import Header from '../header/header.jsx';
+import Footer from '../footer/footer.jsx';
 import LoadingMessage from '../loading-message/loading-message.jsx';
 import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
 import {ActionCreator as DataActionCreator} from '../../reducer/data/data.js';
 import {getShowedFilms} from '../../reducer/app/selectors.js';
 import {getFilterItems, getActiveFilter} from '../../reducer/data/selectors.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+
 
 const SHOWED_FILM_COUNT = 8;
 
@@ -21,10 +24,13 @@ const FilmListWrapped = withActiveItem(FilmList, `films`);
 class Main extends PureComponent {
   constructor(props) {
     super(props);
+
   }
 
   render() {
     const {
+      authorizationStatus,
+      currentYear,
       films,
       promoFilm,
       filterItems,
@@ -46,7 +52,13 @@ class Main extends PureComponent {
           promoFilm={promoFilm}
           onPlayClick={onPlayClick}
         >
-          <Header />
+          <Header classNameModifier={`movie-card`}>
+            <div className="user-block">
+
+              {authorizationStatus === AuthorizationStatus.AUTH ? <div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div> : <a href="sign-in.html" className="user-block__link">Sign in</a>}
+
+            </div>
+          </Header>
         </FilmCard>
 
 
@@ -74,18 +86,7 @@ class Main extends PureComponent {
             />}
           </section> : <LoadingMessage />}
 
-          <footer className="page-footer">
-            <div className="logo">
-              <a className="logo__link logo__link--light">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-            <div className="copyright">
-              <p>© 2019 What to watch Ltd.</p>
-            </div>
-          </footer>
+          <Footer year={currentYear} />
         </div>
       </React.Fragment>
     );
@@ -98,6 +99,8 @@ Main.propTypes = {
   onShowMoreButtonClick: PropTypes.func.isRequired,
   promoFilm: PropTypes.object.isRequired,
   films: PropTypes.array.isRequired,
+  currentYear: PropTypes.number.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
   onFilmClick: PropTypes.func.isRequired,
   filterItems: PropTypes.array.isRequired,
   onFilterButtonClick: PropTypes.func.isRequired,
