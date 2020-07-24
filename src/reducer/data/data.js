@@ -2,7 +2,6 @@ import {extend} from '../../utils.js';
 import {filmAdapter, filmsAdapter} from '../../adapters/film-adapter.js';
 import {getFilterItems} from '../../utils.js';
 import {FIRST_FILTER_ELEMENT_NAME} from '../../const';
-import app from '../../components/app/app.jsx';
 
 const InitialState = {
   activeFilter: FIRST_FILTER_ELEMENT_NAME,

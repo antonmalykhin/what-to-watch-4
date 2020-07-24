@@ -14,8 +14,12 @@ import {getCurrentFilm, getPlayingFilm, getCurrentYear} from '../../reducer/app/
 import {getFilteredFilms, getPromoFilm} from '../../reducer/data/selectors.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
+import {Operation as DataOperation} from '../../reducer/data/data.js';
+
+import withSetRating from '../../hocks/with-set-rating/with-set-rating.js';
 
 const MainVideoPlayerWrapped = withActiveMainPlayer(MainVideoPlayer);
+const AddReviewWrapped = withSetRating(AddReview);
 
 class App extends PureComponent {
   constructor(props) {
@@ -92,7 +96,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {login} = this.props;
+    const {login, postReview} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -103,7 +107,9 @@ class App extends PureComponent {
             <SignIn onSubmit={login}/>
           </Route>
           <Route exact path="/dev-add-review">
-            <AddReview filmID={42}/>
+            <AddReviewWrapped
+              filmID={13}
+              onSubmit={postReview}/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -121,7 +127,8 @@ App.propTypes = {
   onFilmCardClick: PropTypes.func.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   onExitButtonClick: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  postReview: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -148,6 +155,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   login(authData) {
     dispatch(UserOperation.login(authData));
+  },
+  postReview(filmID, postData) {
+    dispatch(DataOperation.postComment(filmID, postData));
   }
 });
 
