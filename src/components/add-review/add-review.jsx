@@ -1,40 +1,34 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Header from '../header/header.jsx';
+import Star from '../star/star.jsx';
 
+const RATING_STAR_COUNT = 5;
+const STARTING_INPUT_VALUE = 1;
 
 class AddReview extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.rating = React.createRef();
-    this.review = React.createRef();
+    this.stars = React.createRef();
+    this.comment = React.createRef();
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleCheck = this.handleCheck.bind(this);
-
-    this.state = {
-      rating: `3`,
-      review: ``
-    };
   }
 
   handleSubmit(evt) {
+    const {filmID, onSubmit, rating} = this.props;
+
     evt.preventDefault();
 
-    const review = this.review.current;
-    this.setState({review: review.value});
-    console.log(this.state);
-    console.log(this.state);
-  }
-
-  handleCheck(evt) {
-
-    this.setState({rating: evt.target.value});
+    onSubmit(filmID, {
+      rating,
+      comment: this.comment.current.value
+    });
   }
 
   render() {
-    const {filmID} = this.props;
+    const {onRatingCheck, rating} = this.props;
 
     return (
       <section className="movie-card movie-card--full">
@@ -72,26 +66,22 @@ class AddReview extends PureComponent {
         <div className="add-review">
           <form action="#" className="add-review__form" onSubmit={this.handleSubmit}>
             <div className="rating">
-              <div className="rating__stars" ref={this.rating}>
-                <input className="rating__input" id="star-1" type="radio" name="rating" value="1" onChange={this.handleCheck} />
-                <label className="rating__label" htmlFor="star-1">Rating 1</label>
+              <div className="rating__stars" ref={this.stars} >
 
-                <input className="rating__input" id="star-2" type="radio" name="rating" value="2" onChange={this.handleCheck} />
-                <label className="rating__label" htmlFor="star-2">Rating 2</label>
-
-                <input className="rating__input" id="star-3" type="radio" name="rating" value="3" onChange={this.handleCheck} />
-                <label className="rating__label" htmlFor="star-3">Rating 3</label>
-
-                <input className="rating__input" id="star-4" type="radio" name="rating" value="4" onChange={this.handleCheck} />
-                <label className="rating__label" htmlFor="star-4">Rating 4</label>
-
-                <input className="rating__input" id="star-5" type="radio" name="rating" value="5" onChange={this.handleCheck} />
-                <label className="rating__label" htmlFor="star-5">Rating 5</label>
+                {new Array(RATING_STAR_COUNT)
+                    .fill()
+                    .map((it, index) => {
+                      const shiftedIndex = index + STARTING_INPUT_VALUE;
+                      return (
+                        <Star key={`key-${shiftedIndex}`} ratingValue={shiftedIndex} onRatingCheck={onRatingCheck} isChecked={shiftedIndex === rating} />
+                      );
+                    })
+                }
               </div>
             </div>
 
             <div className="add-review__text">
-              <textarea className="add-review__textarea" name="review-text" id="review-text" minLength="50" maxLength="400" placeholder="Review text" ref={this.review}></textarea>
+              <textarea className="add-review__textarea" name="review-text" id="review-text" minLength="50" maxLength="400" placeholder="Review text" ref={this.comment} required></textarea>
 
               <div className="add-review__submit">
                 <button className="add-review__btn" type="submit" >Post</button>
@@ -107,7 +97,10 @@ class AddReview extends PureComponent {
 }
 
 AddReview.propTypes = {
-  filmID: PropTypes.number.isRequired
+  filmID: PropTypes.number.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  rating: PropTypes.number.isRequired,
+  onRatingCheck: PropTypes.func.isRequired
 };
 
 export default AddReview;
