@@ -255,6 +255,9 @@ it(`Render App`, () => {
             onPlayButtonClick={() => { }}
             onExitButtonClick={() => { }}
             login={() => {}}
+            postReview={() => {}}
+            isCommentSend={true}
+            resetWarning={() => {}}
           />
         </Provider>, {
           createNodeMock: () => {

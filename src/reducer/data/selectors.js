@@ -20,6 +20,10 @@ export const getFilterItems = (state) => {
   return state[NAME_SPACE].filters;
 };
 
+export const getIsCommentSend = (state) => {
+  return state[NAME_SPACE].isCommentSend;
+};
+
 export const getFilteredFilms = createSelector(
     getFilms,
     getActiveFilter,

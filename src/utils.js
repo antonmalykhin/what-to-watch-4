@@ -57,3 +57,17 @@ export const getFilterItems = (films) => {
 
   return uniqueGenres;
 };
+
+export const getFilmsExcludeFilm = (films, film) => {
+  return [].concat(
+      films.slice(0, films.indexOf(film)),
+      films.slice(films.indexOf(film) + 1, films.length)
+  );
+};
+
+export const getLikeThisFilms = (films, genre, count) => {
+  return films
+    .slice()
+    .filter((it) => it.genre === genre)
+    .slice(0, count);
+};

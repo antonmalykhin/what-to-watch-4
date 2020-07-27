@@ -6,15 +6,21 @@ import {isEmptyObject} from '../../utils.js';
 import Main from '../main/main.jsx';
 import FilmPage from '../film-page/film-page.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
+import AddReview from '../add-review/add-review.jsx';
 import MainVideoPlayer from '../main-video-player/main-video-player.jsx';
 import withActiveMainPlayer from '../../hocks/with-active-main-player/with-active-main-player.js';
 import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
+import {ActionCreator as DataActionCreator} from '../../reducer/data/data.js';
 import {getCurrentFilm, getPlayingFilm, getCurrentYear} from '../../reducer/app/selectors.js';
-import {getFilteredFilms, getPromoFilm} from '../../reducer/data/selectors.js';
+import {getFilteredFilms, getPromoFilm, getIsCommentSend} from '../../reducer/data/selectors.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
+import {Operation as DataOperation} from '../../reducer/data/data.js';
+
+import withSetRating from '../../hocks/with-set-rating/with-set-rating.js';
 
 const MainVideoPlayerWrapped = withActiveMainPlayer(MainVideoPlayer);
+const AddReviewWrapped = withSetRating(AddReview);
 
 class App extends PureComponent {
   constructor(props) {
@@ -35,6 +41,7 @@ class App extends PureComponent {
       onExitButtonClick,
       login
     } = this.props;
+
     if (authorizationStatus === AuthorizationStatus.AUTH) {
       if (isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
         return (
@@ -90,7 +97,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {login} = this.props;
+    const {login, postReview, isCommentSend, resetWarning} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -99,6 +106,13 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-sign-in">
             <SignIn onSubmit={login}/>
+          </Route>
+          <Route exact path="/dev-add-review">
+            <AddReviewWrapped
+              filmID={43}
+              resetWarning={resetWarning}
+              isCommentSend={isCommentSend}
+              onSubmit={postReview}/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -116,7 +130,10 @@ App.propTypes = {
   onFilmCardClick: PropTypes.func.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   onExitButtonClick: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  postReview: PropTypes.func.isRequired,
+  isCommentSend: PropTypes.bool.isRequired,
+  resetWarning: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -125,7 +142,8 @@ const mapStateToProps = (state) => ({
   currentFilm: getCurrentFilm(state),
   playingFilm: getPlayingFilm(state),
   currentYear: getCurrentYear(state),
-  authorizationStatus: getAuthorizationStatus(state)
+  authorizationStatus: getAuthorizationStatus(state),
+  isCommentSend: getIsCommentSend(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -143,6 +161,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   login(authData) {
     dispatch(UserOperation.login(authData));
+  },
+  postReview(filmID, disableForm, postData) {
+    dispatch(DataOperation.postComment(filmID, disableForm, postData));
+  },
+  resetWarning() {
+    dispatch(DataActionCreator.sendComment(true));
   }
 });
 

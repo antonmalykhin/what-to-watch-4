@@ -7,14 +7,16 @@ const InitialState = {
   activeFilter: FIRST_FILTER_ELEMENT_NAME,
   filters: [],
   films: [],
-  promoFilm: {}
+  promoFilm: {},
+  isCommentSend: true
 };
 
 export const ActionType = {
   CHANGE_GENRE_FILTER: `CHANGE_GENRE_FILTER`,
   LOAD_FILTERS: `LOAD_FILTERS`,
   LOAD_FILMS: `LOAD_FILMS`,
-  LOAD_PROMO_FILM: `LOAD_PROMO_FILM`
+  LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
+  IS_COMMENT_SEND: `IS_COMMENT_SEND`
 };
 
 export const ActionCreator = {
@@ -44,6 +46,13 @@ export const ActionCreator = {
       type: ActionType.LOAD_PROMO_FILM,
       payload: film
     };
+  },
+
+  sendComment: (value) => {
+    return {
+      type: ActionType.IS_COMMENT_SEND,
+      payload: value
+    };
   }
 };
 
@@ -71,6 +80,21 @@ export const Operation = {
       .catch((error) => {
         throw error;
       });
+  },
+
+  postComment: (filmID, disableForm, postData) => (dispatch, getState, api) => {
+    return api.post(`/comments/${filmID}`, {
+      rating: postData.rating,
+      comment: postData.comment
+    })
+    .then(() => {
+      disableForm(false);
+    })
+      .catch((error) => {
+        dispatch(ActionCreator.sendComment(false));
+        disableForm(false);
+        throw error;
+      });
   }
 };
 
@@ -95,6 +119,10 @@ export const reducer = (state = InitialState, action) => {
     case ActionType.LOAD_FILTERS:
       return extend(state, {
         filters: action.payload
+      });
+    case ActionType.IS_COMMENT_SEND:
+      return extend(state, {
+        isCommentSend: action.payload
       });
   }
   return state;
