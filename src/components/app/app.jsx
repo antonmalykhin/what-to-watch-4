@@ -10,8 +10,9 @@ import AddReview from '../add-review/add-review.jsx';
 import MainVideoPlayer from '../main-video-player/main-video-player.jsx';
 import withActiveMainPlayer from '../../hocks/with-active-main-player/with-active-main-player.js';
 import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
+import {ActionCreator as DataActionCreator} from '../../reducer/data/data.js';
 import {getCurrentFilm, getPlayingFilm, getCurrentYear} from '../../reducer/app/selectors.js';
-import {getFilteredFilms, getPromoFilm} from '../../reducer/data/selectors.js';
+import {getFilteredFilms, getPromoFilm, getIsCommentSend} from '../../reducer/data/selectors.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
@@ -96,7 +97,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {login, postReview} = this.props;
+    const {login, postReview, isCommentSend, resetWarning} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -108,7 +109,9 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-add-review">
             <AddReviewWrapped
-              filmID={13}
+              filmID={43}
+              resetWarning={resetWarning}
+              isCommentSend={isCommentSend}
               onSubmit={postReview}/>
           </Route>
         </Switch>
@@ -128,7 +131,9 @@ App.propTypes = {
   onPlayButtonClick: PropTypes.func.isRequired,
   onExitButtonClick: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
-  postReview: PropTypes.func.isRequired
+  postReview: PropTypes.func.isRequired,
+  isCommentSend: PropTypes.bool.isRequired,
+  resetWarning: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -137,7 +142,8 @@ const mapStateToProps = (state) => ({
   currentFilm: getCurrentFilm(state),
   playingFilm: getPlayingFilm(state),
   currentYear: getCurrentYear(state),
-  authorizationStatus: getAuthorizationStatus(state)
+  authorizationStatus: getAuthorizationStatus(state),
+  isCommentSend: getIsCommentSend(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -156,8 +162,11 @@ const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(UserOperation.login(authData));
   },
-  postReview(filmID, postData) {
-    dispatch(DataOperation.postComment(filmID, postData));
+  postReview(filmID, disableForm, postData) {
+    dispatch(DataOperation.postComment(filmID, disableForm, postData));
+  },
+  resetWarning() {
+    dispatch(DataActionCreator.sendComment(true));
   }
 });
 
