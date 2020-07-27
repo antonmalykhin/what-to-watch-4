@@ -5,6 +5,10 @@ import Star from '../star/star.jsx';
 
 const RATING_STAR_COUNT = 5;
 const STARTING_INPUT_VALUE = 1;
+const Comment = {
+  MIN_LENGTH: 50,
+  MAX_LENGTH: 400
+};
 
 class AddReview extends PureComponent {
   constructor(props) {
@@ -12,8 +16,10 @@ class AddReview extends PureComponent {
 
     this.stars = React.createRef();
     this.comment = React.createRef();
+    this.form = React.createRef();
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFormDisable = this.handleFormDisable.bind(this);
   }
 
   handleSubmit(evt) {
@@ -21,14 +27,30 @@ class AddReview extends PureComponent {
 
     evt.preventDefault();
 
-    onSubmit(filmID, {
+    onSubmit(filmID, this.handleFormDisable, {
       rating,
       comment: this.comment.current.value
     });
   }
 
+  handleFormDisable(status) {
+    const form = this.form.current;
+
+    const inputs = form.querySelectorAll(`input`);
+    const textarea = form.querySelector(`textarea`);
+    const button = form.querySelector(`button`);
+
+    inputs.forEach((it) => {
+      it.disabled = status;
+    });
+    textarea.disabled = status;
+    button.disabled = status;
+
+    form.style = `opacity: ${status ? 0.5 : 1}`;
+  }
+
   render() {
-    const {onRatingCheck, rating} = this.props;
+    const {onRatingCheck, rating, isCommentSend, resetWarning} = this.props;
 
     return (
       <section className="movie-card movie-card--full">
@@ -64,7 +86,15 @@ class AddReview extends PureComponent {
         </div>
 
         <div className="add-review">
-          <form action="#" className="add-review__form" onSubmit={this.handleSubmit}>
+          <form
+            ref={this.form}
+            action="#"
+            className="add-review__form"
+            onSubmit={(evt) => {
+              this.handleSubmit(evt);
+              this.handleFormDisable(true);
+            }}
+          >
             <div className="rating">
               <div className="rating__stars" ref={this.stars} >
 
@@ -81,14 +111,26 @@ class AddReview extends PureComponent {
             </div>
 
             <div className="add-review__text">
-              <textarea className="add-review__textarea" name="review-text" id="review-text" minLength="50" maxLength="400" placeholder="Review text" ref={this.comment} required></textarea>
+              <textarea
+                className="add-review__textarea"
+                name="review-text"
+                id="review-text"
+                minLength={Comment.MIN_LENGTH}
+                maxLength={Comment.MAX_LENGTH}
+                placeholder="Review text"
+                ref={this.comment}
+                onInput={() => resetWarning()}
+                required
+              ></textarea>
 
               <div className="add-review__submit">
                 <button className="add-review__btn" type="submit" >Post</button>
               </div>
-
             </div>
           </form>
+
+          {!isCommentSend ? <p>Review has not been sent. Try again.</p> : null}
+
         </div>
 
       </section>
@@ -100,7 +142,9 @@ AddReview.propTypes = {
   filmID: PropTypes.number.isRequired,
   onSubmit: PropTypes.func.isRequired,
   rating: PropTypes.number.isRequired,
-  onRatingCheck: PropTypes.func.isRequired
+  onRatingCheck: PropTypes.func.isRequired,
+  isCommentSend: PropTypes.bool.isRequired,
+  resetWarning: PropTypes.func.isRequired
 };
 
 export default AddReview;

@@ -9,6 +9,8 @@ it(`AddReview render correctly`, () => {
         onSubmit={() => {}}
         rating={3}
         onRatingCheck={() => {}}
+        isCommentSend={true}
+        resetWarning={() => {}}
       />
   ).toJSON();
 

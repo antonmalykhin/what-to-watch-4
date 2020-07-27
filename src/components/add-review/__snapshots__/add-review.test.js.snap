@@ -206,9 +206,10 @@ exports[`AddReview render correctly 1`] = `
         <textarea
           className="add-review__textarea"
           id="review-text"
-          maxLength="400"
-          minLength="50"
+          maxLength={400}
+          minLength={50}
           name="review-text"
+          onInput={[Function]}
           placeholder="Review text"
           required={true}
         />
