@@ -286,7 +286,8 @@ describe(`Reducer changes the state correctly`, () => {
       activeFilter: `All genres`,
       filters: [],
       films: [],
-      promoFilm: {}
+      promoFilm: {},
+      isCommentSend: true
     });
   });
 
@@ -295,7 +296,8 @@ describe(`Reducer changes the state correctly`, () => {
       activeFilter: `All genres`,
       filters: [],
       films: [],
-      promoFilm: {}
+      promoFilm: {},
+      isCommentSend: true
     }, {
       type: ActionType.LOAD_FILMS,
       payload: films
@@ -303,7 +305,8 @@ describe(`Reducer changes the state correctly`, () => {
       activeFilter: `All genres`,
       filters: [],
       films,
-      promoFilm: {}
+      promoFilm: {},
+      isCommentSend: true
     });
   });
 
@@ -312,7 +315,8 @@ describe(`Reducer changes the state correctly`, () => {
       activeFilter: `All genres`,
       filters: [],
       films: [],
-      promoFilm: {}
+      promoFilm: {},
+      isCommentSend: true
     }, {
       type: ActionType.LOAD_PROMO_FILM,
       payload: promoFilm
@@ -320,7 +324,8 @@ describe(`Reducer changes the state correctly`, () => {
       activeFilter: `All genres`,
       filters: [],
       films: [],
-      promoFilm
+      promoFilm,
+      isCommentSend: true
     });
   });
 
@@ -329,7 +334,8 @@ describe(`Reducer changes the state correctly`, () => {
       activeFilter: `All genres`,
       filters: [],
       films: [],
-      promoFilm: {}
+      promoFilm: {},
+      isCommentSend: true
     }, {
       type: ActionType.LOAD_FILTERS,
       payload: filters
@@ -337,7 +343,8 @@ describe(`Reducer changes the state correctly`, () => {
       activeFilter: `All genres`,
       filters,
       films: [],
-      promoFilm: {}
+      promoFilm: {},
+      isCommentSend: true
     });
   });
 
@@ -346,7 +353,8 @@ describe(`Reducer changes the state correctly`, () => {
       activeFilter: `All genres`,
       filters: [],
       films: [],
-      promoFilm: {}
+      promoFilm: {},
+      isCommentSend: true
     }, {
       type: ActionType.CHANGE_GENRE_FILTER,
       payload: `Comedy`
@@ -354,7 +362,8 @@ describe(`Reducer changes the state correctly`, () => {
       activeFilter: `Comedy`,
       filters: [],
       films: [],
-      promoFilm: {}
+      promoFilm: {},
+      isCommentSend: true
     });
   });
 });
@@ -385,6 +394,13 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.changeGenreFilter(`Comedy`)).toEqual({
       type: ActionType.CHANGE_GENRE_FILTER,
       payload: `Comedy`
+    });
+  });
+
+  it(`Action creator for change isCommentSend field returns correct action`, () => {
+    expect(ActionCreator.sendComment(true)).toEqual({
+      type: ActionType.IS_COMMENT_SEND,
+      payload: true
     });
   });
 });

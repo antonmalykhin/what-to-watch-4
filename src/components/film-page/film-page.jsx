@@ -6,6 +6,7 @@ import withActiveItem from '../../hocks/with-active-item/with-active-item.js';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {getFilmsExcludeFilm, getLikeThisFilms} from '../../utils.js';
 
 const MORE_LIKE_THIS_FILM_COUNT = 4;
 
@@ -36,7 +37,8 @@ const FilmPage = (props) => {
     poster
   } = film;
 
-  const moreLikeThisFilms = films.slice(0, MORE_LIKE_THIS_FILM_COUNT);
+  const moreLikeThisFilms = getLikeThisFilms(films, genre, MORE_LIKE_THIS_FILM_COUNT);
+  const filmsExcludeCurrentFilm = getFilmsExcludeFilm(moreLikeThisFilms, film);
 
   return (
 
@@ -76,7 +78,8 @@ const FilmPage = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                {authorizationStatus === AuthorizationStatus.AUTH ? <a href="add-review.html" className="btn movie-card__button">Add review</a> : ``}
+
               </div>
             </div>
           </div>
@@ -102,7 +105,7 @@ const FilmPage = (props) => {
           <h2 className="catalog__title">More like this</h2>
 
           {<FilmListWrapped
-            films={moreLikeThisFilms}
+            films={filmsExcludeCurrentFilm}
             onFilmClick={onFilmClick}
           />}
 
