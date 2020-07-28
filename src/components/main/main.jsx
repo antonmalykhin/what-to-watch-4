@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import FilmList from '../film-list/film-list.jsx';
 import Filter from '../filter/filter.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
@@ -14,6 +15,7 @@ import {ActionCreator as DataActionCreator} from '../../reducer/data/data.js';
 import {getShowedFilms} from '../../reducer/app/selectors.js';
 import {getFilterItems, getActiveFilter} from '../../reducer/data/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AppRoute} from '../../const.js';
 
 
 const SHOWED_FILM_COUNT = 8;
@@ -55,7 +57,7 @@ class Main extends PureComponent {
           <Header classNameModifier={`movie-card`}>
             <div className="user-block">
 
-              {authorizationStatus === AuthorizationStatus.AUTH ? <div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div> : <a href="sign-in.html" className="user-block__link">Sign in</a>}
+              {authorizationStatus === AuthorizationStatus.AUTH ? <div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div> : <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>}
 
             </div>
           </Header>
