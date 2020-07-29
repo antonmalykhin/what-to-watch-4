@@ -2,7 +2,6 @@ import React, {PureComponent} from 'react';
 import {Router, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {isEmptyObject} from '../../utils.js';
 import Main from '../main/main.jsx';
 import FilmPage from '../film-page/film-page.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
@@ -30,7 +29,7 @@ class App extends PureComponent {
 
   }
 
-  _renderApp() {
+  render() {
     const {
       films,
       promoFilm,
@@ -42,76 +41,78 @@ class App extends PureComponent {
       onPlayButtonClick,
       onExitButtonClick,
       addPromoToFavorites,
-      addFilmToFavorites
+      addFilmToFavorites,
+      login,
+      postReview,
+      isCommentSend,
+      resetWarning
     } = this.props;
 
-    if (isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
-      return (
-        <Main
-          authorizationStatus={authorizationStatus}
-          currentYear={currentYear}
-          promoFilm={promoFilm}
-          films={films}
-          onFilmClick={(film) => {
-            onFilmCardClick(film);
-          }}
-          onPlayClick={(film) => {
-            onPlayButtonClick(film);
-          }}
-          addPromoToFavorites={addPromoToFavorites}
-        />
-      );
-    }
-
-    if (!isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
-      return (
-        <FilmPage
-          authorizationStatus={authorizationStatus}
-          currentYear={currentYear}
-          film={currentFilm}
-          films={films}
-          onFilmClick={(film) => {
-            onFilmCardClick(film);
-          }}
-          onPlayClick={(film) => {
-            onPlayButtonClick(film);
-          }}
-          addFilmToFavorites={addFilmToFavorites}
-        />
-      );
-    }
-
-    if (!isEmptyObject(playingFilm)) {
-      return (
-        <MainVideoPlayerWrapped
-          film={playingFilm}
-          onExitClick={() => {
-            onExitButtonClick();
-          }}
-        />
-      );
-    }
-    return null;
-  }
-
-  render() {
-    const {login, postReview, isCommentSend, resetWarning} = this.props;
     return (
       <Router history={history}>
         <Switch>
           <Route exact path={AppRoute.ROOT}>
-            {this._renderApp()}
+            <Main
+              authorizationStatus={authorizationStatus}
+              currentYear={currentYear}
+              promoFilm={promoFilm}
+              films={films}
+              onFilmClick={(film) => {
+                onFilmCardClick(film);
+              }}
+              onPlayClick={(film) => {
+                onPlayButtonClick(film);
+              }}
+              addPromoToFavorites={addPromoToFavorites}
+            />
           </Route>
           <Route exact path={AppRoute.LOGIN}>
             <SignIn onSubmit={login}/>
           </Route>
-          <Route exact path={AppRoute.REVIEW}>
-            <AddReviewWrapped
-              filmID={43}
-              resetWarning={resetWarning}
-              isCommentSend={isCommentSend}
-              onSubmit={postReview}/>
-          </Route>
+          <Route exact path={`${AppRoute.FILMS}/:id`}
+            render={() => {
+              return (
+                <FilmPage
+                  authorizationStatus={authorizationStatus}
+                  currentYear={currentYear}
+                  film={currentFilm}
+                  films={films}
+                  onFilmClick={(film) => {
+                    onFilmCardClick(film);
+                  }}
+                  onPlayClick={(film) => {
+                    onPlayButtonClick(film);
+                  }}
+                  addFilmToFavorites={addFilmToFavorites}
+                />
+              );
+            }}
+          />
+          <Route exact path={`${AppRoute.FILMS}/:id${AppRoute.REVIEW}`}
+            render={() => {
+              return (
+                <AddReviewWrapped
+                  film={currentFilm}
+                  onSubmit={postReview}
+                  isCommentSend={isCommentSend}
+                  resetWarning={resetWarning}
+                />
+              );
+            }}
+          />
+          <Route exact path={`${AppRoute.FILMS}/:id${AppRoute.PLAYER}`}
+            render={() => {
+              return (
+                <MainVideoPlayerWrapped
+                  film={playingFilm}
+                  onExitClick={() => {
+                    history.goBack();
+                    onExitButtonClick();
+                  }}
+                />
+              );
+            }}
+          />
         </Switch>
       </Router>
     );
