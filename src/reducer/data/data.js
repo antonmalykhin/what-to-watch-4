@@ -8,6 +8,7 @@ const InitialState = {
   filters: [],
   films: [],
   promoFilm: {},
+  comments: [],
   isCommentSend: true
 };
 
@@ -16,7 +17,8 @@ export const ActionType = {
   LOAD_FILTERS: `LOAD_FILTERS`,
   LOAD_FILMS: `LOAD_FILMS`,
   LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
-  IS_COMMENT_SEND: `IS_COMMENT_SEND`
+  IS_COMMENT_SEND: `IS_COMMENT_SEND`,
+  LOAD_COMMENTS: `LOAD_COMMENTS`
 };
 
 export const ActionCreator = {
@@ -53,6 +55,13 @@ export const ActionCreator = {
       type: ActionType.IS_COMMENT_SEND,
       payload: value
     };
+  },
+
+  loadComments: (comments) => {
+    return {
+      type: ActionType.LOAD_COMMENTS,
+      payload: comments
+    };
   }
 };
 
@@ -88,6 +97,16 @@ export const Operation = {
       .then((response) => {
         const film = filmAdapter(response.data);
         dispatch(ActionCreator.loadPromoFilm(film));
+      })
+      .catch((error) => {
+        throw error;
+      });
+  },
+
+  loadComments: (filmID) => (dispatch, getState, api) => {
+    return api.get(`/comments/${filmID}`)
+      .then((response) => {
+        dispatch(ActionCreator.loadComments(response.data));
       })
       .catch((error) => {
         throw error;
@@ -135,6 +154,10 @@ export const reducer = (state = InitialState, action) => {
     case ActionType.IS_COMMENT_SEND:
       return extend(state, {
         isCommentSend: action.payload
+      });
+    case ActionType.LOAD_COMMENTS:
+      return extend(state, {
+        comments: action.payload
       });
   }
   return state;
