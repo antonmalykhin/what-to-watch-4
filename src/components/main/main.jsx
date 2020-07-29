@@ -42,7 +42,8 @@ class Main extends PureComponent {
       onFilterButtonClick,
       resetShowedFilms,
       onFilmClick,
-      onPlayClick
+      onPlayClick,
+      addPromoToFavorites
     } = this.props;
 
     let showedFilms = films.slice(0, showedFilmCount);
@@ -53,11 +54,12 @@ class Main extends PureComponent {
         <FilmCard
           promoFilm={promoFilm}
           onPlayClick={onPlayClick}
+          addPromoToFavorites={addPromoToFavorites}
         >
           <Header classNameModifier={`movie-card`}>
             <div className="user-block">
 
-              {authorizationStatus === AuthorizationStatus.AUTH ? <div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div> : <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>}
+              {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={AppRoute.MY_LIST}><div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div></Link> : <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>}
 
             </div>
           </Header>
@@ -107,7 +109,8 @@ Main.propTypes = {
   filterItems: PropTypes.array.isRequired,
   onFilterButtonClick: PropTypes.func.isRequired,
   onPlayClick: PropTypes.func.isRequired,
-  resetShowedFilms: PropTypes.func.isRequired
+  resetShowedFilms: PropTypes.func.isRequired,
+  addPromoToFavorites: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {

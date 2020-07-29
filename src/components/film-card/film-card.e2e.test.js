@@ -40,6 +40,7 @@ it(`Should play button click`, () => {
       <FilmCard
         promoFilm={promoFilm}
         onPlayClick={onPlayButtonClick}
+        addPromoToFavorites={() => {}}
       >
         {children}
       </FilmCard>
@@ -48,3 +49,20 @@ it(`Should play button click`, () => {
   filmCard.find(`.btn--play`).simulate(`click`);
   expect(onPlayButtonClick).toHaveBeenCalledTimes(1);
 });
+
+it(`Should add to list button click`, () => {
+  const addPromoList = jest.fn();
+  const filmCard = mount(
+      <FilmCard
+        promoFilm={promoFilm}
+        onPlayClick={() => {}}
+        addPromoToFavorites={addPromoList}
+      >
+        {children}
+      </FilmCard>
+  );
+
+  filmCard.find(`.btn--list`).simulate(`click`);
+  expect(addPromoList).toHaveBeenCalledTimes(1);
+});
+

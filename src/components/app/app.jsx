@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Router, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {isEmptyObject} from '../../utils.js';
@@ -14,10 +14,12 @@ import {ActionCreator as DataActionCreator} from '../../reducer/data/data.js';
 import {getCurrentFilm, getPlayingFilm, getCurrentYear} from '../../reducer/app/selectors.js';
 import {getFilteredFilms, getPromoFilm, getIsCommentSend} from '../../reducer/data/selectors.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
-import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
+import {Operation as UserOperation} from '../../reducer/user/user.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
-
+import {Operation as AppOperation} from '../../reducer/app/app.js';
+import history from '../../history';
 import withSetRating from '../../hocks/with-set-rating/with-set-rating.js';
+import {AppRoute} from '../../const.js';
 
 const MainVideoPlayerWrapped = withActiveMainPlayer(MainVideoPlayer);
 const AddReviewWrapped = withSetRating(AddReview);
@@ -39,75 +41,71 @@ class App extends PureComponent {
       onFilmCardClick,
       onPlayButtonClick,
       onExitButtonClick,
-      login
+      addPromoToFavorites,
+      addFilmToFavorites
     } = this.props;
 
-    if (authorizationStatus === AuthorizationStatus.AUTH) {
-      if (isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
-        return (
-          <Main
-            authorizationStatus={authorizationStatus}
-            currentYear={currentYear}
-            promoFilm={promoFilm}
-            films={films}
-            onFilmClick={(film) => {
-              onFilmCardClick(film);
-            }}
-            onPlayClick={(film) => {
-              onPlayButtonClick(film);
-            }}
-          />
-        );
-      }
-
-      if (!isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
-        return (
-          <FilmPage
-            authorizationStatus={authorizationStatus}
-            currentYear={currentYear}
-            film={currentFilm}
-            films={films}
-            onFilmClick={(film) => {
-              onFilmCardClick(film);
-            }}
-            onPlayClick={(film) => {
-              onPlayButtonClick(film);
-            }}
-          />
-        );
-      }
-
-      if (!isEmptyObject(playingFilm)) {
-        return (
-          <MainVideoPlayerWrapped
-            film={playingFilm}
-            onExitClick={() => {
-              onExitButtonClick();
-            }}
-          />
-        );
-      }
-    } else if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+    if (isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
       return (
-        <SignIn onSubmit={login} />
+        <Main
+          authorizationStatus={authorizationStatus}
+          currentYear={currentYear}
+          promoFilm={promoFilm}
+          films={films}
+          onFilmClick={(film) => {
+            onFilmCardClick(film);
+          }}
+          onPlayClick={(film) => {
+            onPlayButtonClick(film);
+          }}
+          addPromoToFavorites={addPromoToFavorites}
+        />
       );
     }
 
+    if (!isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
+      return (
+        <FilmPage
+          authorizationStatus={authorizationStatus}
+          currentYear={currentYear}
+          film={currentFilm}
+          films={films}
+          onFilmClick={(film) => {
+            onFilmCardClick(film);
+          }}
+          onPlayClick={(film) => {
+            onPlayButtonClick(film);
+          }}
+          addFilmToFavorites={addFilmToFavorites}
+        />
+      );
+    }
+
+    if (!isEmptyObject(playingFilm)) {
+      return (
+        <MainVideoPlayerWrapped
+          film={playingFilm}
+          onExitClick={() => {
+            onExitButtonClick();
+          }}
+        />
+      );
+    }
     return null;
   }
 
   render() {
     const {login, postReview, isCommentSend, resetWarning} = this.props;
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
-          <Route exact path="/">
+          <Route exact path={AppRoute.ROOT}>
             {this._renderApp()}
           </Route>
-          <Route exact path="/dev-sign-in">
+          <Route exact path={AppRoute.LOGIN}>
             <SignIn onSubmit={login}/>
           </Route>
-          <Route exact path="/dev-add-review">
+          <Route exact path={AppRoute.REVIEW}>
             <AddReviewWrapped
               filmID={43}
               resetWarning={resetWarning}
@@ -115,7 +113,7 @@ class App extends PureComponent {
               onSubmit={postReview}/>
           </Route>
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
@@ -133,7 +131,9 @@ App.propTypes = {
   login: PropTypes.func.isRequired,
   postReview: PropTypes.func.isRequired,
   isCommentSend: PropTypes.bool.isRequired,
-  resetWarning: PropTypes.func.isRequired
+  resetWarning: PropTypes.func.isRequired,
+  addFilmToFavorites: PropTypes.func.isRequired,
+  addPromoToFavorites: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -167,6 +167,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   resetWarning() {
     dispatch(DataActionCreator.sendComment(true));
+  },
+  addFilmToFavorites(filmID, data) {
+    dispatch(AppOperation.addToFavorites(filmID, data));
+  },
+  addPromoToFavorites(filmID, data) {
+    dispatch(DataOperation.addPromoToFavorites(filmID, data));
   }
 });
 

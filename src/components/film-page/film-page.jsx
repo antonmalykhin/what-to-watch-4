@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 import FilmList from '../film-list/film-list.jsx';
 import FilmDescription from '../film-description/film-description.jsx';
 import withActiveItem from '../../hocks/with-active-item/with-active-item.js';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {getFilmsExcludeFilm, getLikeThisFilms} from '../../utils.js';
+import {getLikeThisFilms} from '../../utils.js';
+import {AppRoute} from '../../const.js';
 
 const MORE_LIKE_THIS_FILM_COUNT = 4;
 
@@ -26,24 +28,33 @@ const FilmPage = (props) => {
     film,
     films,
     onFilmClick,
-    onPlayClick
+    onPlayClick,
+    addFilmToFavorites
   } = props;
 
   const {
+    id,
+    backgroundColor,
     background,
     title,
     genre,
     release,
-    poster
+    poster,
+    isFavorite
   } = film;
 
-  const moreLikeThisFilms = getLikeThisFilms(films, genre, MORE_LIKE_THIS_FILM_COUNT);
-  const filmsExcludeCurrentFilm = getFilmsExcludeFilm(moreLikeThisFilms, film);
+  const moreLikeThisFilms = getLikeThisFilms(films, film, MORE_LIKE_THIS_FILM_COUNT);
 
   return (
 
     <React.Fragment>
-      <section className="movie-card movie-card--full">
+      <section className="movie-card movie-card--full"
+        style={
+          {
+            backgroundColor
+          }
+        }
+      >
         <div className="movie-card__hero">
           <div className="movie-card__bg">
             <img src={background} alt={title} />
@@ -52,7 +63,7 @@ const FilmPage = (props) => {
           {<Header classNameModifier={`movie-card`}>
             <div className="user-block">
 
-              {authorizationStatus === AuthorizationStatus.AUTH ? <div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div> : <a href="sign-in.html" className="user-block__link">Sign in</a>}
+              {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={AppRoute.MY_LIST}><div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div></Link> : <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>}
 
             </div>
           </Header>}
@@ -72,13 +83,17 @@ const FilmPage = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
+
+                <button className="btn btn--list movie-card__button" type="button"
+                  onClick={() => addFilmToFavorites(id, !isFavorite)}
+                >
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
+                    <use xlinkHref={`#${isFavorite ? `in-list` : `add`}`}></use>
                   </svg>
                   <span>My list</span>
                 </button>
-                {authorizationStatus === AuthorizationStatus.AUTH ? <a href="add-review.html" className="btn movie-card__button">Add review</a> : ``}
+
+                {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={AppRoute.REVIEW} className="btn movie-card__button">Add review</Link> : ``}
 
               </div>
             </div>
@@ -105,7 +120,7 @@ const FilmPage = (props) => {
           <h2 className="catalog__title">More like this</h2>
 
           {<FilmListWrapped
-            films={filmsExcludeCurrentFilm}
+            films={moreLikeThisFilms}
             onFilmClick={onFilmClick}
           />}
 
@@ -123,7 +138,8 @@ FilmPage.propTypes = {
   film: PropTypes.object.isRequired,
   films: PropTypes.array.isRequired,
   onFilmClick: PropTypes.func.isRequired,
-  onPlayClick: PropTypes.func.isRequired
+  onPlayClick: PropTypes.func.isRequired,
+  addFilmToFavorites: PropTypes.func.isRequired
 };
 
 export default FilmPage;

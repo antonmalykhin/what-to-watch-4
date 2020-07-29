@@ -258,6 +258,8 @@ it(`Render App`, () => {
             postReview={() => {}}
             isCommentSend={true}
             resetWarning={() => {}}
+            addFilmToFavorites={() => {}}
+            addPromoToFavorites={() => {}}
           />
         </Provider>, {
           createNodeMock: () => {

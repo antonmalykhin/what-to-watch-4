@@ -1,6 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {Main} from './main.jsx';
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
 
 const films = [
   {
@@ -221,23 +223,26 @@ const filterItem = [
 it(`Should Main render correctly`, () => {
   const tree = renderer
     .create(
-        <Main
-          authorizationStatus={`AUTH`}
-          currentYear={2020}
-          showedFilmCount={8}
-          activeFilterItem={`All genres`}
-          onShowMoreButtonClick={()=>{}}
-          promoFilm={promoFilm}
-          films={films}
-          onFilmClick={() => {}}
-          filterItems={filterItem}
-          onFilterButtonClick={() => {}}
-          onPlayClick={() => {}}
-          resetShowedFilms={() => {}}
-          duration={99}
-          progress={0}
-          isPlaying={false}
-        />, {
+        <Router history={history}>
+          <Main
+            authorizationStatus={`AUTH`}
+            currentYear={2020}
+            showedFilmCount={8}
+            activeFilterItem={`All genres`}
+            onShowMoreButtonClick={()=>{}}
+            promoFilm={promoFilm}
+            films={films}
+            onFilmClick={() => {}}
+            filterItems={filterItem}
+            onFilterButtonClick={() => {}}
+            onPlayClick={() => {}}
+            resetShowedFilms={() => {}}
+            duration={99}
+            progress={0}
+            isPlaying={false}
+            addPromoToFavorites={() => {}}
+          />
+        </Router>, {
           createNodeMock: () => {
             return {};
           }

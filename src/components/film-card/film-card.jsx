@@ -5,16 +5,26 @@ const FilmCard = (props) => {
   const {
     children,
     promoFilm,
-    onPlayClick
+    onPlayClick,
+    addPromoToFavorites
   } = props;
 
+  const {
+    id,
+    isFavorite,
+    title,
+    genre,
+    release,
+    background,
+    poster
+  } = promoFilm;
 
   return (
     <section className="movie-card">
       <div className="movie-card__bg">
         <img
-          src={promoFilm.background}
-          alt={promoFilm.title}
+          src={background}
+          alt={title}
         />
       </div>
 
@@ -24,18 +34,18 @@ const FilmCard = (props) => {
         <div className="movie-card__info">
           <div className="movie-card__poster">
             <img
-              src={promoFilm.poster}
-              alt={promoFilm.title}
+              src={poster}
+              alt={title}
               width="218"
               height="327"
             />
           </div>
 
           <div className="movie-card__desc">
-            <h2 className="movie-card__title">{promoFilm.title}</h2>
+            <h2 className="movie-card__title">{title}</h2>
             <p className="movie-card__meta">
-              <span className="movie-card__genre">{promoFilm.genre}</span>
-              <span className="movie-card__year">{promoFilm.release}</span>
+              <span className="movie-card__genre">{genre}</span>
+              <span className="movie-card__year">{release}</span>
             </p>
 
             <div className="movie-card__buttons">
@@ -45,12 +55,16 @@ const FilmCard = (props) => {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
+
+              <button className="btn btn--list movie-card__button" type="button"
+                onClick={() => addPromoToFavorites(id, !isFavorite)}
+              >
                 <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
+                  <use xlinkHref={`#${isFavorite ? `in-list` : `add`}`}></use>
                 </svg>
                 <span>My list</span>
               </button>
+
             </div>
           </div>
         </div>
@@ -77,7 +91,8 @@ FilmCard.propTypes = {
       })
     })
   ]),
-  onPlayClick: PropTypes.func.isRequired
+  onPlayClick: PropTypes.func.isRequired,
+  addPromoToFavorites: PropTypes.func.isRequired
 };
 
 export default FilmCard;
