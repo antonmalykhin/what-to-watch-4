@@ -9,7 +9,8 @@ const FilmList = (props) => {
   const {
     films,
     onFilmClick,
-    onActiveItemChange
+    onActiveItemChange,
+    loadComments
   } = props;
 
   return (
@@ -18,6 +19,7 @@ const FilmList = (props) => {
         <SmallFilmCardWrapped
           key={film.id}
           onFilmClick={onFilmClick}
+          loadComments={loadComments}
           onFilmMouseOver={() => {
             onActiveItemChange(film);
           }}
@@ -31,6 +33,7 @@ FilmList.propTypes = {
   films: PropTypes.array.isRequired,
   onFilmClick: PropTypes.func.isRequired,
   onActiveItemChange: PropTypes.func.isRequired,
+  loadComments: PropTypes.func.isRequired
 };
 
 export default FilmList;

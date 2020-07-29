@@ -43,7 +43,8 @@ class Main extends PureComponent {
       resetShowedFilms,
       onFilmClick,
       onPlayClick,
-      addPromoToFavorites
+      addPromoToFavorites,
+      loadComments
     } = this.props;
 
     let showedFilms = films.slice(0, showedFilmCount);
@@ -81,6 +82,7 @@ class Main extends PureComponent {
             {<FilmListWrapped
               films={showedFilms}
               onFilmClick={onFilmClick}
+              loadComments={loadComments}
             />}
 
             {(showedFilms.length === films.length || showedFilms.length < SHOWED_FILM_COUNT) ? null : <ShowMoreButton
@@ -110,7 +112,8 @@ Main.propTypes = {
   onFilterButtonClick: PropTypes.func.isRequired,
   onPlayClick: PropTypes.func.isRequired,
   resetShowedFilms: PropTypes.func.isRequired,
-  addPromoToFavorites: PropTypes.func.isRequired
+  addPromoToFavorites: PropTypes.func.isRequired,
+  loadComments: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {

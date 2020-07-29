@@ -30,7 +30,9 @@ const FilmPage = (props) => {
     films,
     onFilmClick,
     onPlayClick,
-    addFilmToFavorites
+    addFilmToFavorites,
+    comments,
+    loadComments
   } = props;
 
   const {
@@ -115,6 +117,7 @@ const FilmPage = (props) => {
             {<FilmDescriptionWrapped
               tabs={TABS}
               film={film}
+              comments={comments}
             />}
 
           </div>
@@ -128,6 +131,7 @@ const FilmPage = (props) => {
           {<FilmListWrapped
             films={moreLikeThisFilms}
             onFilmClick={onFilmClick}
+            loadComments={loadComments}
           />}
 
         </section>
@@ -145,7 +149,9 @@ FilmPage.propTypes = {
   films: PropTypes.array.isRequired,
   onFilmClick: PropTypes.func.isRequired,
   onPlayClick: PropTypes.func.isRequired,
-  addFilmToFavorites: PropTypes.func.isRequired
+  addFilmToFavorites: PropTypes.func.isRequired,
+  comments: PropTypes.array.isRequired,
+  loadComments: PropTypes.func.isRequired
 };
 
 export default FilmPage;
