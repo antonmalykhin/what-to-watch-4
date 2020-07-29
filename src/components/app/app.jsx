@@ -11,7 +11,7 @@ import withActiveMainPlayer from '../../hocks/with-active-main-player/with-activ
 import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
 import {ActionCreator as DataActionCreator} from '../../reducer/data/data.js';
 import {getCurrentFilm, getPlayingFilm, getCurrentYear} from '../../reducer/app/selectors.js';
-import {getFilteredFilms, getPromoFilm, getIsCommentSend} from '../../reducer/data/selectors.js';
+import {getFilteredFilms, getPromoFilm, getIsCommentSend, getComments} from '../../reducer/data/selectors.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import {Operation as UserOperation} from '../../reducer/user/user.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
@@ -45,7 +45,9 @@ class App extends PureComponent {
       login,
       postReview,
       isCommentSend,
-      resetWarning
+      resetWarning,
+      comments,
+      loadComments
     } = this.props;
 
     return (
@@ -57,12 +59,9 @@ class App extends PureComponent {
               currentYear={currentYear}
               promoFilm={promoFilm}
               films={films}
-              onFilmClick={(film) => {
-                onFilmCardClick(film);
-              }}
-              onPlayClick={(film) => {
-                onPlayButtonClick(film);
-              }}
+              onFilmClick={onFilmCardClick}
+              onPlayClick={onPlayButtonClick}
+              loadComments={loadComments}
               addPromoToFavorites={addPromoToFavorites}
             />
           </Route>
@@ -77,13 +76,11 @@ class App extends PureComponent {
                   currentYear={currentYear}
                   film={currentFilm}
                   films={films}
-                  onFilmClick={(film) => {
-                    onFilmCardClick(film);
-                  }}
-                  onPlayClick={(film) => {
-                    onPlayButtonClick(film);
-                  }}
+                  onFilmClick={(film) => onFilmCardClick(film)}
+                  onPlayClick={onPlayButtonClick}
                   addFilmToFavorites={addFilmToFavorites}
+                  loadComments={loadComments}
+                  comments={comments}
                 />
               );
             }}
@@ -134,7 +131,9 @@ App.propTypes = {
   isCommentSend: PropTypes.bool.isRequired,
   resetWarning: PropTypes.func.isRequired,
   addFilmToFavorites: PropTypes.func.isRequired,
-  addPromoToFavorites: PropTypes.func.isRequired
+  addPromoToFavorites: PropTypes.func.isRequired,
+  comments: PropTypes.array.isRequired,
+  loadComments: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -144,6 +143,7 @@ const mapStateToProps = (state) => ({
   playingFilm: getPlayingFilm(state),
   currentYear: getCurrentYear(state),
   authorizationStatus: getAuthorizationStatus(state),
+  comments: getComments(state),
   isCommentSend: getIsCommentSend(state)
 });
 
@@ -174,6 +174,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   addPromoToFavorites(filmID, data) {
     dispatch(DataOperation.addPromoToFavorites(filmID, data));
+  },
+  loadComments(filmID) {
+    dispatch(DataOperation.loadComments(filmID));
   }
 });
 
