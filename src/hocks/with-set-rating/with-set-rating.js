@@ -31,7 +31,7 @@ const withSetRating = (Component) => {
   }
 
   WithSetRating.propTypes = {
-    filmID: PropTypes.number.isRequired,
+    film: PropTypes.object.isRequired,
     onSubmit: PropTypes.func.isRequired
   };
 

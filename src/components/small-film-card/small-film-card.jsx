@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import VideoPlayer from '../video-player/video-player.jsx';
+import history from '../../history.js';
+import {AppRoute} from '../../const.js';
 
 const filmPreviewSettings = {
   WIDTH: 280,
@@ -20,6 +22,7 @@ const SmallFilmCard = (props) => {
   } = props;
 
   const {
+    id,
     title,
     image,
     preview
@@ -35,7 +38,10 @@ const SmallFilmCard = (props) => {
 
       <div
         className="small-movie-card__image"
-        onClick={() => onFilmClick(film)}
+        onClick={() => {
+          onFilmClick(film);
+          history.push(`${AppRoute.FILMS}/${id}`);
+        }}
         onMouseOver={() => onPlayVideo()}
         onMouseOut={() => onStopVideo()}
       >
@@ -55,6 +61,7 @@ const SmallFilmCard = (props) => {
           onClick={(evt) => {
             evt.preventDefault();
             onFilmClick(film);
+            history.push(`${AppRoute.FILMS}/${id}`);
           }}>
           {title}
         </a>

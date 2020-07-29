@@ -9,6 +9,7 @@ import Footer from '../footer/footer.jsx';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {getLikeThisFilms} from '../../utils.js';
 import {AppRoute} from '../../const.js';
+import history from '../../history.js';
 
 const MORE_LIKE_THIS_FILM_COUNT = 4;
 
@@ -63,7 +64,7 @@ const FilmPage = (props) => {
           {<Header classNameModifier={`movie-card`}>
             <div className="user-block">
 
-              {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={AppRoute.MY_LIST}><div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div></Link> : <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>}
+              {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={AppRoute.MY_LIST}><div className="user-block__avatar"><img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" /></div></Link> : <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>}
 
             </div>
           </Header>}
@@ -77,7 +78,12 @@ const FilmPage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button" onClick={() => onPlayClick(film)}>
+                <button className="btn btn--play movie-card__button" type="button"
+                  onClick={() => {
+                    onPlayClick(film);
+                    history.push(`${AppRoute.FILMS}/${id}${AppRoute.PLAYER}`);
+                  }}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -93,7 +99,7 @@ const FilmPage = (props) => {
                   <span>My list</span>
                 </button>
 
-                {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={AppRoute.REVIEW} className="btn movie-card__button">Add review</Link> : ``}
+                {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={`${AppRoute.FILMS}/${id}${AppRoute.REVIEW}`} className="btn movie-card__button">Add review</Link> : ``}
 
               </div>
             </div>

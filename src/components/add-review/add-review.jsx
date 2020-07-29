@@ -2,6 +2,9 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Header from '../header/header.jsx';
 import Star from '../star/star.jsx';
+import history from '../../history';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const.js';
 
 const RATING_STAR_COUNT = 5;
 const STARTING_INPUT_VALUE = 1;
@@ -23,11 +26,12 @@ class AddReview extends PureComponent {
   }
 
   handleSubmit(evt) {
-    const {filmID, onSubmit, rating} = this.props;
+    const {film, onSubmit, rating} = this.props;
+    const {id} = film;
 
     evt.preventDefault();
 
-    onSubmit(filmID, this.handleFormDisable, {
+    onSubmit(id, this.handleFormDisable, {
       rating,
       comment: this.comment.current.value
     });
@@ -50,13 +54,25 @@ class AddReview extends PureComponent {
   }
 
   render() {
-    const {onRatingCheck, rating, isCommentSend, resetWarning} = this.props;
+    const {
+      film,
+      onRatingCheck,
+      rating,
+      isCommentSend,
+      resetWarning
+    } = this.props;
+
+    const {
+      title,
+      background,
+      poster
+    } = film;
 
     return (
       <section className="movie-card movie-card--full">
         <div className="movie-card__header">
           <div className="movie-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img src={background} alt={title} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -65,7 +81,12 @@ class AddReview extends PureComponent {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <a href="movie-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                  <a href="movie-page.html" className="breadcrumbs__link"
+                    onClick={(evt) => {
+                      evt.preventDefault();
+                      history.goBack();
+                    }}
+                  >{title}</a>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>
@@ -75,13 +96,15 @@ class AddReview extends PureComponent {
 
             <div className="user-block">
               <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                <Link to={AppRoute.MY_LIST}>
+                  <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                </Link>
               </div>
             </div>
           </Header>
 
           <div className="movie-card__poster movie-card__poster--small">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+            <img src={poster} alt={title} width="218" height="327" />
           </div>
         </div>
 
@@ -139,7 +162,7 @@ class AddReview extends PureComponent {
 }
 
 AddReview.propTypes = {
-  filmID: PropTypes.number.isRequired,
+  film: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
   rating: PropTypes.number.isRequired,
   onRatingCheck: PropTypes.func.isRequired,
