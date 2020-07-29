@@ -1,3 +1,5 @@
+import {MONTHS} from './const';
+
 export const isEmptyObject = (object) => {
   return Object.keys(object).length === 0;
 };
@@ -64,4 +66,8 @@ export const getLikeThisFilms = (films, film, count) => {
     .filter((it) => it.genre === film.genre)
     .filter((it) => it.id !== film.id)
     .slice(0, count);
+};
+
+export const getFormattedDate = (date) => {
+  return `${MONTHS[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 };
