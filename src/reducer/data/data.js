@@ -82,6 +82,18 @@ export const Operation = {
       });
   },
 
+  addPromoToFavorites: (filmID, data) => (dispatch, getState, api) => {
+    const adaptedData = +data;
+    return api.post(`/favorite/${filmID}/${adaptedData}`, {})
+      .then((response) => {
+        const film = filmAdapter(response.data);
+        dispatch(ActionCreator.loadPromoFilm(film));
+      })
+      .catch((error) => {
+        throw error;
+      });
+  },
+
   postComment: (filmID, disableForm, postData) => (dispatch, getState, api) => {
     return api.post(`/comments/${filmID}`, {
       rating: postData.rating,
