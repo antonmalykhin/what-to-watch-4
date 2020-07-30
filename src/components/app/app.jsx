@@ -7,15 +7,15 @@ import FilmPage from '../film-page/film-page.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import AddReview from '../add-review/add-review.jsx';
 import MainVideoPlayer from '../main-video-player/main-video-player.jsx';
+import MyList from '../my-list/my-list.jsx';
 import withActiveMainPlayer from '../../hocks/with-active-main-player/with-active-main-player.js';
 import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
 import {ActionCreator as DataActionCreator} from '../../reducer/data/data.js';
-import {getCurrentFilm, getPlayingFilm, getCurrentYear} from '../../reducer/app/selectors.js';
-import {getFilteredFilms, getPromoFilm, getIsCommentSend, getComments} from '../../reducer/data/selectors.js';
+import {getPlayingFilm, getCurrentYear} from '../../reducer/app/selectors.js';
+import {getFilteredFilms, getPromoFilm, getIsCommentSend, getComments, getFavoriteFilms} from '../../reducer/data/selectors.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import {Operation as UserOperation} from '../../reducer/user/user.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
-import {Operation as AppOperation} from '../../reducer/app/app.js';
 import history from '../../history';
 import withSetRating from '../../hocks/with-set-rating/with-set-rating.js';
 import {AppRoute} from '../../const.js';
@@ -32,22 +32,21 @@ class App extends PureComponent {
   render() {
     const {
       films,
+      favoriteFilms,
       promoFilm,
-      currentFilm,
       playingFilm,
       currentYear,
       authorizationStatus,
-      onFilmCardClick,
       onPlayButtonClick,
       onExitButtonClick,
-      addPromoToFavorites,
       addFilmToFavorites,
       login,
       postReview,
       isCommentSend,
       resetWarning,
       comments,
-      loadComments
+      loadComments,
+      loadFavoriteFilms
     } = this.props;
 
     return (
@@ -58,25 +57,26 @@ class App extends PureComponent {
               authorizationStatus={authorizationStatus}
               currentYear={currentYear}
               promoFilm={promoFilm}
+              favoriteFilms={favoriteFilms}
               films={films}
-              onFilmClick={onFilmCardClick}
               onPlayClick={onPlayButtonClick}
               loadComments={loadComments}
-              addPromoToFavorites={addPromoToFavorites}
+              addPromoToFavorites={addFilmToFavorites}
             />
           </Route>
           <Route exact path={AppRoute.LOGIN}>
             <SignIn onSubmit={login}/>
           </Route>
           <Route exact path={`${AppRoute.FILMS}/:id`}
-            render={() => {
+            render={(props) => {
               return (
                 <FilmPage
+                  {...props}
                   authorizationStatus={authorizationStatus}
                   currentYear={currentYear}
-                  film={currentFilm}
                   films={films}
-                  onFilmClick={(film) => onFilmCardClick(film)}
+                  favoriteFilms={favoriteFilms}
+                  onFilmClick={() => {}}
                   onPlayClick={onPlayButtonClick}
                   addFilmToFavorites={addFilmToFavorites}
                   loadComments={loadComments}
@@ -86,10 +86,11 @@ class App extends PureComponent {
             }}
           />
           <Route exact path={`${AppRoute.FILMS}/:id${AppRoute.REVIEW}`}
-            render={() => {
+            render={(props) => {
               return (
                 <AddReviewWrapped
-                  film={currentFilm}
+                  {...props}
+                  films={films}
                   onSubmit={postReview}
                   isCommentSend={isCommentSend}
                   resetWarning={resetWarning}
@@ -110,6 +111,11 @@ class App extends PureComponent {
               );
             }}
           />
+          <Route exact path={AppRoute.MY_LIST} render = {() => {
+            return (
+              <MyList currentYear={currentYear} favoriteFilms={favoriteFilms} loadFavoriteFilms={loadFavoriteFilms}/>
+            );
+          }} />
         </Switch>
       </Router>
     );
@@ -118,12 +124,11 @@ class App extends PureComponent {
 
 App.propTypes = {
   films: PropTypes.array.isRequired,
+  favoriteFilms: PropTypes.array.isRequired,
   promoFilm: PropTypes.object.isRequired,
-  currentFilm: PropTypes.object.isRequired,
   playingFilm: PropTypes.object.isRequired,
   currentYear: PropTypes.number.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  onFilmCardClick: PropTypes.func.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   onExitButtonClick: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
@@ -131,26 +136,23 @@ App.propTypes = {
   isCommentSend: PropTypes.bool.isRequired,
   resetWarning: PropTypes.func.isRequired,
   addFilmToFavorites: PropTypes.func.isRequired,
-  addPromoToFavorites: PropTypes.func.isRequired,
   comments: PropTypes.array.isRequired,
-  loadComments: PropTypes.func.isRequired
+  loadComments: PropTypes.func.isRequired,
+  loadFavoriteFilms: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   films: getFilteredFilms(state),
+  favoriteFilms: getFavoriteFilms(state),
   promoFilm: getPromoFilm(state),
-  currentFilm: getCurrentFilm(state),
   playingFilm: getPlayingFilm(state),
   currentYear: getCurrentYear(state),
   authorizationStatus: getAuthorizationStatus(state),
   comments: getComments(state),
-  isCommentSend: getIsCommentSend(state)
+  isCommentSend: getIsCommentSend(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onFilmCardClick(film) {
-    dispatch(AppActionCreator.changeCurrentFilm(film));
-  },
   resetShowedFilms() {
     dispatch(AppActionCreator.resetShowedFilmCount());
   },
@@ -170,13 +172,13 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(DataActionCreator.sendComment(true));
   },
   addFilmToFavorites(filmID, data) {
-    dispatch(AppOperation.addToFavorites(filmID, data));
-  },
-  addPromoToFavorites(filmID, data) {
-    dispatch(DataOperation.addPromoToFavorites(filmID, data));
+    dispatch(DataOperation.addToFavorites(filmID, data));
   },
   loadComments(filmID) {
     dispatch(DataOperation.loadComments(filmID));
+  },
+  loadFavoriteFilms() {
+    dispatch(DataOperation.loadFavoriteFilms());
   }
 });
 
