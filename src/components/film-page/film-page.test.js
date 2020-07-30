@@ -1,6 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import FilmPage from './film-page.jsx';
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
 
 const films = [
   {
@@ -209,14 +211,17 @@ const film = {
 it(`Should FilmPage render correctly`, () => {
   const tree = renderer
     .create(
-        <FilmPage
-          authorizationStatus={`AUTH`}
-          currentYear={2020}
-          film={film}
-          films={films}
-          onFilmClick={() => { }}
-          onPlayClick={() => { }}
-        />, {
+        <Router history={history}>
+          <FilmPage
+            authorizationStatus={`AUTH`}
+            currentYear={2020}
+            film={film}
+            films={films}
+            onFilmClick={() => { }}
+            onPlayClick={() => { }}
+            addFilmToFavorites={() => { }}
+          />
+        </Router>, {
           createNodeMock: () => {
             return {};
           }

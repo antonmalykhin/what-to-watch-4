@@ -1,4 +1,5 @@
 import {extend} from '../../utils.js';
+import {filmAdapter} from '../../adapters/film-adapter.js';
 
 const FILM_COUNT_ON_START = 8;
 const INCREMENT_FILM_COUNT = 8;
@@ -106,6 +107,18 @@ export const reducer = (state = InitialState, action) => {
 };
 
 export const Operation = {
+  addToFavorites: (filmID, data) => (dispatch, getState, api) => {
+    const adaptedData = +data;
+    return api.post(`/favorite/${filmID}/${adaptedData}`, {})
+      .then((response) => {
+        const film = filmAdapter(response.data);
+        dispatch(ActionCreator.changeCurrentFilm(film));
+      })
+      .catch((error) => {
+        throw error;
+      });
+  },
+
   getCurrentYear: () => (dispatch) => {
     const year = new Date().getFullYear();
     dispatch(ActionCreator.getCurrentYear(year));

@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import FilmList from '../film-list/film-list.jsx';
 import Filter from '../filter/filter.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
@@ -14,6 +15,7 @@ import {ActionCreator as DataActionCreator} from '../../reducer/data/data.js';
 import {getShowedFilms} from '../../reducer/app/selectors.js';
 import {getFilterItems, getActiveFilter} from '../../reducer/data/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AppRoute} from '../../const.js';
 
 
 const SHOWED_FILM_COUNT = 8;
@@ -40,7 +42,8 @@ class Main extends PureComponent {
       onFilterButtonClick,
       resetShowedFilms,
       onFilmClick,
-      onPlayClick
+      onPlayClick,
+      addPromoToFavorites
     } = this.props;
 
     let showedFilms = films.slice(0, showedFilmCount);
@@ -51,11 +54,12 @@ class Main extends PureComponent {
         <FilmCard
           promoFilm={promoFilm}
           onPlayClick={onPlayClick}
+          addPromoToFavorites={addPromoToFavorites}
         >
           <Header classNameModifier={`movie-card`}>
             <div className="user-block">
 
-              {authorizationStatus === AuthorizationStatus.AUTH ? <div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div> : <a href="sign-in.html" className="user-block__link">Sign in</a>}
+              {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={AppRoute.MY_LIST}><div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div></Link> : <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>}
 
             </div>
           </Header>
@@ -105,7 +109,8 @@ Main.propTypes = {
   filterItems: PropTypes.array.isRequired,
   onFilterButtonClick: PropTypes.func.isRequired,
   onPlayClick: PropTypes.func.isRequired,
-  resetShowedFilms: PropTypes.func.isRequired
+  resetShowedFilms: PropTypes.func.isRequired,
+  addPromoToFavorites: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {

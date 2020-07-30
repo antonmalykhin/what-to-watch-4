@@ -34,6 +34,7 @@ it(`FilmCard render`, () => {
       <FilmCard
         promoFilm={promoFilm}
         onPlayClick={() => {}}
+        addPromoToFavorites={() => {}}
       >
         {children}
       </FilmCard>
