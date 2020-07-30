@@ -16,6 +16,7 @@ class FilmDescription extends PureComponent {
       tabs,
       activeItem,
       film,
+      loadComments,
       comments
     } = this.props;
 
@@ -39,7 +40,7 @@ class FilmDescription extends PureComponent {
         );
       case tabs[2]:
         return (
-          <FilmReviews comments={comments}/>
+          <FilmReviews filmID={film.id} loadComments={loadComments} comments={comments}/>
         );
     }
 
@@ -84,7 +85,8 @@ FilmDescription.propTypes = {
   film: PropTypes.object.isRequired,
   activeItem: PropTypes.string.isRequired,
   onActiveItemChange: PropTypes.func.isRequired,
-  comments: PropTypes.array.isRequired
+  comments: PropTypes.array.isRequired,
+  loadComments: PropTypes.func.isRequired,
 };
 
 export default FilmDescription;
