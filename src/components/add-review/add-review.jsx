@@ -26,8 +26,9 @@ class AddReview extends PureComponent {
   }
 
   handleSubmit(evt) {
-    const {film, onSubmit, rating} = this.props;
-    const {id} = film;
+    const {films, onSubmit, rating, match} = this.props;
+    const currentFilm = films.find((it) => it.id === parseInt(match.params.id, 10));
+    const {id} = currentFilm;
 
     evt.preventDefault();
 
@@ -55,18 +56,25 @@ class AddReview extends PureComponent {
 
   render() {
     const {
-      film,
+      films,
       onRatingCheck,
       rating,
       isCommentSend,
-      resetWarning
+      resetWarning,
+      match
     } = this.props;
+
+    if (films.length === 0) {
+      return <p>Loading...</p>;
+    }
+
+    const currentFilm = films.find((it) => it.id === parseInt(match.params.id, 10));
 
     const {
       title,
       background,
       poster
-    } = film;
+    } = currentFilm;
 
     return (
       <section className="movie-card movie-card--full">
@@ -162,12 +170,13 @@ class AddReview extends PureComponent {
 }
 
 AddReview.propTypes = {
-  film: PropTypes.object.isRequired,
+  films: PropTypes.array.isRequired,
   onSubmit: PropTypes.func.isRequired,
   rating: PropTypes.number.isRequired,
   onRatingCheck: PropTypes.func.isRequired,
   isCommentSend: PropTypes.bool.isRequired,
-  resetWarning: PropTypes.func.isRequired
+  resetWarning: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired
 };
 
 export default AddReview;
