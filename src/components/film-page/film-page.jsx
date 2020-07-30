@@ -26,14 +26,20 @@ const FilmPage = (props) => {
   const {
     authorizationStatus,
     currentYear,
-    film,
     films,
-    onFilmClick,
+    favoriteFilms,
     onPlayClick,
     addFilmToFavorites,
     comments,
-    loadComments
+    loadComments,
+    match
   } = props;
+
+  if (films.length === 0) {
+    return <p>Loading...</p>;
+  }
+
+  const currentFilm = films.find((it) => it.id === parseInt(match.params.id, 10));
 
   const {
     id,
@@ -43,13 +49,13 @@ const FilmPage = (props) => {
     genre,
     release,
     poster,
-    isFavorite
-  } = film;
+  } = currentFilm;
 
-  const moreLikeThisFilms = getLikeThisFilms(films, film, MORE_LIKE_THIS_FILM_COUNT);
+  const inFavorite = !favoriteFilms.find((it) => it.id === id);
+
+  const moreLikeThisFilms = getLikeThisFilms(films, currentFilm, MORE_LIKE_THIS_FILM_COUNT);
 
   return (
-
     <React.Fragment>
       <section className="movie-card movie-card--full"
         style={
@@ -82,7 +88,7 @@ const FilmPage = (props) => {
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button"
                   onClick={() => {
-                    onPlayClick(film);
+                    onPlayClick(currentFilm);
                     history.push(`${AppRoute.FILMS}/${id}${AppRoute.PLAYER}`);
                   }}
                 >
@@ -93,10 +99,10 @@ const FilmPage = (props) => {
                 </button>
 
                 <button className="btn btn--list movie-card__button" type="button"
-                  onClick={() => addFilmToFavorites(id, !isFavorite)}
+                  onClick={() => addFilmToFavorites(id, inFavorite)}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref={`#${isFavorite ? `in-list` : `add`}`}></use>
+                    <use xlinkHref={`#${inFavorite ? `in-list` : `add`}`}></use>
                   </svg>
                   <span>My list</span>
                 </button>
@@ -116,8 +122,9 @@ const FilmPage = (props) => {
 
             {<FilmDescriptionWrapped
               tabs={TABS}
-              film={film}
+              film={currentFilm}
               comments={comments}
+              loadComments={loadComments}
             />}
 
           </div>
@@ -130,7 +137,6 @@ const FilmPage = (props) => {
 
           {<FilmListWrapped
             films={moreLikeThisFilms}
-            onFilmClick={onFilmClick}
             loadComments={loadComments}
           />}
 
@@ -145,13 +151,13 @@ const FilmPage = (props) => {
 FilmPage.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   currentYear: PropTypes.number.isRequired,
-  film: PropTypes.object.isRequired,
   films: PropTypes.array.isRequired,
-  onFilmClick: PropTypes.func.isRequired,
+  favoriteFilms: PropTypes.array.isRequired,
   onPlayClick: PropTypes.func.isRequired,
   addFilmToFavorites: PropTypes.func.isRequired,
   comments: PropTypes.array.isRequired,
-  loadComments: PropTypes.func.isRequired
+  loadComments: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 export default FilmPage;
