@@ -1,95 +1,543 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Render App 1`] = `
-<div
-  className="player"
->
-  <video
-    className="player__video"
-  />
-  <button
-    className="player__exit"
-    onClick={[Function]}
-    type="button"
-  >
-    Exit
-  </button>
-  <div
-    className="player__controls"
+Array [
+  <section
+    className="movie-card"
   >
     <div
-      className="player__controls-row"
+      className="movie-card__bg"
+    >
+      <img
+        alt="Snatch"
+        src="img/bg-snatch.jpg"
+      />
+    </div>
+    <h1
+      className="visually-hidden"
+    >
+      WTW
+    </h1>
+    <header
+      className="page-header movie-card__head"
     >
       <div
-        className="player__time"
+        className="logo"
       >
-        <progress
-          className="player__progress"
-          max={0}
-          value={0}
-        />
-        <div
-          className="player__toggler"
-          style={
-            Object {
-              "left": "NaN%",
-            }
-          }
+        <a
+          className="logo__link"
+          href="/"
+          onClick={[Function]}
         >
-          Toggler
+          <span
+            className="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            className="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            className="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <div
+        className="user-block"
+      >
+        <a
+          href="/mylist"
+          onClick={[Function]}
+        >
+          <div
+            className="user-block__avatar"
+          >
+            <img
+              alt="User avatar"
+              height="63"
+              src="img/avatar.jpg"
+              width="63"
+            />
+          </div>
+        </a>
+      </div>
+    </header>
+    <div
+      className="movie-card__wrap"
+    >
+      <div
+        className="movie-card__info"
+      >
+        <div
+          className="movie-card__poster"
+        >
+          <img
+            alt="Snatch"
+            height="327"
+            src="img/snatch-poster.jpg"
+            width="218"
+          />
+        </div>
+        <div
+          className="movie-card__desc"
+        >
+          <h2
+            className="movie-card__title"
+          >
+            Snatch
+          </h2>
+          <p
+            className="movie-card__meta"
+          >
+            <span
+              className="movie-card__genre"
+            >
+              Comedy
+            </span>
+            <span
+              className="movie-card__year"
+            >
+              2000
+            </span>
+          </p>
+          <div
+            className="movie-card__buttons"
+          >
+            <button
+              className="btn btn--play movie-card__button"
+              onClick={[Function]}
+              type="button"
+            >
+              <svg
+                height="19"
+                viewBox="0 0 19 19"
+                width="19"
+              >
+                <use
+                  xlinkHref="#play-s"
+                />
+              </svg>
+              <span>
+                Play
+              </span>
+            </button>
+            <button
+              className="btn btn--list movie-card__button"
+              onClick={[Function]}
+              type="button"
+            >
+              <svg
+                height="20"
+                viewBox="0 0 19 20"
+                width="19"
+              >
+                <use
+                  xlinkHref="#add"
+                />
+              </svg>
+              <span>
+                My list
+              </span>
+            </button>
+          </div>
         </div>
       </div>
-      <div
-        className="player__time-value"
-      >
-        0:00:00
-      </div>
     </div>
-    <div
-      className="player__controls-row"
+  </section>,
+  <div
+    className="page-content"
+  >
+    <section
+      className="catalog"
     >
-      <button
-        className="player__play"
-        onClick={[Function]}
-        type="button"
+      <h2
+        className="catalog__title visually-hidden"
       >
-        <svg
-          height="19"
-          viewBox="0 0 19 19"
-          width="19"
+        Catalog
+      </h2>
+      <ul
+        className="catalog__genres-list"
+      >
+        <li
+          className="catalog__genres-item catalog__genres-item--active"
         >
-          <use
-            xlinkHref="#play-s"
-          />
-        </svg>
-        <span>
-          Play
-        </span>
-      </button>
+          <a
+            className="catalog__genres-link"
+            href="#"
+            onClick={[Function]}
+          >
+            All genres
+          </a>
+        </li>
+        <li
+          className="catalog__genres-item "
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+            onClick={[Function]}
+          >
+            Crime
+          </a>
+        </li>
+        <li
+          className="catalog__genres-item "
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+            onClick={[Function]}
+          >
+            Comedy
+          </a>
+        </li>
+        <li
+          className="catalog__genres-item "
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+            onClick={[Function]}
+          >
+            Drama
+          </a>
+        </li>
+      </ul>
       <div
-        className="player__name"
+        className="catalog__movies-list"
       >
-        Fantastic Beasts: The Crimes of Grindelwald
-      </div>
-      <button
-        className="player__full-screen"
-        onClick={[Function]}
-        type="button"
-      >
-        <svg
-          height="27"
-          viewBox="0 0 27 27"
-          width="27"
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseOver={[Function]}
         >
-          <use
-            xlinkHref="#full-screen"
-          />
-        </svg>
-        <span>
-          Full screen
-        </span>
-      </button>
-    </div>
-  </div>
-</div>
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            <video
+              height={175}
+              loop={true}
+              poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+              width={280}
+            />
+            <img
+              alt="Fantastic Beasts: The Crimes of Grindelwald"
+              height="175"
+              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              Fantastic Beasts: The Crimes of Grindelwald
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseOver={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            <video
+              height={175}
+              loop={true}
+              poster="img/gangs-of-new-york.jpg"
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+              width={280}
+            />
+            <img
+              alt="Gangs of new york"
+              height="175"
+              src="img/gangs-of-new-york.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              Gangs of new york
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseOver={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            <video
+              height={175}
+              loop={true}
+              poster="img/moonrise-kingdom.jpg"
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+              width={280}
+            />
+            <img
+              alt="Moonrise Kingdom"
+              height="175"
+              src="img/moonrise-kingdom.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              Moonrise Kingdom
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseOver={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            <video
+              height={175}
+              loop={true}
+              poster="img/pulp-fiction.jpg"
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+              width={280}
+            />
+            <img
+              alt="Pulp Fiction"
+              height="175"
+              src="img/pulp-fiction.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              Pulp Fiction
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseOver={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            <video
+              height={175}
+              loop={true}
+              poster="img/bronson.jpg"
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+              width={280}
+            />
+            <img
+              alt="Bronson"
+              height="175"
+              src="img/bronson.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              Bronson
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseOver={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            <video
+              height={175}
+              loop={true}
+              poster="img/midnight-special.jpg"
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+              width={280}
+            />
+            <img
+              alt="Midnight Special"
+              height="175"
+              src="img/midnight-special.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              Midnight Special
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseOver={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            <video
+              height={175}
+              loop={true}
+              poster="img/matrix.jpg"
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+              width={280}
+            />
+            <img
+              alt="Matrix"
+              height="175"
+              src="img/matrix.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              Matrix
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseOver={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            <video
+              height={175}
+              loop={true}
+              poster="img/once-upon-a-time-in-america.jpg"
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+              width={280}
+            />
+            <img
+              alt="Once Upon a Time in America"
+              height="175"
+              src="img/once-upon-a-time-in-america.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              Once Upon a Time in America
+            </a>
+          </h3>
+        </article>
+      </div>
+    </section>
+    <footer
+      className="page-footer"
+    >
+      <div
+        className="logo"
+      >
+        <a
+          className="logo__link logo__link--light"
+          href="/"
+          onClick={[Function]}
+        >
+          <span
+            className="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            className="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            className="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <div
+        className="copyright"
+      >
+        <p>
+          © 
+          2020
+           What to watch Ltd.
+        </p>
+      </div>
+    </footer>
+  </div>,
+]
 `;

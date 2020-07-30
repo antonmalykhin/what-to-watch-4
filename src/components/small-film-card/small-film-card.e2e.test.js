@@ -46,6 +46,7 @@ it(`Film data passed to callback when mouse over film card`, () => {
         isPlaying={false}
         onPlayVideo={()=>{}}
         onStopVideo={()=>{}}
+        loadComments={()=>{}}
       />
   );
 
@@ -65,6 +66,7 @@ it(`Film data passed to callback when click on film title`, () => {
         isPlaying={false}
         onPlayVideo={()=>{}}
         onStopVideo={()=>{}}
+        loadComments={()=>{}}
       />
   );
 
@@ -85,6 +87,7 @@ it(`Film data passed to callback when click on film image`, () => {
         isPlaying={false}
         onPlayVideo={()=>{}}
         onStopVideo={()=>{}}
+        loadComments={()=>{}}
       />
   );
 

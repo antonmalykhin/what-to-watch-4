@@ -280,6 +280,28 @@ const filters = [
   `Thriller`
 ];
 
+const comments = [
+  {
+    id: 1,
+    user: {
+      id: 4,
+      name: `Kate Muir`
+    },
+    rating: 8.9,
+    comment: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+    date: `2019-05-08T14:13:56.569Z`
+  }, {
+    id: 2,
+    user: {
+      id: 4,
+      name: `Kate Muir`
+    },
+    rating: 8.9,
+    comment: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+    date: `2019-05-08T14:13:56.569Z`
+  }
+];
+
 describe(`Reducer changes the state correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(void 0, {})).toEqual({
@@ -287,6 +309,7 @@ describe(`Reducer changes the state correctly`, () => {
       filters: [],
       films: [],
       promoFilm: {},
+      comments: [],
       isCommentSend: true
     });
   });
@@ -297,6 +320,7 @@ describe(`Reducer changes the state correctly`, () => {
       filters: [],
       films: [],
       promoFilm: {},
+      comments: [],
       isCommentSend: true
     }, {
       type: ActionType.LOAD_FILMS,
@@ -306,6 +330,7 @@ describe(`Reducer changes the state correctly`, () => {
       filters: [],
       films,
       promoFilm: {},
+      comments: [],
       isCommentSend: true
     });
   });
@@ -316,6 +341,7 @@ describe(`Reducer changes the state correctly`, () => {
       filters: [],
       films: [],
       promoFilm: {},
+      comments: [],
       isCommentSend: true
     }, {
       type: ActionType.LOAD_PROMO_FILM,
@@ -325,6 +351,7 @@ describe(`Reducer changes the state correctly`, () => {
       filters: [],
       films: [],
       promoFilm,
+      comments: [],
       isCommentSend: true
     });
   });
@@ -335,6 +362,7 @@ describe(`Reducer changes the state correctly`, () => {
       filters: [],
       films: [],
       promoFilm: {},
+      comments: [],
       isCommentSend: true
     }, {
       type: ActionType.LOAD_FILTERS,
@@ -344,6 +372,28 @@ describe(`Reducer changes the state correctly`, () => {
       filters,
       films: [],
       promoFilm: {},
+      comments: [],
+      isCommentSend: true
+    });
+  });
+
+  it(`Reducer should update comments by given data`, () => {
+    expect(reducer({
+      activeFilter: `All genres`,
+      filters: [],
+      films: [],
+      promoFilm: {},
+      comments: [],
+      isCommentSend: true
+    }, {
+      type: ActionType.LOAD_COMMENTS,
+      payload: comments
+    })).toEqual({
+      activeFilter: `All genres`,
+      filters: [],
+      films: [],
+      promoFilm: {},
+      comments,
       isCommentSend: true
     });
   });
@@ -354,6 +404,7 @@ describe(`Reducer changes the state correctly`, () => {
       filters: [],
       films: [],
       promoFilm: {},
+      comments: [],
       isCommentSend: true
     }, {
       type: ActionType.CHANGE_GENRE_FILTER,
@@ -363,6 +414,7 @@ describe(`Reducer changes the state correctly`, () => {
       filters: [],
       films: [],
       promoFilm: {},
+      comments: [],
       isCommentSend: true
     });
   });
@@ -394,6 +446,13 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.changeGenreFilter(`Comedy`)).toEqual({
       type: ActionType.CHANGE_GENRE_FILTER,
       payload: `Comedy`
+    });
+  });
+
+  it(`Action creator for loading comments returns correct action`, () => {
+    expect(ActionCreator.loadComments(comments)).toEqual({
+      type: ActionType.LOAD_COMMENTS,
+      payload: comments
     });
   });
 
@@ -438,6 +497,24 @@ describe(`Operation works correctly`, () => {
         expect(dispatch).toHaveBeenCalledWith({
           type: ActionType.LOAD_PROMO_FILM,
           payload: filmAdapter(promoFilmRAW),
+        });
+      });
+  });
+
+  it(`Should make a correct API call to /comments/:film_id`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const commentsLoader = Operation.loadComments(`13`);
+
+    apiMock
+      .onGet(`/comments/13`)
+      .reply(200, comments);
+
+    return commentsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledWith({
+          type: ActionType.LOAD_COMMENTS,
+          payload: comments,
         });
       });
   });

@@ -18,6 +18,7 @@ it(`Should playing`, () => {
         film={{}}
         onFilmClick={()=>{}}
         onFilmMouseOver={()=>{}}
+        loadComments={()=>{}}
       />
   );
 

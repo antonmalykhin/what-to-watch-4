@@ -11,7 +11,7 @@ exports[`AddReview render correctly 1`] = `
       className="movie-card__bg"
     >
       <img
-        alt="The Grand Budapest Hotel"
+        alt="Fantastic Beasts: The Crimes of Grindelwald"
         src="img/bg-the-grand-budapest-hotel.jpg"
       />
     </div>
@@ -65,8 +65,9 @@ exports[`AddReview render correctly 1`] = `
             <a
               className="breadcrumbs__link"
               href="movie-page.html"
+              onClick={[Function]}
             >
-              The Grand Budapest Hotel
+              Fantastic Beasts: The Crimes of Grindelwald
             </a>
           </li>
           <li
@@ -86,12 +87,17 @@ exports[`AddReview render correctly 1`] = `
         <div
           className="user-block__avatar"
         >
-          <img
-            alt="User avatar"
-            height="63"
-            src="img/avatar.jpg"
-            width="63"
-          />
+          <a
+            href="/mylist"
+            onClick={[Function]}
+          >
+            <img
+              alt="User avatar"
+              height="63"
+              src="/img/avatar.jpg"
+              width="63"
+            />
+          </a>
         </div>
       </div>
     </header>
@@ -99,7 +105,7 @@ exports[`AddReview render correctly 1`] = `
       className="movie-card__poster movie-card__poster--small"
     >
       <img
-        alt="The Grand Budapest Hotel poster"
+        alt="Fantastic Beasts: The Crimes of Grindelwald"
         height="327"
         src="img/the-grand-budapest-hotel-poster.jpg"
         width="218"

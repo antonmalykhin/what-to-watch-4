@@ -241,6 +241,7 @@ it(`Should Main render correctly`, () => {
             progress={0}
             isPlaying={false}
             addPromoToFavorites={() => {}}
+            loadComments={() => {}}
           />
         </Router>, {
           createNodeMock: () => {

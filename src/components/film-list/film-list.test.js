@@ -189,6 +189,7 @@ it(`Should FilmList render correctly`, () => {
           films={films}
           onFilmClick={() => {}}
           onActiveItemChange={() => {}}
+          loadComments={() => {}}
         />, {
           createNodeMock: () => {
             return {};

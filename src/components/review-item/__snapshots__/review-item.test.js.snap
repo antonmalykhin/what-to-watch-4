@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReviewItem render correctly 1`] = `
+<div
+  className="review"
+>
+  <blockquote
+    className="review__quote"
+  >
+    <p
+      className="review__text"
+    >
+      This movie is perfect in all its categories: credits, sound track, production, casting, writing, photography, editing, acting, and direction.
+  I was amazed with the freedom of the use of the camera. This movie will change the way movies are made. Slow-mo, stills, black and white, and color were all used to brilliant effect.
+    </p>
+    <footer
+      className="review__details"
+    >
+      <cite
+        className="review__author"
+      >
+        Mollie
+      </cite>
+      <time
+        className="review__date"
+        dateTime="2016-12-20"
+      >
+        June 29, 2020
+      </time>
+    </footer>
+  </blockquote>
+  <div
+    className="review__rating"
+  >
+    5.6
+  </div>
+</div>
+`;
