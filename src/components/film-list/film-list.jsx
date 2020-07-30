@@ -8,7 +8,6 @@ const SmallFilmCardWrapped = withActivePlayer(SmallFilmCard);
 const FilmList = (props) => {
   const {
     films,
-    onFilmClick,
     onActiveItemChange,
     loadComments
   } = props;
@@ -18,7 +17,6 @@ const FilmList = (props) => {
       {films.map((film) => (
         <SmallFilmCardWrapped
           key={film.id}
-          onFilmClick={onFilmClick}
           loadComments={loadComments}
           onFilmMouseOver={() => {
             onActiveItemChange(film);
@@ -31,7 +29,6 @@ const FilmList = (props) => {
 
 FilmList.propTypes = {
   films: PropTypes.array.isRequired,
-  onFilmClick: PropTypes.func.isRequired,
   onActiveItemChange: PropTypes.func.isRequired,
   loadComments: PropTypes.func.isRequired
 };
