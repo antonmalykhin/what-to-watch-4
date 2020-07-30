@@ -28,6 +28,14 @@ export const getComments = (state) => {
   return state[NAME_SPACE].comments;
 };
 
+export const getFavoriteFilms = (state) => {
+  return state[NAME_SPACE].favoriteFilms;
+};
+
+export const getFavoriteFilm = (state) => {
+  return state[NAME_SPACE].favoriteFilm;
+};
+
 export const getFilteredFilms = createSelector(
     getFilms,
     getActiveFilter,

@@ -1,5 +1,4 @@
 import {extend} from '../../utils.js';
-import {filmAdapter} from '../../adapters/film-adapter.js';
 
 const FILM_COUNT_ON_START = 8;
 const INCREMENT_FILM_COUNT = 8;
@@ -7,14 +6,12 @@ const INCREMENT_FILM_COUNT = 8;
 const InitialState = {
   currentYear: 0,
   showedFilms: FILM_COUNT_ON_START,
-  currentFilm: {},
   playingFilm: {},
 };
 
 export const ActionType = {
   INCREMENT_SHOWED_FILM_COUNT: `INCREMENT_SHOWED_FILM_COUNT`,
   RESET_SHOWED_FILM_COUNT: `RESET_SHOWED_FILM_COUNT`,
-  CHANGE_CURRENT_FILM: `CHANGE_CURRENT_FILM`,
   FILTER_FILMS: `FILTER_FILMS`,
   OPEN_MAIN_PLAYER: `OPEN_MAIN_PLAYER`,
   CLOSE_MAIN_PLAYER: `CLOSE_MAIN_PLAYER`,
@@ -33,13 +30,6 @@ export const ActionCreator = {
     return {
       type: ActionType.RESET_SHOWED_FILM_COUNT,
       payload: FILM_COUNT_ON_START
-    };
-  },
-
-  changeCurrentFilm: (film) => {
-    return {
-      type: ActionType.CHANGE_CURRENT_FILM,
-      payload: film
     };
   },
 
@@ -82,10 +72,6 @@ export const reducer = (state = InitialState, action) => {
       return extend(state, {
         showedFilms: action.payload
       });
-    case ActionType.CHANGE_CURRENT_FILM:
-      return extend(state, {
-        currentFilm: action.payload
-      });
     case ActionType.FILTER_FILMS:
       return extend(state, {
         films: action.payload
@@ -107,18 +93,6 @@ export const reducer = (state = InitialState, action) => {
 };
 
 export const Operation = {
-  addToFavorites: (filmID, data) => (dispatch, getState, api) => {
-    const adaptedData = +data;
-    return api.post(`/favorite/${filmID}/${adaptedData}`, {})
-      .then((response) => {
-        const film = filmAdapter(response.data);
-        dispatch(ActionCreator.changeCurrentFilm(film));
-      })
-      .catch((error) => {
-        throw error;
-      });
-  },
-
   getCurrentYear: () => (dispatch) => {
     const year = new Date().getFullYear();
     dispatch(ActionCreator.getCurrentYear(year));
