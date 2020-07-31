@@ -5,11 +5,11 @@ import withActivePlayer from '../../hocks/with-active-player/with-active-player.
 
 const SmallFilmCardWrapped = withActivePlayer(SmallFilmCard);
 
+
 const FilmList = (props) => {
   const {
     films,
     onActiveItemChange,
-    loadComments
   } = props;
 
   return (
@@ -17,7 +17,6 @@ const FilmList = (props) => {
       {films.map((film) => (
         <SmallFilmCardWrapped
           key={film.id}
-          loadComments={loadComments}
           onFilmMouseOver={() => {
             onActiveItemChange(film);
           }}
@@ -29,8 +28,7 @@ const FilmList = (props) => {
 
 FilmList.propTypes = {
   films: PropTypes.array.isRequired,
-  onActiveItemChange: PropTypes.func.isRequired,
-  loadComments: PropTypes.func.isRequired
+  onActiveItemChange: PropTypes.func.isRequired
 };
 
 export default FilmList;

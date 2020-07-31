@@ -27,7 +27,11 @@ const comments = [
 it(`Should FilmReviews render correctly`, () => {
   const tree = renderer
     .create(
-        <FilmReviews comments={comments}/>
+        <FilmReviews
+          filmID={1}
+          loadComments={() => {}}
+          comments={comments}
+        />
     ).toJSON();
 
   expect(tree).toMatchSnapshot();

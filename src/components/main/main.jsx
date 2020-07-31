@@ -42,7 +42,6 @@ class Main extends PureComponent {
       onShowMoreButtonClick,
       onFilterButtonClick,
       resetShowedFilms,
-      onPlayClick,
       addPromoToFavorites,
       loadComments,
     } = this.props;
@@ -56,7 +55,6 @@ class Main extends PureComponent {
         <FilmCard
           favoriteFilms={favoriteFilms}
           promoFilm={promoFilm}
-          onPlayClick={onPlayClick}
           addPromoToFavorites={addPromoToFavorites}
         >
           <Header classNameModifier={`movie-card`}>
@@ -110,7 +108,6 @@ Main.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   filterItems: PropTypes.array.isRequired,
   onFilterButtonClick: PropTypes.func.isRequired,
-  onPlayClick: PropTypes.func.isRequired,
   resetShowedFilms: PropTypes.func.isRequired,
   addPromoToFavorites: PropTypes.func.isRequired,
   loadComments: PropTypes.func.isRequired,

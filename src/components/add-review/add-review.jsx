@@ -4,6 +4,7 @@ import Header from '../header/header.jsx';
 import Star from '../star/star.jsx';
 import history from '../../history';
 import {Link} from 'react-router-dom';
+import {getCurrentFilm} from '../../utils.js';
 import {AppRoute} from '../../const.js';
 
 const RATING_STAR_COUNT = 5;
@@ -21,24 +22,35 @@ class AddReview extends PureComponent {
     this.comment = React.createRef();
     this.form = React.createRef();
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleFormDisable = this.handleFormDisable.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleFormDisable = this._handleFormDisable.bind(this);
   }
 
-  handleSubmit(evt) {
-    const {films, onSubmit, rating, match} = this.props;
-    const currentFilm = films.find((it) => it.id === parseInt(match.params.id, 10));
+  _handleSubmit(evt) {
+    const {
+      films,
+      onSubmit,
+      rating,
+      match,
+      isCommentSend
+    } = this.props;
+
+    const currentFilm = getCurrentFilm(films, match.params.id);
     const {id} = currentFilm;
 
     evt.preventDefault();
 
-    onSubmit(id, this.handleFormDisable, {
+    onSubmit(id, this._handleFormDisable, {
       rating,
       comment: this.comment.current.value
     });
+
+    if (isCommentSend) {
+      history.push(`${AppRoute.FILMS}/${id}`);
+    }
   }
 
-  handleFormDisable(status) {
+  _handleFormDisable(status) {
     const form = this.form.current;
 
     const inputs = form.querySelectorAll(`input`);
@@ -68,9 +80,10 @@ class AddReview extends PureComponent {
       return <p>Loading...</p>;
     }
 
-    const currentFilm = films.find((it) => it.id === parseInt(match.params.id, 10));
+    const currentFilm = getCurrentFilm(films, match.params.id);
 
     const {
+      id,
       title,
       background,
       poster
@@ -92,7 +105,7 @@ class AddReview extends PureComponent {
                   <a href="movie-page.html" className="breadcrumbs__link"
                     onClick={(evt) => {
                       evt.preventDefault();
-                      history.goBack();
+                      history.push(`${AppRoute.FILMS}/${id}`);
                     }}
                   >{title}</a>
                 </li>
@@ -122,8 +135,8 @@ class AddReview extends PureComponent {
             action="#"
             className="add-review__form"
             onSubmit={(evt) => {
-              this.handleSubmit(evt);
-              this.handleFormDisable(true);
+              this._handleSubmit(evt);
+              this._handleFormDisable(true);
             }}
           >
             <div className="rating">
@@ -160,7 +173,7 @@ class AddReview extends PureComponent {
             </div>
           </form>
 
-          {!isCommentSend ? <p>Review has not been sent. Try again.</p> : null}
+          {!isCommentSend ? <p>Review has not been sent. Try again later.</p> : null}
 
         </div>
 

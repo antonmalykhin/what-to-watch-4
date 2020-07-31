@@ -31,9 +31,9 @@ const film = {
   }
 };
 
-const mockEvent = {
-  preventDefault() {}
-};
+// const mockEvent = {
+//   preventDefault() {}
+// };
 
 it(`Film data passed to callback when mouse over film card`, () => {
   const onCardMouseOver = jest.fn();
@@ -41,12 +41,10 @@ it(`Film data passed to callback when mouse over film card`, () => {
   const smallFilmCard = shallow(
       <SmallFilmCard
         film={film}
-        onFilmClick={() => { }}
         onFilmMouseOver={onCardMouseOver}
         isPlaying={false}
         onPlayVideo={()=>{}}
         onStopVideo={()=>{}}
-        loadComments={()=>{}}
       />
   );
 
@@ -54,46 +52,4 @@ it(`Film data passed to callback when mouse over film card`, () => {
   filmCard.simulate(`mouseover`);
 
   expect(onCardMouseOver).toHaveBeenCalledTimes(1);
-});
-
-it(`Film data passed to callback when click on film title`, () => {
-  const onTitleClick = jest.fn();
-  const smallFilmCard = shallow(
-      <SmallFilmCard
-        film={film}
-        onFilmClick={onTitleClick}
-        onFilmMouseOver={() => { }}
-        isPlaying={false}
-        onPlayVideo={()=>{}}
-        onStopVideo={()=>{}}
-        loadComments={()=>{}}
-      />
-  );
-
-  const filmTitle = smallFilmCard.find(`.small-movie-card__link`);
-  filmTitle.simulate(`click`, mockEvent);
-
-  expect(onTitleClick).toHaveBeenCalledTimes(1);
-  expect(onTitleClick.mock.calls[0][0]).toMatchObject(film);
-});
-
-it(`Film data passed to callback when click on film image`, () => {
-  const onImageClick = jest.fn();
-  const smallFilmCard = shallow(
-      <SmallFilmCard
-        film={film}
-        onFilmClick={onImageClick}
-        onFilmMouseOver={() => { }}
-        isPlaying={false}
-        onPlayVideo={()=>{}}
-        onStopVideo={()=>{}}
-        loadComments={()=>{}}
-      />
-  );
-
-  const filmImage = smallFilmCard.find(`.small-movie-card__image`);
-  filmImage.simulate(`click`);
-
-  expect(onImageClick).toHaveBeenCalledTimes(1);
-  expect(onImageClick.mock.calls[0][0]).toMatchObject(film);
 });

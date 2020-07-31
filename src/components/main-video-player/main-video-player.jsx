@@ -1,21 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {formatTime} from '../../utils.js';
+import history from '../../history.js';
+import {getCurrentFilm} from '../../utils.js';
 
 
 const MainVideoPlayer = (props) => {
   const {
-    film,
-    onExitClick,
+    films,
     children,
     progress,
     duration,
     isPlaying,
     onPlayButtonClick,
-    onFullscreenButtonClick
+    onFullscreenButtonClick,
+    match
   } = props;
 
-  const {title} = film;
+  if (films.length === 0) {
+    return <p>Loading...</p>;
+  }
+
+  const currentFilm = getCurrentFilm(films, match.params.id);
+  const {title} = currentFilm;
 
   const remainingTime = duration - progress;
   const formattedRemainingTime = formatTime(remainingTime);
@@ -30,7 +37,7 @@ const MainVideoPlayer = (props) => {
         type="button"
         className="player__exit"
         onClick={() => {
-          onExitClick();
+          history.goBack();
         }}
       >Exit</button>
 
@@ -77,8 +84,7 @@ const MainVideoPlayer = (props) => {
 };
 
 MainVideoPlayer.propTypes = {
-  film: PropTypes.object.isRequired,
-  onExitClick: PropTypes.func.isRequired,
+  films: PropTypes.array.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
@@ -87,7 +93,8 @@ MainVideoPlayer.propTypes = {
   progress: PropTypes.number.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
-  onFullscreenButtonClick: PropTypes.func.isRequired
+  onFullscreenButtonClick: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired
 };
 
 export default MainVideoPlayer;

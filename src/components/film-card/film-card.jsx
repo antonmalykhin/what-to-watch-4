@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import history from '../../history.js';
 import {AppRoute} from '../../const.js';
 
+
 const FilmCard = (props) => {
   const {
     children,
     promoFilm,
-    onPlayClick,
     addPromoToFavorites,
     favoriteFilms
   } = props;
@@ -54,7 +54,6 @@ const FilmCard = (props) => {
 
             <div className="movie-card__buttons">
               <button className="btn btn--play movie-card__button" type="button" onClick={() => {
-                onPlayClick(promoFilm);
                 history.push(`${AppRoute.FILMS}/${id}${AppRoute.PLAYER}`);
               }}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
@@ -67,7 +66,7 @@ const FilmCard = (props) => {
                 onClick={() => addPromoToFavorites(id, inFavorite)}
               >
                 <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref={`#${inFavorite ? `in-list` : `add`}`}></use>
+                  <use xlinkHref={`#${inFavorite ? `add` : `in-list` }`}></use>
                 </svg>
                 <span>My list</span>
               </button>
@@ -83,7 +82,6 @@ const FilmCard = (props) => {
 FilmCard.propTypes = {
   children: PropTypes.node.isRequired,
   promoFilm: PropTypes.object.isRequired,
-  onPlayClick: PropTypes.func.isRequired,
   addPromoToFavorites: PropTypes.func.isRequired,
   favoriteFilms: PropTypes.array.isRequired
 };

@@ -60,9 +60,10 @@ it(`Should FilmDescription render correctly`, () => {
         <FilmDescription
           film={film}
           tabs={TABS}
-          onActiveItemChange={()=>{}}
-          activeItem={`Overview`}
           comments={comments}
+          activeItem={`Overview`}
+          onActiveItemChange={()=>{}}
+          loadComments={()=>{}}
         />
     ).toJSON();
 

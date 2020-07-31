@@ -15,7 +15,6 @@ const SmallFilmCard = (props) => {
   const {
     film,
     onFilmMouseOver,
-    loadComments,
     isPlaying,
     onPlayVideo,
     onStopVideo
@@ -39,7 +38,6 @@ const SmallFilmCard = (props) => {
       <div
         className="small-movie-card__image"
         onClick={() => {
-          loadComments(id);
           history.push(`${AppRoute.FILMS}/${id}`);
         }}
         onMouseOver={() => onPlayVideo()}
@@ -60,7 +58,6 @@ const SmallFilmCard = (props) => {
         <a className="small-movie-card__link" href="movie-page.html"
           onClick={(evt) => {
             evt.preventDefault();
-            loadComments(id);
             history.push(`${AppRoute.FILMS}/${id}`);
           }}>
           {title}
@@ -75,8 +72,7 @@ SmallFilmCard.propTypes = {
   onFilmMouseOver: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   onPlayVideo: PropTypes.func.isRequired,
-  onStopVideo: PropTypes.func.isRequired,
-  loadComments: PropTypes.func.isRequired
+  onStopVideo: PropTypes.func.isRequired
 };
 
 export default SmallFilmCard;

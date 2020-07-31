@@ -5,6 +5,7 @@ import FilmOverview from '../film-overview/film-overview.jsx';
 import FilmDetails from '../film-details/film-details.jsx';
 import FilmReviews from '../film-reviews/film-reviews.jsx';
 
+
 class FilmDescription extends PureComponent {
   constructor(props) {
     super(props);
@@ -40,7 +41,10 @@ class FilmDescription extends PureComponent {
         );
       case tabs[2]:
         return (
-          <FilmReviews filmID={film.id} loadComments={loadComments} comments={comments}/>
+          <FilmReviews
+            filmID={film.id}
+            loadComments={loadComments}
+            comments={comments}/>
         );
     }
 

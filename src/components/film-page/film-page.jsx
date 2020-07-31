@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import FilmList from '../film-list/film-list.jsx';
 import FilmDescription from '../film-description/film-description.jsx';
-import withActiveItem from '../../hocks/with-active-item/with-active-item.js';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {getLikeThisFilms} from '../../utils.js';
+import withActiveItem from '../../hocks/with-active-item/with-active-item.js';
+import {getLikeThisFilms, getCurrentFilm} from '../../utils.js';
 import {AppRoute} from '../../const.js';
 import history from '../../history.js';
 
@@ -22,13 +22,13 @@ const TABS = [
 const FilmDescriptionWrapped = withActiveItem(FilmDescription, `tabs`);
 const FilmListWrapped = withActiveItem(FilmList, `films`);
 
+
 const FilmPage = (props) => {
   const {
     authorizationStatus,
     currentYear,
     films,
     favoriteFilms,
-    onPlayClick,
     addFilmToFavorites,
     comments,
     loadComments,
@@ -39,7 +39,7 @@ const FilmPage = (props) => {
     return <p>Loading...</p>;
   }
 
-  const currentFilm = films.find((it) => it.id === parseInt(match.params.id, 10));
+  const currentFilm = getCurrentFilm(films, match.params.id);
 
   const {
     id,
@@ -88,7 +88,6 @@ const FilmPage = (props) => {
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button"
                   onClick={() => {
-                    onPlayClick(currentFilm);
                     history.push(`${AppRoute.FILMS}/${id}${AppRoute.PLAYER}`);
                   }}
                 >
@@ -102,7 +101,7 @@ const FilmPage = (props) => {
                   onClick={() => addFilmToFavorites(id, inFavorite)}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref={`#${inFavorite ? `in-list` : `add`}`}></use>
+                    <use xlinkHref={`#${inFavorite ? `add` : `in-list`}`}></use>
                   </svg>
                   <span>My list</span>
                 </button>
@@ -153,7 +152,6 @@ FilmPage.propTypes = {
   currentYear: PropTypes.number.isRequired,
   films: PropTypes.array.isRequired,
   favoriteFilms: PropTypes.array.isRequired,
-  onPlayClick: PropTypes.func.isRequired,
   addFilmToFavorites: PropTypes.func.isRequired,
   comments: PropTypes.array.isRequired,
   loadComments: PropTypes.func.isRequired,
