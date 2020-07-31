@@ -1,9 +1,5 @@
 import {MONTHS} from './const';
 
-export const isEmptyObject = (object) => {
-  return Object.keys(object).length === 0;
-};
-
 export const extend = (a, b) => {
   return Object.assign({}, a, b);
 };
@@ -70,4 +66,8 @@ export const getLikeThisFilms = (films, film, count) => {
 
 export const getFormattedDate = (date) => {
   return `${MONTHS[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+};
+
+export const getCurrentFilm = (films, prop) => {
+  return films.find((film) => film.id === parseInt(prop, 10));
 };
