@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {Router, Route, Switch} from 'react-router-dom';
+import {Router, Route, Switch, Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Main from '../main/main.jsx';
@@ -9,10 +9,12 @@ import AddReview from '../add-review/add-review.jsx';
 import MainVideoPlayer from '../main-video-player/main-video-player.jsx';
 import MyList from '../my-list/my-list.jsx';
 import PrivateRoute from '../private-route/private-route.jsx';
-import {ActionCreator as DataActionCreator, Operation as DataOperation} from '../../reducer/data/data.js';
-import {ActionCreator as AppActionCreator, Operation as UserOperation} from '../../reducer/app/app.js';
-import {getFilteredFilms, getPromoFilm, getIsCommentSend, getComments, getFavoriteFilms} from '../../reducer/data/selectors.js';
-import {getCurrentYear} from '../../reducer/app/selectors.js';
+import Loader from '../loader/loader.jsx';
+import {Operation as DataOperation} from '../../reducer/data/data.js';
+import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
+import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
+import {getFilteredFilms, getPromoFilm, getFavoriteFilms, getComments, getIsCommentSend} from '../../reducer/data/selectors.js';
+import {getCurrentYear, getLoadingStatus} from '../../reducer/app/selectors.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import withActiveMainPlayer from '../../hocks/with-active-main-player/with-active-main-player.js';
 import withSetRating from '../../hocks/with-set-rating/with-set-rating.js';
@@ -31,9 +33,9 @@ class App extends PureComponent {
 
   render() {
     const {
+      isLoading,
       films,
       favoriteFilms,
-      comments,
       promoFilm,
       currentYear,
       authorizationStatus,
@@ -41,8 +43,8 @@ class App extends PureComponent {
       login,
       postReview,
       isCommentSend,
-      resetWarning,
-      loadComments,
+      comments,
+      loadComments
     } = this.props;
 
     return (
@@ -52,37 +54,44 @@ class App extends PureComponent {
         <Switch>
           <Route
             exact
-            path={AppRoute.ROOT}>
-            <Main
-              authorizationStatus={authorizationStatus}
-              currentYear={currentYear}
-              promoFilm={promoFilm}
-              favoriteFilms={favoriteFilms}
-              films={films}
-              loadComments={loadComments}
-              addPromoToFavorites={addFilmToFavorites}
-            />
-          </Route>
+            path={AppRoute.ROOT}
+            render={() => {
+              return (
+                isLoading ? <Loader /> :
+                  <Main
+                    authorizationStatus={authorizationStatus}
+                    currentYear={currentYear}
+                    promoFilm={promoFilm}
+                    favoriteFilms={favoriteFilms}
+                    films={films}
+                    addPromoToFavorites={addFilmToFavorites}
+                    loadComments={loadComments}
+                  />
+              );
+            }}
+          />
           <Route
             exact
-            path={AppRoute.LOGIN}>
-            <SignIn onSubmit={login}/>
-          </Route>
+            path={AppRoute.LOGIN}
+            render={() => authorizationStatus === AuthorizationStatus.AUTH ? <Redirect to={AppRoute.ROOT}/> : <SignIn login={login} />
+            }
+          />
           <Route
             exact
             path={`${AppRoute.FILMS}/:id`}
             render={(props) => {
               return (
-                <FilmPage
-                  {...props}
-                  authorizationStatus={authorizationStatus}
-                  currentYear={currentYear}
-                  films={films}
-                  favoriteFilms={favoriteFilms}
-                  addFilmToFavorites={addFilmToFavorites}
-                  loadComments={loadComments}
-                  comments={comments}
-                />
+                isLoading ? <Loader /> :
+                  <FilmPage
+                    {...props}
+                    authorizationStatus={authorizationStatus}
+                    currentYear={currentYear}
+                    films={films}
+                    favoriteFilms={favoriteFilms}
+                    addFilmToFavorites={addFilmToFavorites}
+                    comments={comments}
+                    loadComments={loadComments}
+                  />
               );
             }}
           />
@@ -96,7 +105,7 @@ class App extends PureComponent {
                   films={films}
                   onSubmit={postReview}
                   isCommentSend={isCommentSend}
-                  resetWarning={resetWarning}
+
                 />
               );
             }}
@@ -105,14 +114,12 @@ class App extends PureComponent {
             exact
             path={`${AppRoute.FILMS}/:id${AppRoute.PLAYER}`}
             render={(props) => {
-              if (films.length === 0) {
-                return <p>Loading...</p>;
-              }
               return (
-                <MainVideoPlayerWrapped
-                  {...props}
-                  films={films}
-                />
+                isLoading ? <Loader /> :
+                  <MainVideoPlayerWrapped
+                    {...props}
+                    films={films}
+                  />
               );
             }}
           />
@@ -124,6 +131,7 @@ class App extends PureComponent {
                 <MyList
                   currentYear={currentYear}
                   favoriteFilms={favoriteFilms}
+                  loadComments={loadComments}
                 />
               );
             }}
@@ -143,10 +151,10 @@ App.propTypes = {
   login: PropTypes.func.isRequired,
   postReview: PropTypes.func.isRequired,
   isCommentSend: PropTypes.bool.isRequired,
-  resetWarning: PropTypes.func.isRequired,
   addFilmToFavorites: PropTypes.func.isRequired,
-  comments: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   loadComments: PropTypes.func.isRequired,
+  comments: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -155,8 +163,9 @@ const mapStateToProps = (state) => ({
   promoFilm: getPromoFilm(state),
   currentYear: getCurrentYear(state),
   authorizationStatus: getAuthorizationStatus(state),
+  isLoading: getLoadingStatus(state),
   comments: getComments(state),
-  isCommentSend: getIsCommentSend(state),
+  isCommentSend: getIsCommentSend(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -168,12 +177,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(UserOperation.login(authData));
   },
 
-  postReview(filmID, disableForm, postData) {
-    dispatch(DataOperation.postComment(filmID, disableForm, postData));
-  },
-
-  resetWarning() {
-    dispatch(DataActionCreator.sendComment(true));
+  postReview(filmID, postData, onSuccess, onError) {
+    dispatch(DataOperation.postComment(filmID, postData, onSuccess, onError));
   },
 
   addFilmToFavorites(filmID, data) {
