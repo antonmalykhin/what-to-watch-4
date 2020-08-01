@@ -331,6 +331,7 @@ it(`Render App`, () => {
             comments={comments}
             loadComments={() => {}}
             loadFavoriteFilms={() => {}}
+            isLoading={true}
           />
         </Provider>, {
           createNodeMock: () => {

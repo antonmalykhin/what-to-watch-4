@@ -188,6 +188,7 @@ it(`Should FilmList render correctly`, () => {
         <FilmList
           films={films}
           onActiveItemChange={() => {}}
+          loadComments={() => {}}
         />, {
           createNodeMock: () => {
             return {};

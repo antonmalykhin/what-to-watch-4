@@ -31,16 +31,13 @@ const film = {
   }
 };
 
-// const mockEvent = {
-//   preventDefault() {}
-// };
-
 it(`Film data passed to callback when mouse over film card`, () => {
   const onCardMouseOver = jest.fn();
 
   const smallFilmCard = shallow(
       <SmallFilmCard
         film={film}
+        loadComments={() => {}}
         onFilmMouseOver={onCardMouseOver}
         isPlaying={false}
         onPlayVideo={()=>{}}

@@ -12,7 +12,8 @@ it(`PrivateRouter render`, () => {
   const store = mockStore({
     APP: {
       currentYear: 2020,
-      showedFilms: 8
+      showedFilms: 8,
+      isLoading: true
     },
     DATA: {
       activeFilter: `All genres`,

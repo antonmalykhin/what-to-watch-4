@@ -7,15 +7,8 @@ const NUM_SLICE_PART = 2;
 
 const FilmReviews = (props) => {
   const {
-    filmID,
-    loadComments,
     comments
   } = props;
-
-  if (comments.length === 0) {
-    loadComments(filmID);
-    return <p>Loading...</p>;
-  }
 
   const sortedComments = comments.slice().sort((a, b) => b.rating - a.rating);
   const commentsForLeftColl = sortedComments.slice(0, Math.round(sortedComments.length / NUM_SLICE_PART));
@@ -44,8 +37,6 @@ const FilmReviews = (props) => {
 };
 
 FilmReviews.propTypes = {
-  filmID: PropTypes.number.isRequired,
-  loadComments: PropTypes.func.isRequired,
   comments: PropTypes.array.isRequired
 };
 

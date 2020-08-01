@@ -9,7 +9,7 @@ it(`SignIn render correctly`, () => {
   const tree = renderer.create(
       <Router history={history}>
         <SignIn
-          onSubmit={() => { }}
+          login={() => { }}
         />
       </Router>
   ).toJSON();

@@ -81,6 +81,7 @@ it(`Should MyList render`, () => {
           <MyList
             currentYear={2020}
             favoriteFilms={favoriteFilms}
+            loadComments={() => {}}
           />
         </Router>, {
           createNodeMock: () => {

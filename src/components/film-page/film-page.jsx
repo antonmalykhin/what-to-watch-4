@@ -22,7 +22,6 @@ const TABS = [
 const FilmDescriptionWrapped = withActiveItem(FilmDescription, `tabs`);
 const FilmListWrapped = withActiveItem(FilmList, `films`);
 
-
 const FilmPage = (props) => {
   const {
     authorizationStatus,
@@ -35,10 +34,6 @@ const FilmPage = (props) => {
     match
   } = props;
 
-  if (films.length === 0) {
-    return <p>Loading...</p>;
-  }
-
   const currentFilm = getCurrentFilm(films, match.params.id);
 
   const {
@@ -50,6 +45,7 @@ const FilmPage = (props) => {
     release,
     poster,
   } = currentFilm;
+
 
   const inFavorite = !favoriteFilms.find((it) => it.id === id);
 
@@ -141,7 +137,7 @@ const FilmPage = (props) => {
 
         </section>
 
-        <Footer year={currentYear}/>
+        <Footer year={currentYear} />
       </div>
     </React.Fragment>
   );

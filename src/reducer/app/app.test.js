@@ -4,7 +4,8 @@ describe(`Reducer changes the state correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(void 0, {})).toEqual({
       currentYear: 0,
-      showedFilms: 8
+      showedFilms: 8,
+      isLoading: true
     });
   });
 
@@ -12,12 +13,14 @@ describe(`Reducer changes the state correctly`, () => {
     expect(reducer({
       currentYear: 0,
       showedFilms: 8,
+      isLoading: true
     }, {
       type: ActionType.INCREMENT_SHOWED_FILM_COUNT,
       payload: 8
     })).toEqual({
       currentYear: 0,
       showedFilms: 16,
+      isLoading: true
     });
   });
 
@@ -25,12 +28,14 @@ describe(`Reducer changes the state correctly`, () => {
     expect(reducer({
       currentYear: 0,
       showedFilms: 24,
+      isLoading: true
     }, {
       type: ActionType.RESET_SHOWED_FILM_COUNT,
       payload: 8
     })).toEqual({
       currentYear: 0,
       showedFilms: 8,
+      isLoading: true
     });
   });
 
@@ -38,12 +43,29 @@ describe(`Reducer changes the state correctly`, () => {
     expect(reducer({
       currentYear: 0,
       showedFilms: 8,
+      isLoading: true
     }, {
       type: ActionType.GET_CURRENT_YEAR,
       payload: 2020
     })).toEqual({
       currentYear: 2020,
       showedFilms: 8,
+      isLoading: true
+    });
+  });
+
+  it(`Reducer changes isLoading by given value`, () => {
+    expect(reducer({
+      currentYear: 0,
+      showedFilms: 8,
+      isLoading: true
+    }, {
+      type: ActionType.CHANGE_LOADING_STATUS,
+      payload: false
+    })).toEqual({
+      currentYear: 0,
+      showedFilms: 8,
+      isLoading: false
     });
   });
 });
@@ -67,6 +89,13 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.getCurrentYear(2020)).toEqual({
       type: ActionType.GET_CURRENT_YEAR,
       payload: 2020
+    });
+  });
+
+  it(`Action creator for change loading status returns correct action`, () => {
+    expect(ActionCreator.changeLoadingStatus(true)).toEqual({
+      type: ActionType.CHANGE_LOADING_STATUS,
+      payload: true
     });
   });
 });

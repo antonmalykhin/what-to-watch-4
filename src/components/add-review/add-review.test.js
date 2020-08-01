@@ -2,6 +2,8 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import AddReview from './add-review.jsx';
 import {Router} from 'react-router-dom';
+import {Provider} from 'react-redux';
+import configureStore from 'redux-mock-store';
 import history from '../../history.js';
 
 const films = [
@@ -191,17 +193,41 @@ const match = {
 };
 
 it(`AddReview render correctly`, () => {
+  const mockStore = configureStore([]);
+
+  const store = mockStore({
+    APP: {
+      currentYear: 2020,
+      showedFilms: 8,
+      isLoading: true
+    },
+    DATA: {
+      activeFilter: `All genres`,
+      comments: [],
+      favoriteFilms: [],
+      films: [],
+      filters: [],
+      isCommentSend: true,
+      promoFilm: {}
+    },
+    USER: {
+      authorizationStatus: `AUTH`
+    }
+  });
+
   const tree = renderer.create(
       <Router history={history}>
-        <AddReview
-          films={films}
-          onSubmit={() => {}}
-          rating={3}
-          onRatingCheck={() => {}}
-          isCommentSend={true}
-          resetWarning={() => {}}
-          match={match}
-        />
+        <Provider store={store}>
+          <AddReview
+            films={films}
+            onSubmit={() => {}}
+            rating={3}
+            onRatingCheck={() => {}}
+            isCommentSend={true}
+            resetWarning={() => {}}
+            match={match}
+          />
+        </Provider>
       </Router>
   ).toJSON();
 

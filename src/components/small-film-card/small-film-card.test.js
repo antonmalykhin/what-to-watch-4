@@ -31,6 +31,7 @@ it(`Should SmallFilmCard render correctly`, () => {
     .create(
         <SmallFilmCard
           film={film}
+          loadComments={() => {}}
           onFilmMouseOver={() => {}}
           onPlayVideo={() => {}}
           onStopVideo={() => {}}

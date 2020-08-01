@@ -5,6 +5,7 @@ import FilmOverview from '../film-overview/film-overview.jsx';
 import FilmDetails from '../film-details/film-details.jsx';
 import FilmReviews from '../film-reviews/film-reviews.jsx';
 
+const REVIEWS_TAB = `Reviews`;
 
 class FilmDescription extends PureComponent {
   constructor(props) {
@@ -17,7 +18,6 @@ class FilmDescription extends PureComponent {
       tabs,
       activeItem,
       film,
-      loadComments,
       comments
     } = this.props;
 
@@ -43,7 +43,6 @@ class FilmDescription extends PureComponent {
         return (
           <FilmReviews
             filmID={film.id}
-            loadComments={loadComments}
             comments={comments}/>
         );
     }
@@ -53,10 +52,14 @@ class FilmDescription extends PureComponent {
 
   render() {
     const {
+      film,
+      loadComments,
       tabs,
       activeItem,
       onActiveItemChange
     } = this.props;
+
+    const {id} = film;
 
     return (
       <div className="movie-card__desc">
@@ -69,6 +72,9 @@ class FilmDescription extends PureComponent {
                   title={tab}
                   onNavItemClick={() => {
                     onActiveItemChange(tab);
+                    if (tab === REVIEWS_TAB) {
+                      loadComments(id);
+                    }
                   }}
                   isActive={activeItem === tab}
                 />
@@ -89,8 +95,8 @@ FilmDescription.propTypes = {
   film: PropTypes.object.isRequired,
   activeItem: PropTypes.string.isRequired,
   onActiveItemChange: PropTypes.func.isRequired,
-  comments: PropTypes.array.isRequired,
   loadComments: PropTypes.func.isRequired,
+  comments: PropTypes.array.isRequired,
 };
 
 export default FilmDescription;

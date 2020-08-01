@@ -43,7 +43,7 @@ class Main extends PureComponent {
       onFilterButtonClick,
       resetShowedFilms,
       addPromoToFavorites,
-      loadComments,
+      loadComments
     } = this.props;
 
 
@@ -110,8 +110,8 @@ Main.propTypes = {
   onFilterButtonClick: PropTypes.func.isRequired,
   resetShowedFilms: PropTypes.func.isRequired,
   addPromoToFavorites: PropTypes.func.isRequired,
-  loadComments: PropTypes.func.isRequired,
-  favoriteFilms: PropTypes.array.isRequired
+  favoriteFilms: PropTypes.array.isRequired,
+  loadComments: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {

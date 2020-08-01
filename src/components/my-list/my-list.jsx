@@ -9,12 +9,9 @@ const MyList = (props) => {
 
   const {
     currentYear,
-    favoriteFilms
+    favoriteFilms,
+    loadComments
   } = props;
-
-  if (favoriteFilms.length === 0) {
-    return <p>Loading...</p>;
-  }
 
   const FilmListWrapped = withActiveItem(FilmList, `films`);
 
@@ -36,6 +33,7 @@ const MyList = (props) => {
 
         <FilmListWrapped
           films={favoriteFilms}
+          loadComments={loadComments}
         />
       </section>
 
@@ -47,6 +45,7 @@ const MyList = (props) => {
 MyList.propTypes = {
   currentYear: PropTypes.number.isRequired,
   favoriteFilms: PropTypes.array.isRequired,
+  loadComments: PropTypes.func.isRequired,
 };
 
 export default MyList;

@@ -1,11 +1,14 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import Header from '../header/header.jsx';
 import Star from '../star/star.jsx';
 import history from '../../history';
 import {Link} from 'react-router-dom';
 import {getCurrentFilm} from '../../utils.js';
 import {AppRoute} from '../../const.js';
+import {getIsCommentSend} from '../../reducer/data/selectors.js';
+import {ActionCreator} from '../../reducer/data/data.js';
 
 const RATING_STAR_COUNT = 5;
 const STARTING_INPUT_VALUE = 1;
@@ -32,7 +35,6 @@ class AddReview extends PureComponent {
       onSubmit,
       rating,
       match,
-      isCommentSend
     } = this.props;
 
     const currentFilm = getCurrentFilm(films, match.params.id);
@@ -40,14 +42,17 @@ class AddReview extends PureComponent {
 
     evt.preventDefault();
 
-    onSubmit(id, this._handleFormDisable, {
+    onSubmit(id, {
       rating,
       comment: this.comment.current.value
-    });
-
-    if (isCommentSend) {
+    },
+    () => {
+      this._handleFormDisable(false);
       history.push(`${AppRoute.FILMS}/${id}`);
-    }
+    },
+    () => {
+      this._handleFormDisable(false);
+    });
   }
 
   _handleFormDisable(status) {
@@ -72,13 +77,9 @@ class AddReview extends PureComponent {
       onRatingCheck,
       rating,
       isCommentSend,
-      resetWarning,
-      match
+      match,
+      resetErrorMessage
     } = this.props;
-
-    if (films.length === 0) {
-      return <p>Loading...</p>;
-    }
 
     const currentFilm = getCurrentFilm(films, match.params.id);
 
@@ -163,7 +164,9 @@ class AddReview extends PureComponent {
                 maxLength={Comment.MAX_LENGTH}
                 placeholder="Review text"
                 ref={this.comment}
-                onInput={() => resetWarning()}
+                onInput={() => {
+                  resetErrorMessage();
+                }}
                 required
               ></textarea>
 
@@ -188,8 +191,19 @@ AddReview.propTypes = {
   rating: PropTypes.number.isRequired,
   onRatingCheck: PropTypes.func.isRequired,
   isCommentSend: PropTypes.bool.isRequired,
-  resetWarning: PropTypes.func.isRequired,
+  resetErrorMessage: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired
 };
 
-export default AddReview;
+const mapStateToProps = (state) => ({
+  isCommentSend: getIsCommentSend(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  resetErrorMessage() {
+    dispatch(ActionCreator.sendComment(true));
+  }
+});
+
+export {AddReview};
+export default connect(mapStateToProps, mapDispatchToProps)(AddReview);
