@@ -6,12 +6,14 @@ const INCREMENT_FILM_COUNT = 8;
 const InitialState = {
   currentYear: 0,
   showedFilms: FILM_COUNT_ON_START,
+  isLoading: true
 };
 
 export const ActionType = {
   INCREMENT_SHOWED_FILM_COUNT: `INCREMENT_SHOWED_FILM_COUNT`,
   RESET_SHOWED_FILM_COUNT: `RESET_SHOWED_FILM_COUNT`,
-  GET_CURRENT_YEAR: `GET_CURRENT_YEAR`
+  GET_CURRENT_YEAR: `GET_CURRENT_YEAR`,
+  CHANGE_LOADING_STATUS: `CHANGE_LOADING_STATUS`
 };
 
 export const ActionCreator = {
@@ -34,7 +36,14 @@ export const ActionCreator = {
       type: ActionType.GET_CURRENT_YEAR,
       payload: year
     };
-  }
+  },
+
+  changeLoadingStatus: (status) => {
+    return {
+      type: ActionType.CHANGE_LOADING_STATUS,
+      payload: status
+    };
+  },
 };
 
 export const reducer = (state = InitialState, action) => {
@@ -50,6 +59,10 @@ export const reducer = (state = InitialState, action) => {
     case ActionType.GET_CURRENT_YEAR:
       return extend(state, {
         currentYear: action.payload
+      });
+    case ActionType.CHANGE_LOADING_STATUS:
+      return extend(state, {
+        isLoading: action.payload
       });
   }
   return state;
