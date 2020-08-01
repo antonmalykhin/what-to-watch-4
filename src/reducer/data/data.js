@@ -154,19 +154,19 @@ export const Operation = {
       });
   },
 
-  postComment: (filmID, disableForm, postData) => (dispatch, getState, api) => {
+  postComment: (filmID, postData, onSuccess, onError) => (dispatch, getState, api) => {
     return api.post(`/comments/${filmID}`, {
       rating: postData.rating,
       comment: postData.comment
     })
     .then(() => {
-      disableForm(false);
+      onSuccess();
     })
-      .catch((error) => {
-        dispatch(ActionCreator.sendComment(false));
-        disableForm(false);
-        throw error;
-      });
+    .catch((error) => {
+      dispatch(ActionCreator.sendComment(false));
+      onError();
+      throw error;
+    });
   }
 };
 
@@ -202,14 +202,17 @@ export const reducer = (state = InitialState, action) => {
       return extend(state, {
         filters: action.payload
       });
+
     case ActionType.IS_COMMENT_SEND:
       return extend(state, {
         isCommentSend: action.payload
       });
+
     case ActionType.LOAD_COMMENTS:
       return extend(state, {
         comments: action.payload
       });
+
     case ActionType.LOAD_FAVORITE_FILMS:
       return extend(state, {
         favoriteFilms: action.payload
