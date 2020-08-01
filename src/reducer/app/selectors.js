@@ -9,3 +9,7 @@ export const getShowedFilms = (state) => {
 export const getCurrentYear = (state) => {
   return state[NAME_SPACE].currentYear;
 };
+
+export const getLoadingStatus = (state) => {
+  return state[NAME_SPACE].isLoading;
+};
