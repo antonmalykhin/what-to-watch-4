@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import VideoPlayer from '../video-player/video-player.jsx';
+import history from '../../history.js';
+import {AppRoute} from '../../const.js';
 
 const filmPreviewSettings = {
   WIDTH: 280,
@@ -12,7 +14,7 @@ const filmPreviewSettings = {
 const SmallFilmCard = (props) => {
   const {
     film,
-    onFilmClick,
+    loadComments,
     onFilmMouseOver,
     isPlaying,
     onPlayVideo,
@@ -20,6 +22,7 @@ const SmallFilmCard = (props) => {
   } = props;
 
   const {
+    id,
     title,
     image,
     preview
@@ -35,7 +38,10 @@ const SmallFilmCard = (props) => {
 
       <div
         className="small-movie-card__image"
-        onClick={() => onFilmClick(film)}
+        onClick={() => {
+          loadComments(id);
+          history.push(`${AppRoute.FILMS}/${id}`);
+        }}
         onMouseOver={() => onPlayVideo()}
         onMouseOut={() => onStopVideo()}
       >
@@ -54,7 +60,8 @@ const SmallFilmCard = (props) => {
         <a className="small-movie-card__link" href="movie-page.html"
           onClick={(evt) => {
             evt.preventDefault();
-            onFilmClick(film);
+            loadComments(id);
+            history.push(`${AppRoute.FILMS}/${id}`);
           }}>
           {title}
         </a>
@@ -65,8 +72,8 @@ const SmallFilmCard = (props) => {
 
 SmallFilmCard.propTypes = {
   film: PropTypes.object.isRequired,
+  loadComments: PropTypes.func.isRequired,
   onFilmMouseOver: PropTypes.func.isRequired,
-  onFilmClick: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   onPlayVideo: PropTypes.func.isRequired,
   onStopVideo: PropTypes.func.isRequired

@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import FilmList from '../film-list/film-list.jsx';
 import FilmDescription from '../film-description/film-description.jsx';
-import withActiveItem from '../../hocks/with-active-item/with-active-item.js';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {getLikeThisFilms} from '../../utils.js';
+import withActiveItem from '../../hocks/with-active-item/with-active-item.js';
+import {getLikeThisFilms, getCurrentFilm} from '../../utils.js';
 import {AppRoute} from '../../const.js';
+import history from '../../history.js';
 
 const MORE_LIKE_THIS_FILM_COUNT = 4;
 
@@ -25,12 +26,15 @@ const FilmPage = (props) => {
   const {
     authorizationStatus,
     currentYear,
-    film,
     films,
-    onFilmClick,
-    onPlayClick,
-    addFilmToFavorites
+    favoriteFilms,
+    addFilmToFavorites,
+    comments,
+    loadComments,
+    match
   } = props;
+
+  const currentFilm = getCurrentFilm(films, match.params.id);
 
   const {
     id,
@@ -40,13 +44,14 @@ const FilmPage = (props) => {
     genre,
     release,
     poster,
-    isFavorite
-  } = film;
+  } = currentFilm;
 
-  const moreLikeThisFilms = getLikeThisFilms(films, film, MORE_LIKE_THIS_FILM_COUNT);
+
+  const inFavorite = !favoriteFilms.find((it) => it.id === id);
+
+  const moreLikeThisFilms = getLikeThisFilms(films, currentFilm, MORE_LIKE_THIS_FILM_COUNT);
 
   return (
-
     <React.Fragment>
       <section className="movie-card movie-card--full"
         style={
@@ -63,7 +68,7 @@ const FilmPage = (props) => {
           {<Header classNameModifier={`movie-card`}>
             <div className="user-block">
 
-              {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={AppRoute.MY_LIST}><div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div></Link> : <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>}
+              {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={AppRoute.MY_LIST}><div className="user-block__avatar"><img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" /></div></Link> : <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>}
 
             </div>
           </Header>}
@@ -77,7 +82,11 @@ const FilmPage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button" onClick={() => onPlayClick(film)}>
+                <button className="btn btn--play movie-card__button" type="button"
+                  onClick={() => {
+                    history.push(`${AppRoute.FILMS}/${id}${AppRoute.PLAYER}`);
+                  }}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -85,15 +94,15 @@ const FilmPage = (props) => {
                 </button>
 
                 <button className="btn btn--list movie-card__button" type="button"
-                  onClick={() => addFilmToFavorites(id, !isFavorite)}
+                  onClick={() => addFilmToFavorites(id, inFavorite)}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref={`#${isFavorite ? `in-list` : `add`}`}></use>
+                    <use xlinkHref={`#${inFavorite ? `add` : `in-list`}`}></use>
                   </svg>
                   <span>My list</span>
                 </button>
 
-                {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={AppRoute.REVIEW} className="btn movie-card__button">Add review</Link> : ``}
+                {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={`${AppRoute.FILMS}/${id}${AppRoute.REVIEW}`} className="btn movie-card__button">Add review</Link> : ``}
 
               </div>
             </div>
@@ -108,7 +117,9 @@ const FilmPage = (props) => {
 
             {<FilmDescriptionWrapped
               tabs={TABS}
-              film={film}
+              film={currentFilm}
+              comments={comments}
+              loadComments={loadComments}
             />}
 
           </div>
@@ -121,12 +132,12 @@ const FilmPage = (props) => {
 
           {<FilmListWrapped
             films={moreLikeThisFilms}
-            onFilmClick={onFilmClick}
+            loadComments={loadComments}
           />}
 
         </section>
 
-        <Footer year={currentYear}/>
+        <Footer year={currentYear} />
       </div>
     </React.Fragment>
   );
@@ -135,11 +146,12 @@ const FilmPage = (props) => {
 FilmPage.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   currentYear: PropTypes.number.isRequired,
-  film: PropTypes.object.isRequired,
   films: PropTypes.array.isRequired,
-  onFilmClick: PropTypes.func.isRequired,
-  onPlayClick: PropTypes.func.isRequired,
-  addFilmToFavorites: PropTypes.func.isRequired
+  favoriteFilms: PropTypes.array.isRequired,
+  addFilmToFavorites: PropTypes.func.isRequired,
+  comments: PropTypes.array.isRequired,
+  loadComments: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 export default FilmPage;

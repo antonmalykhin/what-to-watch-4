@@ -1,28 +1,29 @@
 import React, {PureComponent} from 'react';
-import {Router, Route, Switch} from 'react-router-dom';
+import {Router, Route, Switch, Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {isEmptyObject} from '../../utils.js';
 import Main from '../main/main.jsx';
 import FilmPage from '../film-page/film-page.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import AddReview from '../add-review/add-review.jsx';
 import MainVideoPlayer from '../main-video-player/main-video-player.jsx';
-import withActiveMainPlayer from '../../hocks/with-active-main-player/with-active-main-player.js';
-import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
-import {ActionCreator as DataActionCreator} from '../../reducer/data/data.js';
-import {getCurrentFilm, getPlayingFilm, getCurrentYear} from '../../reducer/app/selectors.js';
-import {getFilteredFilms, getPromoFilm, getIsCommentSend} from '../../reducer/data/selectors.js';
-import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
-import {Operation as UserOperation} from '../../reducer/user/user.js';
+import MyList from '../my-list/my-list.jsx';
+import PrivateRoute from '../private-route/private-route.jsx';
+import Loader from '../loader/loader.jsx';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
-import {Operation as AppOperation} from '../../reducer/app/app.js';
-import history from '../../history';
+import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
+import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
+import {getFilteredFilms, getPromoFilm, getFavoriteFilms, getComments, getIsCommentSend} from '../../reducer/data/selectors.js';
+import {getCurrentYear, getLoadingStatus} from '../../reducer/app/selectors.js';
+import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
+import withActiveMainPlayer from '../../hocks/with-active-main-player/with-active-main-player.js';
 import withSetRating from '../../hocks/with-set-rating/with-set-rating.js';
+import history from '../../history';
 import {AppRoute} from '../../const.js';
 
 const MainVideoPlayerWrapped = withActiveMainPlayer(MainVideoPlayer);
 const AddReviewWrapped = withSetRating(AddReview);
+
 
 class App extends PureComponent {
   constructor(props) {
@@ -30,88 +31,111 @@ class App extends PureComponent {
 
   }
 
-  _renderApp() {
+  render() {
     const {
+      isLoading,
       films,
+      favoriteFilms,
       promoFilm,
-      currentFilm,
-      playingFilm,
       currentYear,
       authorizationStatus,
-      onFilmCardClick,
-      onPlayButtonClick,
-      onExitButtonClick,
-      addPromoToFavorites,
-      addFilmToFavorites
+      addFilmToFavorites,
+      login,
+      postReview,
+      isCommentSend,
+      comments,
+      loadComments
     } = this.props;
 
-    if (isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
-      return (
-        <Main
-          authorizationStatus={authorizationStatus}
-          currentYear={currentYear}
-          promoFilm={promoFilm}
-          films={films}
-          onFilmClick={(film) => {
-            onFilmCardClick(film);
-          }}
-          onPlayClick={(film) => {
-            onPlayButtonClick(film);
-          }}
-          addPromoToFavorites={addPromoToFavorites}
-        />
-      );
-    }
-
-    if (!isEmptyObject(currentFilm) && isEmptyObject(playingFilm)) {
-      return (
-        <FilmPage
-          authorizationStatus={authorizationStatus}
-          currentYear={currentYear}
-          film={currentFilm}
-          films={films}
-          onFilmClick={(film) => {
-            onFilmCardClick(film);
-          }}
-          onPlayClick={(film) => {
-            onPlayButtonClick(film);
-          }}
-          addFilmToFavorites={addFilmToFavorites}
-        />
-      );
-    }
-
-    if (!isEmptyObject(playingFilm)) {
-      return (
-        <MainVideoPlayerWrapped
-          film={playingFilm}
-          onExitClick={() => {
-            onExitButtonClick();
-          }}
-        />
-      );
-    }
-    return null;
-  }
-
-  render() {
-    const {login, postReview, isCommentSend, resetWarning} = this.props;
     return (
-      <Router history={history}>
+      <Router
+        history={history}
+      >
         <Switch>
-          <Route exact path={AppRoute.ROOT}>
-            {this._renderApp()}
-          </Route>
-          <Route exact path={AppRoute.LOGIN}>
-            <SignIn onSubmit={login}/>
-          </Route>
-          <Route exact path={AppRoute.REVIEW}>
-            <AddReviewWrapped
-              filmID={43}
-              resetWarning={resetWarning}
-              isCommentSend={isCommentSend}
-              onSubmit={postReview}/>
-          </Route>
+          <Route
+            exact
+            path={AppRoute.ROOT}
+            render={() => {
+              return (
+                isLoading ? <Loader /> :
+                  <Main
+                    authorizationStatus={authorizationStatus}
+                    currentYear={currentYear}
+                    promoFilm={promoFilm}
+                    favoriteFilms={favoriteFilms}
+                    films={films}
+                    addPromoToFavorites={addFilmToFavorites}
+                    loadComments={loadComments}
+                  />
+              );
+            }}
+          />
+          <Route
+            exact
+            path={AppRoute.LOGIN}
+            render={() => authorizationStatus === AuthorizationStatus.AUTH ? <Redirect to={AppRoute.ROOT}/> : <SignIn login={login} />
+            }
+          />
+          <Route
+            exact
+            path={`${AppRoute.FILMS}/:id`}
+            render={(props) => {
+              return (
+                isLoading ? <Loader /> :
+                  <FilmPage
+                    {...props}
+                    authorizationStatus={authorizationStatus}
+                    currentYear={currentYear}
+                    films={films}
+                    favoriteFilms={favoriteFilms}
+                    addFilmToFavorites={addFilmToFavorites}
+                    comments={comments}
+                    loadComments={loadComments}
+                  />
+              );
+            }}
+          />
+          <PrivateRoute
+            exact
+            path={`${AppRoute.FILMS}/:id${AppRoute.REVIEW}`}
+            render={(props) => {
+              return (
+                <AddReviewWrapped
+                  {...props}
+                  films={films}
+                  onSubmit={postReview}
+                  isCommentSend={isCommentSend}
+
+                />
+              );
+            }}
+          />
+          <Route
+            exact
+            path={`${AppRoute.FILMS}/:id${AppRoute.PLAYER}`}
+            render={(props) => {
+              return (
+                isLoading ? <Loader /> :
+                  <MainVideoPlayerWrapped
+                    {...props}
+                    films={films}
+                  />
+              );
+            }}
+          />
+          <PrivateRoute
+            exact
+            path={AppRoute.MY_LIST}
+            render = {() => {
+              return (
+                <MyList
+                  currentYear={currentYear}
+                  favoriteFilms={favoriteFilms}
+                  loadComments={loadComments}
+                />
+              );
+            }}
+          />
         </Switch>
       </Router>
     );
@@ -120,60 +144,50 @@ class App extends PureComponent {
 
 App.propTypes = {
   films: PropTypes.array.isRequired,
+  favoriteFilms: PropTypes.array.isRequired,
   promoFilm: PropTypes.object.isRequired,
-  currentFilm: PropTypes.object.isRequired,
-  playingFilm: PropTypes.object.isRequired,
   currentYear: PropTypes.number.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  onFilmCardClick: PropTypes.func.isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
-  onExitButtonClick: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   postReview: PropTypes.func.isRequired,
   isCommentSend: PropTypes.bool.isRequired,
-  resetWarning: PropTypes.func.isRequired,
   addFilmToFavorites: PropTypes.func.isRequired,
-  addPromoToFavorites: PropTypes.func.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  loadComments: PropTypes.func.isRequired,
+  comments: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state) => ({
   films: getFilteredFilms(state),
+  favoriteFilms: getFavoriteFilms(state),
   promoFilm: getPromoFilm(state),
-  currentFilm: getCurrentFilm(state),
-  playingFilm: getPlayingFilm(state),
   currentYear: getCurrentYear(state),
   authorizationStatus: getAuthorizationStatus(state),
+  isLoading: getLoadingStatus(state),
+  comments: getComments(state),
   isCommentSend: getIsCommentSend(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onFilmCardClick(film) {
-    dispatch(AppActionCreator.changeCurrentFilm(film));
-  },
   resetShowedFilms() {
     dispatch(AppActionCreator.resetShowedFilmCount());
   },
-  onPlayButtonClick(film) {
-    dispatch(AppActionCreator.openMainPlayer(film));
-  },
-  onExitButtonClick() {
-    dispatch(AppActionCreator.closeMainPlayer());
-  },
+
   login(authData) {
     dispatch(UserOperation.login(authData));
   },
-  postReview(filmID, disableForm, postData) {
-    dispatch(DataOperation.postComment(filmID, disableForm, postData));
+
+  postReview(filmID, postData, onSuccess, onError) {
+    dispatch(DataOperation.postComment(filmID, postData, onSuccess, onError));
   },
-  resetWarning() {
-    dispatch(DataActionCreator.sendComment(true));
-  },
+
   addFilmToFavorites(filmID, data) {
-    dispatch(AppOperation.addToFavorites(filmID, data));
+    dispatch(DataOperation.addToFavorites(filmID, data));
   },
-  addPromoToFavorites(filmID, data) {
-    dispatch(DataOperation.addPromoToFavorites(filmID, data));
-  }
+
+  loadComments(filmID) {
+    dispatch(DataOperation.loadComments(filmID));
+  },
 });
 
 export {App};

@@ -48,8 +48,7 @@ const withActivePlayer = (Component) => {
 
   WithActivePlayer.propTypes = {
     film: PropTypes.object.isRequired,
-    onFilmClick: PropTypes.func.isRequired,
-    onFilmMouseOver: PropTypes.func.isRequired
+    onFilmMouseOver: PropTypes.func.isRequired,
   };
 
   return WithActivePlayer;

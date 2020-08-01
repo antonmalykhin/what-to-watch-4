@@ -16,7 +16,6 @@ it(`Should playing`, () => {
   const wrapper = shallow(
       <MockComponentWrapped
         film={{}}
-        onFilmClick={()=>{}}
         onFilmMouseOver={()=>{}}
       />
   );
