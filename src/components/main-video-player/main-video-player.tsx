@@ -1,11 +1,21 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {formatTime} from '../../utils';
 import history from '../../history';
 import {getCurrentFilm} from '../../utils';
+import {Film, Match} from '../../types';
 
+interface Props {
+  films: Film[],
+  children: React.ReactNode | React.ReactNode[];
+  duration: number,
+  progress: number,
+  isPlaying: boolean,
+  onPlayButtonClick: () => void,
+  onFullscreenButtonClick: () => void,
+  match: Match
+};
 
-const MainVideoPlayer = (props) => {
+const MainVideoPlayer: React.FunctionComponent<Props> = (props: Props) => {
   const {
     films,
     children,
@@ -16,10 +26,6 @@ const MainVideoPlayer = (props) => {
     onFullscreenButtonClick,
     match
   } = props;
-
-  if (films.length === 0) {
-    return <p>Loading...</p>;
-  }
 
   const currentFilm = getCurrentFilm(films, match.params.id);
   const {title} = currentFilm;
@@ -81,20 +87,6 @@ const MainVideoPlayer = (props) => {
       </div>
     </div>
   );
-};
-
-MainVideoPlayer.propTypes = {
-  films: PropTypes.array.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-  duration: PropTypes.number.isRequired,
-  progress: PropTypes.number.isRequired,
-  isPlaying: PropTypes.bool.isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
-  onFullscreenButtonClick: PropTypes.func.isRequired,
-  match: PropTypes.object.isRequired
 };
 
 export default MainVideoPlayer;

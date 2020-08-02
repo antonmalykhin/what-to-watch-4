@@ -1,12 +1,17 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import SmallFilmCard from '../small-film-card/small-film-card';
 import withActivePlayer from '../../hocks/with-active-player/with-active-player';
+import {Film} from '../../types';
 
 const SmallFilmCardWrapped = withActivePlayer(SmallFilmCard);
 
+interface Props {
+  films: Film[],
+  onActiveItemChange: (film: Film) => void,
+  loadComments: (filmID: string | number) => void
+};
 
-const FilmList = (props) => {
+const FilmList: React.FunctionComponent<Props> = (props: Props) => {
   const {
     films,
     loadComments,
@@ -26,12 +31,6 @@ const FilmList = (props) => {
       ))}
     </div>
   );
-};
-
-FilmList.propTypes = {
-  films: PropTypes.array.isRequired,
-  onActiveItemChange: PropTypes.func.isRequired,
-  loadComments: PropTypes.func.isRequired
 };
 
 export default FilmList;

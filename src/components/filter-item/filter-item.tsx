@@ -1,7 +1,12 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
-const FilterItem = (props) => {
+interface Props {
+  filterTitle: string,
+  onFilterItemClick: (filterTitle: string) => void,
+  isActive: boolean
+};
+
+const FilterItem: React.FunctionComponent<Props> = (props: Props) => {
   const {
     filterTitle,
     onFilterItemClick,
@@ -24,12 +29,6 @@ const FilterItem = (props) => {
       </a>
     </li>
   );
-};
-
-FilterItem.propTypes = {
-  filterTitle: PropTypes.string.isRequired,
-  onFilterItemClick: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired
 };
 
 export default FilterItem;

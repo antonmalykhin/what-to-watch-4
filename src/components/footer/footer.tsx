@@ -1,9 +1,12 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
-const Footer = (props) => {
+interface Props {
+  year:number
+};
+
+const Footer: React.FunctionComponent<Props> = (props: Props) => {
   const {year} = props;
 
   return (
@@ -21,10 +24,6 @@ const Footer = (props) => {
       </div>
     </footer>
   );
-};
-
-Footer.propTypes = {
-  year: PropTypes.number.isRequired
 };
 
 export default Footer;

@@ -1,9 +1,17 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {formatTimeToDisplay} from '../../utils';
 
+interface Props {
+  genre: string,
+  release: number,
+  runtime: number,
+  crew: {
+    director: string,
+    starring: string[]
+  }
+};
 
-const FilmDetails = (props) => {
+const FilmDetails: React.FunctionComponent<Props> = (props: Props) => {
   const {
     genre,
     release,
@@ -57,16 +65,6 @@ const FilmDetails = (props) => {
       </div>
     </div>
   );
-};
-
-FilmDetails.propTypes = {
-  genre: PropTypes.string.isRequired,
-  release: PropTypes.number.isRequired,
-  runtime: PropTypes.number.isRequired,
-  crew: PropTypes.shape({
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.array.isRequired
-  }).isRequired
 };
 
 export default FilmDetails;

@@ -1,8 +1,12 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
+interface Props {
+  title: string,
+  onNavItemClick: () => void,
+  isActive: boolean
+};
 
-const NavItem = (props) => {
+const NavItem: React.FunctionComponent<Props> = (props: Props) => {
   const {
     title,
     onNavItemClick,
@@ -23,12 +27,6 @@ const NavItem = (props) => {
       </a>
     </li>
   );
-};
-
-NavItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  onNavItemClick: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired
 };
 
 export default NavItem;

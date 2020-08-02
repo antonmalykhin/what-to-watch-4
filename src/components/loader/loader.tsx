@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 
-const Loader = () => {
+const Loader: React.FunctionComponent = () => {
   return (
     <div className="loader">
       <div className="loader__ellipsis">

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import FilmList from '../film-list/film-list';
@@ -9,21 +8,35 @@ import withActiveItem from '../../hocks/with-active-item/with-active-item';
 import FilmCard from '../film-card/film-card';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import LoadingMessage from '../loading-message/loading-message';
 import {ActionCreator as AppActionCreator} from '../../reducer/app/app';
 import {ActionCreator as DataActionCreator} from '../../reducer/data/data';
 import {getShowedFilms} from '../../reducer/app/selectors';
 import {getFilterItems, getActiveFilter} from '../../reducer/data/selectors';
 import {AuthorizationStatus} from '../../reducer/user/user';
 import {AppRoute} from '../../const';
-
+import {Film, Comment} from '../../types';
 
 const SHOWED_FILM_COUNT = 8;
 
 const FilmListWrapped = withActiveItem(FilmList, `films`);
 
+interface Props {
+  showedFilmCount: number,
+  activeFilterItem: string,
+  onShowMoreButtonClick: () => void,
+  promoFilm: Film,
+  films: Film[],
+  currentYear: number,
+  authorizationStatus: string,
+  filterItems: string[],
+  onFilterButtonClick: (genre: string) => void,
+  resetShowedFilms: () => void,
+  addPromoToFavorites: (filmID: string, data: number | boolean | string) => void,
+  favoriteFilms: Film[],
+  loadComments: (filmID: string | number) => void
+};
 
-class Main extends PureComponent {
+class Main extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
 
@@ -69,7 +82,7 @@ class Main extends PureComponent {
 
         <div className="page-content">
 
-          {films.length ? <section className="catalog">
+          <section className="catalog">
             <h2 className="catalog__title visually-hidden">Catalog</h2>
 
             {<Filter
@@ -89,7 +102,7 @@ class Main extends PureComponent {
                 onShowMoreButtonClick();
               }}
             />}
-          </section> : <LoadingMessage />}
+          </section>
 
           <Footer year={currentYear} />
         </div>
@@ -97,22 +110,6 @@ class Main extends PureComponent {
     );
   }
 }
-
-Main.propTypes = {
-  showedFilmCount: PropTypes.number.isRequired,
-  activeFilterItem: PropTypes.string.isRequired,
-  onShowMoreButtonClick: PropTypes.func.isRequired,
-  promoFilm: PropTypes.object.isRequired,
-  films: PropTypes.array.isRequired,
-  currentYear: PropTypes.number.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  filterItems: PropTypes.array.isRequired,
-  onFilterButtonClick: PropTypes.func.isRequired,
-  resetShowedFilms: PropTypes.func.isRequired,
-  addPromoToFavorites: PropTypes.func.isRequired,
-  favoriteFilms: PropTypes.array.isRequired,
-  loadComments: PropTypes.func.isRequired
-};
 
 const mapStateToProps = (state) => {
   return {

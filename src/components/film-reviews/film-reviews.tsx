@@ -1,11 +1,15 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import ReviewItem from '../review-item/review-item';
+import {Comment} from '../../types';
 
 const NUM_SLICE_PART = 2;
 
+interface Props {
+  comments: Comment[]
 
-const FilmReviews = (props) => {
+};
+
+const FilmReviews: React.FunctionComponent<Props> = (props: Props) => {
   const {
     comments
   } = props;
@@ -34,10 +38,6 @@ const FilmReviews = (props) => {
       </div>
     </div>
   );
-};
-
-FilmReviews.propTypes = {
-  comments: PropTypes.array.isRequired
 };
 
 export default FilmReviews;

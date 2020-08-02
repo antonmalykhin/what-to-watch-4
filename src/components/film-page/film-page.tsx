@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import FilmList from '../film-list/film-list';
 import FilmDescription from '../film-description/film-description';
@@ -10,6 +9,7 @@ import withActiveItem from '../../hocks/with-active-item/with-active-item';
 import {getLikeThisFilms, getCurrentFilm} from '../../utils';
 import {AppRoute} from '../../const';
 import history from '../../history';
+import {Film, Comment, Match} from '../../types';
 
 const MORE_LIKE_THIS_FILM_COUNT = 4;
 
@@ -22,7 +22,18 @@ const TABS = [
 const FilmDescriptionWrapped = withActiveItem(FilmDescription, `tabs`);
 const FilmListWrapped = withActiveItem(FilmList, `films`);
 
-const FilmPage = (props) => {
+interface Props {
+  authorizationStatus: string,
+  currentYear: number,
+  films: Film[],
+  favoriteFilms: Film[],
+  addFilmToFavorites: (id: string | number, inFavorite: boolean) => void,
+  comments: Comment[],
+  loadComments: (id: string | number) => void,
+  match: Match,
+};
+
+const FilmPage: React.FunctionComponent<Props> = (props: Props) => {
   const {
     authorizationStatus,
     currentYear,
@@ -141,17 +152,6 @@ const FilmPage = (props) => {
       </div>
     </React.Fragment>
   );
-};
-
-FilmPage.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  currentYear: PropTypes.number.isRequired,
-  films: PropTypes.array.isRequired,
-  favoriteFilms: PropTypes.array.isRequired,
-  addFilmToFavorites: PropTypes.func.isRequired,
-  comments: PropTypes.array.isRequired,
-  loadComments: PropTypes.func.isRequired,
-  match: PropTypes.object.isRequired,
 };
 
 export default FilmPage;

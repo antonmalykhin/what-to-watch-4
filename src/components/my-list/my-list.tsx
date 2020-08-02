@@ -1,11 +1,17 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import FilmList from '../film-list/film-list';
 import withActiveItem from '../../hocks/with-active-item/with-active-item';
+import {Film} from '../../types';
 
-const MyList = (props) => {
+interface Props {
+  currentYear: number,
+  favoriteFilms: Film[],
+  loadComments: (id: number | string) => void,
+};
+
+const MyList: React.FunctionComponent<Props> = (props: Props) => {
 
   const {
     currentYear,
@@ -40,12 +46,6 @@ const MyList = (props) => {
       <Footer year={currentYear} />
     </div>
   );
-};
-
-MyList.propTypes = {
-  currentYear: PropTypes.number.isRequired,
-  favoriteFilms: PropTypes.array.isRequired,
-  loadComments: PropTypes.func.isRequired,
 };
 
 export default MyList;

@@ -2,9 +2,16 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import history from '../../history';
 import {AppRoute} from '../../const';
+import {Film} from '../../types';
 
+interface Props {
+  children: React.ReactNode | React.ReactNode[],
+  promoFilm: Film,
+  addPromoToFavorites: (id: string | number, inFavorite: boolean) => void,
+  favoriteFilms: Film[],
+};
 
-const FilmCard = (props) => {
+const FilmCard: React.FunctionComponent<Props> = (props: Props) => {
   const {
     children,
     promoFilm,
@@ -77,13 +84,6 @@ const FilmCard = (props) => {
       </div>
     </section>
   );
-};
-
-FilmCard.propTypes = {
-  children: PropTypes.node.isRequired,
-  promoFilm: PropTypes.object.isRequired,
-  addPromoToFavorites: PropTypes.func.isRequired,
-  favoriteFilms: PropTypes.array.isRequired
 };
 
 export default FilmCard;

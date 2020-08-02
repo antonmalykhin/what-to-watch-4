@@ -1,10 +1,22 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import {Subtract} from 'utility-types';
 
 const DEFAULT_RATING_VALUE = 3;
 
+interface State {
+  rating: number
+};
+
+interface InjectingProps {
+  onRatingCheck: (value: number) => void,
+  rating: number
+}
+
 const withSetRating = (Component) => {
-  class WithSetRating extends PureComponent {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectingProps>;
+
+  class WithSetRating extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
 
@@ -29,11 +41,6 @@ const withSetRating = (Component) => {
       );
     }
   }
-
-  WithSetRating.propTypes = {
-    films: PropTypes.array.isRequired,
-    onSubmit: PropTypes.func.isRequired
-  };
 
   return WithSetRating;
 };

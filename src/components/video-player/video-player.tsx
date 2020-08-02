@@ -1,29 +1,38 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
-class VideoPlayer extends PureComponent {
+interface Props {
+  isPlaying: boolean,
+  src: string,
+  poster: string,
+  width: number,
+  height: number,
+  loop: boolean
+};
+
+class VideoPlayer extends React.PureComponent<Props, {}> {
+  private videoRef: React.RefObject<HTMLVideoElement>
   constructor(props) {
     super(props);
 
-    this._videoRef = React.createRef();
+    this.videoRef = React.createRef();
   }
 
   componentDidMount() {
-    const video = this._videoRef.current;
+    const video = this.videoRef.current;
     const {src} = this.props;
     video.src = src;
     video.muted = true;
   }
 
   componentWillUnmount() {
-    const video = this._videoRef.current;
+    const video = this.videoRef.current;
     video.src = ``;
     video.muted = null;
   }
 
   componentDidUpdate() {
     const {isPlaying} = this.props;
-    const video = this._videoRef.current;
+    const video = this.videoRef.current;
 
     if (isPlaying) {
       video.play();
@@ -39,7 +48,7 @@ class VideoPlayer extends PureComponent {
       <video
         width={width}
         height={height}
-        ref={this._videoRef}
+        ref={this.videoRef}
         src={src}
         poster={poster}
         loop={loop}
@@ -47,14 +56,5 @@ class VideoPlayer extends PureComponent {
     );
   }
 }
-
-VideoPlayer.propTypes = {
-  isPlaying: PropTypes.bool.isRequired,
-  src: PropTypes.string.isRequired,
-  poster: PropTypes.string.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  loop: PropTypes.bool.isRequired
-};
 
 export default VideoPlayer;

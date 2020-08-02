@@ -1,15 +1,29 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import {Subtract} from 'utility-types';
 
 const TIMEOUT = 1000;
 
+interface State {
+  isPlaying: boolean
+};
+
+interface InjectingProps {
+  isPlaying: boolean,
+  onPlayVideo: () => void,
+  onStopVideo: () => void
+}
 
 const withActivePlayer = (Component) => {
-  class WithActivePlayer extends PureComponent {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectingProps>;
+
+  class WithActivePlayer extends React.PureComponent<T, State> {
+    private timeoutID: number | null;
+
     constructor(props) {
       super(props);
 
-      this._timeoutID = null;
+      this.timeoutID = null;
 
       this.state = {
         isPlaying: false
@@ -20,17 +34,17 @@ const withActivePlayer = (Component) => {
     }
 
     _handlePlayVideo() {
-      this._timeoutID = setTimeout(() => this.setState({isPlaying: true}), TIMEOUT);
+      this.timeoutID = window.setTimeout(() => this.setState({isPlaying: true}), TIMEOUT);
     }
 
     _handleStopVideo() {
       this.setState({isPlaying: false});
-      clearTimeout(this._timeoutID);
+      clearTimeout(this.timeoutID);
     }
 
     componentWillUnmount() {
-      if (this._timeoutID) {
-        clearTimeout(this._timeoutID);
+      if (this.timeoutID) {
+        clearTimeout(this.timeoutID);
       }
     }
 
@@ -45,11 +59,6 @@ const withActivePlayer = (Component) => {
       );
     }
   }
-
-  WithActivePlayer.propTypes = {
-    film: PropTypes.object.isRequired,
-    onFilmMouseOver: PropTypes.func.isRequired,
-  };
 
   return WithActivePlayer;
 };

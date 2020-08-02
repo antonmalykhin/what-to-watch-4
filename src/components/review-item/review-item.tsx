@@ -1,8 +1,12 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {getFormattedDate} from '../../utils';
+import {Comment} from '../../types';
 
-const ReviewItem = (props) => {
+interface Props {
+  review: Comment
+};
+
+const ReviewItem: React.FunctionComponent<Props> = (props: Props) => {
   const {review} = props;
 
   const {
@@ -30,10 +34,6 @@ const ReviewItem = (props) => {
       <div className="review__rating">{rating}</div>
     </div>
   );
-};
-
-ReviewItem.propTypes = {
-  review: PropTypes.object.isRequired
 };
 
 export default ReviewItem;

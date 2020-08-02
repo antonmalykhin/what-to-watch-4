@@ -1,10 +1,18 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
-const Header = (props) => {
-  const {children, classNameModifier} = props;
+interface Props {
+  classNameModifier: String,
+  children: React.ReactNode | React.ReactNode[];
+};
+
+const Header: React.FunctionComponent<Props> = (props: Props) => {
+  const {
+    children,
+    classNameModifier
+  } = props;
+
   return (
     <React.Fragment>
       <h1 className="visually-hidden">WTW</h1>
@@ -23,14 +31,6 @@ const Header = (props) => {
       </header>
     </React.Fragment>
   );
-};
-
-Header.propTypes = {
-  classNameModifier: PropTypes.string.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
 };
 
 export default Header;

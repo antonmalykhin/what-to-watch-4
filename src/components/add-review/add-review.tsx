@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Header from '../header/header';
 import Star from '../star/star';
@@ -9,6 +8,7 @@ import {getCurrentFilm} from '../../utils';
 import {AppRoute} from '../../const';
 import {getIsCommentSend} from '../../reducer/data/selectors';
 import {ActionCreator} from '../../reducer/data/data';
+import {Film, Match} from '../../types';
 
 const RATING_STAR_COUNT = 5;
 const STARTING_INPUT_VALUE = 1;
@@ -17,7 +17,32 @@ const Comment = {
   MAX_LENGTH: 400
 };
 
-class AddReview extends PureComponent {
+interface Props {
+  films: Film[],
+  onSubmit: (
+    id : string | number,
+    {
+      rating,
+      comment
+    }: {
+      rating: number | string,
+      comment: string
+    },
+    onSuccess: () => void,
+    onError: () => void
+    ) => void,
+  rating: number,
+  onRatingCheck: () => void,
+  isCommentSend: boolean,
+  resetErrorMessage: () => void,
+  match: Match
+}
+
+class AddReview extends React.PureComponent<Props, {}> {
+  private stars: React.RefObject<HTMLDivElement>;
+  private comment: React.RefObject<HTMLTextAreaElement>;
+  private form: React.RefObject<HTMLFormElement>;
+
   constructor(props) {
     super(props);
 
@@ -68,7 +93,7 @@ class AddReview extends PureComponent {
     textarea.disabled = status;
     button.disabled = status;
 
-    form.style = `opacity: ${status ? 0.5 : 1}`;
+    form.setAttribute(`opacity`, `${status ? 0.5 : 1}`);
   }
 
   render() {
@@ -144,7 +169,7 @@ class AddReview extends PureComponent {
               <div className="rating__stars" ref={this.stars} >
 
                 {new Array(RATING_STAR_COUNT)
-                    .fill()
+                    .fill(``)
                     .map((it, index) => {
                       const shiftedIndex = index + STARTING_INPUT_VALUE;
                       return (
@@ -184,16 +209,6 @@ class AddReview extends PureComponent {
     );
   }
 }
-
-AddReview.propTypes = {
-  films: PropTypes.array.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  rating: PropTypes.number.isRequired,
-  onRatingCheck: PropTypes.func.isRequired,
-  isCommentSend: PropTypes.bool.isRequired,
-  resetErrorMessage: PropTypes.func.isRequired,
-  match: PropTypes.object.isRequired
-};
 
 const mapStateToProps = (state) => ({
   isCommentSend: getIsCommentSend(state)

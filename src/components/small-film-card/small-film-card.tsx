@@ -1,8 +1,17 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import VideoPlayer from '../video-player/video-player';
 import history from '../../history';
 import {AppRoute} from '../../const';
+import {Film} from '../../types';
+
+interface Props {
+  film: Film,
+  loadComments: (filmID: string | number) => void,
+  onFilmMouseOver: () => void,
+  isPlaying: boolean,
+  onPlayVideo: () => void,
+  onStopVideo: () => void
+};
 
 const filmPreviewSettings = {
   WIDTH: 280,
@@ -11,7 +20,7 @@ const filmPreviewSettings = {
 };
 
 
-const SmallFilmCard = (props) => {
+const SmallFilmCard: React.FunctionComponent<Props> = (props: Props) => {
   const {
     film,
     loadComments,
@@ -68,15 +77,6 @@ const SmallFilmCard = (props) => {
       </h3>
     </article>
   );
-};
-
-SmallFilmCard.propTypes = {
-  film: PropTypes.object.isRequired,
-  loadComments: PropTypes.func.isRequired,
-  onFilmMouseOver: PropTypes.func.isRequired,
-  isPlaying: PropTypes.bool.isRequired,
-  onPlayVideo: PropTypes.func.isRequired,
-  onStopVideo: PropTypes.func.isRequired
 };
 
 export default SmallFilmCard;

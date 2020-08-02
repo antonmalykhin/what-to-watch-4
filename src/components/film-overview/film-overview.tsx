@@ -1,9 +1,19 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {getRaringLevel} from '../../utils';
 
+interface Props {
+  rating: {
+    score: number,
+    count: number
+  },
+  description: string,
+  crew: {
+    director: string,
+    starring: string[]
+  }
+};
 
-const FilmOverview = (props) => {
+const FilmOverview: React.FunctionComponent<Props> = (props: Props) => {
   const {
     rating,
     description,
@@ -47,11 +57,4 @@ const FilmOverview = (props) => {
   );
 };
 
-FilmOverview.propTypes = {
-  rating: PropTypes.object.isRequired,
-  description: PropTypes.string.isRequired,
-  crew: PropTypes.object.isRequired
-};
-
 export default FilmOverview;
-

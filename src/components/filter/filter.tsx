@@ -1,9 +1,14 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import FilterItem from '../filter-item/filter-item';
 
+interface Props {
+  filterItems: string[],
+  currentFilter: string,
+  onFilterClick: (filterItem: string) => void,
+  resetShowedFilms: () => void
+};
 
-const Filter = (props) => {
+const Filter: React.FunctionComponent<Props> = (props: Props) => {
   const {
     filterItems,
     currentFilter,
@@ -30,12 +35,4 @@ const Filter = (props) => {
   );
 };
 
-Filter.propTypes = {
-  filterItems: PropTypes.array.isRequired,
-  currentFilter: PropTypes.string.isRequired,
-  onFilterClick: PropTypes.func.isRequired,
-  resetShowedFilms: PropTypes.func.isRequired
-};
-
 export default Filter;
-

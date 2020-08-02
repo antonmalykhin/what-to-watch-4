@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {Router, Route, Switch, Redirect} from 'react-router-dom';
-import * as PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Main from '../main/main';
 import FilmPage from '../film-page/film-page';
@@ -20,12 +19,60 @@ import withActiveMainPlayer from '../../hocks/with-active-main-player/with-activ
 import withSetRating from '../../hocks/with-set-rating/with-set-rating';
 import history from '../../history';
 import {AppRoute} from '../../const';
+import {Film, Comment} from '../../types';
 
 const MainVideoPlayerWrapped = withActiveMainPlayer(MainVideoPlayer);
 const AddReviewWrapped = withSetRating(AddReview);
 
+interface Props {
+  films: Film[],
+  favoriteFilms: Film[],
+  promoFilm: Film,
+  currentYear: number,
+  authorizationStatus: string,
+  login: (
+    {
+      email,
+      password
+    }: {
+      email: string,
+      password: string
+    }
+  ) => void,
+  postReview: (
+    {
+      filmID,
+      postData,
+      onSuccess,
+      onError
+    }: {
+      filmID: string | number,
+      postData: {
+        rating: string | number,
+        comment: string
+      },
+      onSuccess: () => void,
+      onError: () => void
+    }
+  ) => void,
+  isCommentSend: boolean,
+  addFilmToFavorites: (
+    {
+      filmID,
+      data
+    }: {
+      filmID: string | number,
+      data: boolean
+    }
+  ) => void,
+  isLoading: boolean,
+  loadComments: (filmID: number) => void,
+  comments: Comment[]
+};
 
-class App extends PureComponent {
+class App extends React.PureComponent<Props, {}> {
+  props: Props;
+
   constructor(props) {
     super(props);
 
@@ -141,21 +188,6 @@ class App extends PureComponent {
     );
   }
 }
-
-App.propTypes = {
-  films: PropTypes.array.isRequired,
-  favoriteFilms: PropTypes.array.isRequired,
-  promoFilm: PropTypes.object.isRequired,
-  currentYear: PropTypes.number.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  login: PropTypes.func.isRequired,
-  postReview: PropTypes.func.isRequired,
-  isCommentSend: PropTypes.bool.isRequired,
-  addFilmToFavorites: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  loadComments: PropTypes.func.isRequired,
-  comments: PropTypes.array.isRequired
-};
 
 const mapStateToProps = (state) => ({
   films: getFilteredFilms(state),
