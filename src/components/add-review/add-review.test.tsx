@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import AddReview from './add-review';
 import history from '../../history';
+import {noop} from '../../utils';
 
 const films = [
   {
@@ -220,11 +221,11 @@ it(`AddReview render correctly`, () => {
         <Provider store={store}>
           <AddReview
             films={films}
-            onSubmit={() => {}}
+            onSubmit={noop}
             rating={3}
-            onRatingCheck={() => {}}
+            onRatingCheck={noop}
             isCommentSend={true}
-            resetWarning={() => {}}
+            resetWarning={noop}
             match={match}
           />
         </Provider>

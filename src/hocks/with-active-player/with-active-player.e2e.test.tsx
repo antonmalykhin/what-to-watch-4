@@ -2,7 +2,7 @@ import * as React from 'react';
 import {configure, shallow} from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import withActivePlayer from './with-active-player';
-
+import {noop} from '../../utils';
 configure({
   adapter: new Adapter()
 });
@@ -16,7 +16,7 @@ it(`Should playing`, () => {
   const wrapper = shallow(
       <MockComponentWrapped
         film={{}}
-        onFilmMouseOver={()=>{}}
+        onFilmMouseOver={noop}
       />
   );
 

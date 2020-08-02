@@ -3,6 +3,7 @@ import * as renderer from 'react-test-renderer';
 import {Router} from 'react-router-dom';
 import history from '../../history';
 import FilmPage from './film-page';
+import {noop} from '../../utils';
 
 const films = [
   {
@@ -291,9 +292,9 @@ it(`Should FilmPage render correctly`, () => {
             currentYear={2020}
             films={films}
             favoriteFilms={favoriteFilms}
-            addFilmToFavorites={() => { }}
+            addFilmToFavorites={noop}
             comments={comments}
-            loadComments={() => { }}
+            loadComments={noop}
             match={match}
           />
         </Router>, {

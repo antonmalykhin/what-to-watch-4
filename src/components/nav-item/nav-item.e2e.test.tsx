@@ -8,7 +8,9 @@ configure({
 });
 
 const mockEvent = {
-  preventDefault() {}
+  preventDefault() {
+    // do nothing
+  }
 };
 
 it(`Should NavItem button be pressed`, () => {

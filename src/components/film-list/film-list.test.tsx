@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import FilmList from './film-list';
+import {noop} from '../../utils';
+
 
 const films = [
   {
@@ -187,8 +189,8 @@ it(`Should FilmList render correctly`, () => {
     .create(
         <FilmList
           films={films}
-          onActiveItemChange={() => {}}
-          loadComments={() => {}}
+          onActiveItemChange={noop}
+          loadComments={noop}
         />, {
           createNodeMock: () => {
             return {};

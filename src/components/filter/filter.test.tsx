@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import Filter from './filter';
+import {noop} from '../../utils';
+
 
 const filterItems = [
   `All genres`,
@@ -20,8 +22,8 @@ it(`Should Filter render correctly`, () => {
       <Filter
         filterItems={filterItems}
         currentFilter={`All genres`}
-        onFilterClick={() => {}}
-        resetShowedFilms={() => {}}
+        onFilterClick={noop}
+        resetShowedFilms={noop}
 
       />
   ).toJSON();

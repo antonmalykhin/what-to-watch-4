@@ -5,7 +5,6 @@ import history from '../../history';
 import Header from './header';
 
 
-
 it(`Header render`, () => {
   const tree = renderer.create(
       <Router history={history}>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import MainVideoPlayer from './main-video-player';
+import {noop} from '../../utils';
 
 const films = [
   {
@@ -192,9 +193,8 @@ it(`Should MainVideoPlayer render correctly`, () => {
   const tree = renderer.create(
       <MainVideoPlayer
         films={films}
-        onExitClick={() => {}}
-        onPlayButtonClick={() => {}}
-        onFullscreenButtonClick={() => {}}
+        onPlayButtonClick={noop}
+        onFullscreenButtonClick={noop}
         duration={99}
         progress={0}
         isPlaying={false}

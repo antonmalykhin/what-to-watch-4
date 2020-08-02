@@ -2,6 +2,7 @@ import * as React from 'react';
 import {configure, shallow} from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import SmallFilmCard from './small-film-card';
+import {noop} from '../../utils';
 
 configure({
   adapter: new Adapter()
@@ -37,11 +38,11 @@ it(`Film data passed to callback when mouse over film card`, () => {
   const smallFilmCard = shallow(
       <SmallFilmCard
         film={film}
-        loadComments={() => {}}
+        loadComments={noop}
         onFilmMouseOver={onCardMouseOver}
         isPlaying={false}
-        onPlayVideo={()=>{}}
-        onStopVideo={()=>{}}
+        onPlayVideo={noop}
+        onStopVideo={noop}
       />
   );
 

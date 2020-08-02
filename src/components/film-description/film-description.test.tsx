@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import FilmDescription from './film-description';
+import {noop} from '../../utils';
 
 const film = {
   id: 1,
@@ -62,8 +63,8 @@ it(`Should FilmDescription render correctly`, () => {
           tabs={TABS}
           comments={comments}
           activeItem={`Overview`}
-          onActiveItemChange={()=>{}}
-          loadComments={()=>{}}
+          onActiveItemChange={noop}
+          loadComments={noop}
         />
     ).toJSON();
 

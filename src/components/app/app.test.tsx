@@ -3,6 +3,7 @@ import * as renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {App} from './app';
+import {noop} from '../../utils';
 
 const mockStore = configureStore([]);
 
@@ -323,14 +324,12 @@ it(`Render App`, () => {
             promoFilm={promoFilm}
             currentYear={2020}
             authorizationStatus={`AUTH`}
-            login={() => {}}
-            postReview={() => {}}
+            login={noop}
+            postReview={noop}
             isCommentSend={true}
-            resetWarning={() => {}}
-            addFilmToFavorites={() => {}}
+            addFilmToFavorites={noop}
             comments={comments}
-            loadComments={() => {}}
-            loadFavoriteFilms={() => {}}
+            loadComments={noop}
             isLoading={true}
           />
         </Provider>, {

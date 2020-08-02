@@ -29,7 +29,6 @@ it(`Should FilmReviews render correctly`, () => {
     .create(
         <FilmReviews
           filmID={1}
-          loadComments={() => {}}
           comments={comments}
         />
     ).toJSON();

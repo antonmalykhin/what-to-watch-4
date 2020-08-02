@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import FilmCard from './film-card';
+import {noop} from '../../utils';
 
 const promoFilm = {
   id: 1,
@@ -104,7 +105,7 @@ it(`FilmCard render`, () => {
       <FilmCard
         promoFilm={promoFilm}
         favoriteFilms={favoriteFilms}
-        addPromoToFavorites={() => {}}
+        addPromoToFavorites={noop}
       >
         {children}
       </FilmCard>

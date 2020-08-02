@@ -3,6 +3,7 @@ import * as renderer from 'react-test-renderer';
 import {Router} from 'react-router-dom';
 import history from '../../history';
 import MyList from './my-list';
+import {noop} from '../../utils';
 
 const favoriteFilms = [
   {
@@ -81,7 +82,7 @@ it(`Should MyList render`, () => {
           <MyList
             currentYear={2020}
             favoriteFilms={favoriteFilms}
-            loadComments={() => {}}
+            loadComments={noop}
           />
         </Router>, {
           createNodeMock: () => {

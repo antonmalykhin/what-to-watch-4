@@ -3,7 +3,7 @@ import * as renderer from 'react-test-renderer';
 import {Router} from 'react-router-dom';
 import history from '../../history';
 import {Main} from './main';
-
+import {noop} from '../../utils';
 
 const films = [
   {
@@ -300,18 +300,15 @@ it(`Should Main render correctly`, () => {
             currentYear={2020}
             showedFilmCount={8}
             activeFilterItem={`All genres`}
-            onShowMoreButtonClick={()=>{}}
+            onShowMoreButtonClick={noop}
             promoFilm={promoFilm}
             films={films}
             favoriteFilms={favoriteFilms}
             filterItems={filterItem}
-            onFilterButtonClick={() => {}}
-            resetShowedFilms={() => {}}
-            duration={99}
-            progress={0}
-            isPlaying={false}
-            addPromoToFavorites={() => {}}
-            loadComments={() => {}}
+            onFilterButtonClick={noop}
+            resetShowedFilms={noop}
+            addPromoToFavorites={noop}
+            loadComments={noop}
           />
         </Router>, {
           createNodeMock: () => {

@@ -2,6 +2,7 @@ import * as React from 'react';
 import {configure, shallow} from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import withSetRating from './with-set-rating';
+import {noop} from '../../utils';
 
 configure({
   adapter: new Adapter()
@@ -195,7 +196,7 @@ it(`HOC works`, () => {
   const wrapper = shallow(
       <MockComponentWrapped
         films={films}
-        onSubmit={() => {}}
+        onSubmit={noop}
       />
   );
   expect(wrapper.props().rating).toEqual(3);

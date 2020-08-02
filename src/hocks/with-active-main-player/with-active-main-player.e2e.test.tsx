@@ -2,6 +2,7 @@ import * as React from 'react';
 import {configure, mount} from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import withActiveMainPlayer from './with-active-main-player';
+import {noop} from '../../utils';
 
 configure({
   adapter: new Adapter()
@@ -193,7 +194,12 @@ const match = {
   }
 };
 
-const VideoPlayer = (props) => {
+interface Props {
+  children: React.ReactNode;
+  onPlayButtonClick: () => void;
+}
+
+const VideoPlayer = (props: Props) => {
   const {
     children,
     onPlayButtonClick,
@@ -207,14 +213,6 @@ const VideoPlayer = (props) => {
   );
 };
 
-VideoPlayer.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
-};
-
 it(`Checks that HOC's callback play and pause video`, () => {
   const VideoPlayerWrapped = withActiveMainPlayer(VideoPlayer);
   const wrapper = mount(
@@ -223,19 +221,20 @@ it(`Checks that HOC's callback play and pause video`, () => {
         match={match}
       />
   );
-  window.HTMLMediaElement.prototype.play = () => {};
 
-  const {_videoRef} = wrapper.instance();
+  window.HTMLMediaElement.prototype.play = noop;
 
-  jest.spyOn(_videoRef.current, `play`);
+  const {videoRef} = wrapper.instance();
+
+  jest.spyOn(videoRef.current, `play`);
 
   wrapper.instance().componentDidMount();
 
   wrapper.find(`.player__play`).simulate(`click`);
-  expect(_videoRef.current.play).toHaveBeenCalledTimes(1);
+  expect(videoRef.current.play).toHaveBeenCalledTimes(1);
 
-  window.HTMLMediaElement.prototype.pause = () => {};
-  jest.spyOn(_videoRef.current, `pause`);
+  window.HTMLMediaElement.prototype.pause = noop;
+  jest.spyOn(videoRef.current, `pause`);
   wrapper.find(`.player__play`).simulate(`click`);
-  expect(_videoRef.current.pause).toHaveBeenCalledTimes(1);
+  expect(videoRef.current.pause).toHaveBeenCalledTimes(1);
 });

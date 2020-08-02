@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import SmallFilmCard from './small-film-card';
+import {noop} from '../../utils';
 
 const film = {
   id: 1,
@@ -31,10 +32,10 @@ it(`Should SmallFilmCard render correctly`, () => {
     .create(
         <SmallFilmCard
           film={film}
-          loadComments={() => {}}
-          onFilmMouseOver={() => {}}
-          onPlayVideo={() => {}}
-          onStopVideo={() => {}}
+          loadComments={noop}
+          onFilmMouseOver={noop}
+          onPlayVideo={noop}
+          onStopVideo={noop}
           isPlaying={false}
         />, {
           createNodeMock: () => {
