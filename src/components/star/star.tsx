@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 interface Props {
-  ratingValue: number,
-  onRatingCheck: (ratingValue: number) => void,
-  isChecked: boolean
-};
+  ratingValue: number;
+  onRatingCheck: (ratingValue: number) => void;
+  isChecked: boolean;
+}
 
 const Star: React.FunctionComponent<Props> = (props: Props) => {
   const {

@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 interface Props {
-  title: string,
-  onNavItemClick: () => void,
-  isActive: boolean
-};
+  title: string;
+  onNavItemClick: () => void;
+  isActive: boolean;
+}
 
 const NavItem: React.FunctionComponent<Props> = (props: Props) => {
   const {

@@ -18,24 +18,24 @@ const Comment = {
 };
 
 interface Props {
-  films: Film[],
+  films: Film[];
   onSubmit: (
-    id : string | number,
+    id: string | number,
     {
       rating,
       comment
     }: {
-      rating: number | string,
-      comment: string
+      rating: number | string;
+      comment: string;
     },
     onSuccess: () => void,
     onError: () => void
-    ) => void,
-  rating: number,
-  onRatingCheck: () => void,
-  isCommentSend: boolean,
-  resetErrorMessage: () => void,
-  match: Match
+    ) => void;
+  rating: number;
+  onRatingCheck: () => void;
+  isCommentSend: boolean;
+  resetErrorMessage: () => void;
+  match: Match;
 }
 
 class AddReview extends React.PureComponent<Props, {}> {

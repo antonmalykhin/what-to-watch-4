@@ -5,13 +5,13 @@ import {AppRoute} from '../../const';
 import {Film} from '../../types';
 
 interface Props {
-  film: Film,
-  loadComments: (filmID: string | number) => void,
-  onFilmMouseOver: () => void,
-  isPlaying: boolean,
-  onPlayVideo: () => void,
-  onStopVideo: () => void
-};
+  film: Film;
+  loadComments: (filmID: string | number) => void;
+  onFilmMouseOver: () => void;
+  isPlaying: boolean;
+  onPlayVideo: () => void;
+  onStopVideo: () => void;
+}
 
 const filmPreviewSettings = {
   WIDTH: 280,

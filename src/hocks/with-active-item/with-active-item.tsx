@@ -3,12 +3,12 @@ import {Subtract} from 'utility-types';
 import {Film} from '../../types';
 
 interface State {
-  activeItem: Film | string
-};
+  activeItem: Film | string;
+}
 
 interface InjectingProps {
-  onActiveItemChange: (item: Film | string) => void,
-  activeItem: Film | string
+  onActiveItemChange: (item: Film | string) => void;
+  activeItem: Film | string;
 }
 
 const withActiveItem = (Component, items) => {

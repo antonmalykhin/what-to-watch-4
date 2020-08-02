@@ -1,20 +1,20 @@
 import * as React from 'react';
 import {Subtract} from 'utility-types';
-import { getCurrentFilm } from '../../utils';
+import {getCurrentFilm} from '../../utils';
 
 interface State {
-  duration: number,
-  progress: number,
-  isPlaying: boolean,
-};
+  duration: number;
+  progress: number;
+  isPlaying: boolean;
+}
 
 interface InjectingProps {
-  duration: number,
-  progress: number,
-  isPlaying: boolean,
-  onPlayButtonClick: () => void,
-  onFullscreenButtonClick: () => void
-};
+  duration: number;
+  progress: number;
+  isPlaying: boolean;
+  onPlayButtonClick: () => void;
+  onFullscreenButtonClick: () => void;
+}
 
 const withActiveMainPlayer = (Component) => {
   type P = React.ComponentProps<typeof Component>;
@@ -22,6 +22,7 @@ const withActiveMainPlayer = (Component) => {
 
   class WithActiveMainPlayer extends React.PureComponent<T, State> {
     private videoRef: React.RefObject<HTMLVideoElement>;
+
     constructor(props) {
       super(props);
 
@@ -39,10 +40,17 @@ const withActiveMainPlayer = (Component) => {
     componentDidMount() {
       const film = this.videoRef.current;
 
-      const { films, match } = this.props;
+      const {
+        films,
+        match
+      } = this.props;
+
       const currentFilm = getCurrentFilm(films, match.params.id);
 
-      const { background, video } = currentFilm;
+      const {
+        background,
+        video
+      } = currentFilm;
 
       film.poster = background;
       film.src = video;
@@ -87,7 +95,7 @@ const withActiveMainPlayer = (Component) => {
     }
 
     _handlePlay() {
-      return this.setState({ isPlaying: !this.state.isPlaying });
+      return this.setState({isPlaying: !this.state.isPlaying});
     }
 
     render() {

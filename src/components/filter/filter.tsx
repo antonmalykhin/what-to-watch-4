@@ -2,11 +2,11 @@ import * as React from 'react';
 import FilterItem from '../filter-item/filter-item';
 
 interface Props {
-  filterItems: string[],
-  currentFilter: string,
-  onFilterClick: (filterItem: string) => void,
-  resetShowedFilms: () => void
-};
+  filterItems: string[];
+  currentFilter: string;
+  onFilterClick: (filterItem: string) => void;
+  resetShowedFilms: () => void;
+}
 
 const Filter: React.FunctionComponent<Props> = (props: Props) => {
   const {

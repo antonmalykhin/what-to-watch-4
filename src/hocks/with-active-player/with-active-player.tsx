@@ -4,13 +4,13 @@ import {Subtract} from 'utility-types';
 const TIMEOUT = 1000;
 
 interface State {
-  isPlaying: boolean
-};
+  isPlaying: boolean;
+}
 
 interface InjectingProps {
-  isPlaying: boolean,
-  onPlayVideo: () => void,
-  onStopVideo: () => void
+  isPlaying: boolean;
+  onPlayVideo: () => void;
+  onStopVideo: () => void;
 }
 
 const withActivePlayer = (Component) => {

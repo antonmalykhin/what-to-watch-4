@@ -25,20 +25,20 @@ const MainVideoPlayerWrapped = withActiveMainPlayer(MainVideoPlayer);
 const AddReviewWrapped = withSetRating(AddReview);
 
 interface Props {
-  films: Film[],
-  favoriteFilms: Film[],
-  promoFilm: Film,
-  currentYear: number,
-  authorizationStatus: string,
+  films: Film[];
+  favoriteFilms: Film[];
+  promoFilm: Film;
+  currentYear: number;
+  authorizationStatus: string;
   login: (
     {
       login,
       password
     }: {
-      login: string,
-      password: string
+      login: string;
+      password: string;
     }
-  ) => void,
+  ) => void;
   postReview: (
     {
       filmID,
@@ -46,29 +46,29 @@ interface Props {
       onSuccess,
       onError
     }: {
-      filmID: string | number,
+      filmID: string | number;
       postData: {
-        rating: string | number,
-        comment: string
-      },
-      onSuccess: () => void,
-      onError: () => void
+        rating: string | number;
+        comment: string;
+      };
+      onSuccess: () => void;
+      onError: () => void;
     }
-  ) => void,
-  isCommentSend: boolean,
+  ) => void;
+  isCommentSend: boolean;
   addFilmToFavorites: (
     {
       filmID,
       data
     }: {
-      filmID: string | number,
-      data: boolean
+      filmID: string | number;
+      data: boolean;
     }
-  ) => void,
-  isLoading: boolean,
-  loadComments: (filmID: number) => void,
-  comments: Comment[]
-};
+  ) => void;
+  isLoading: boolean;
+  loadComments: (filmID: number) => void;
+  comments: Comment[];
+}
 
 class App extends React.PureComponent<Props, {}> {
   props: Props;

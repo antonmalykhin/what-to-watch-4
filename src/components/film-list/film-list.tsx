@@ -6,10 +6,10 @@ import {Film} from '../../types';
 const SmallFilmCardWrapped = withActivePlayer(SmallFilmCard);
 
 interface Props {
-  films: Film[],
-  onActiveItemChange: (film: Film) => void,
-  loadComments: (filmID: string | number) => void
-};
+  films: Film[];
+  onActiveItemChange: (film: Film) => void;
+  loadComments: (filmID: string | number) => void;
+}
 
 const FilmList: React.FunctionComponent<Props> = (props: Props) => {
   const {

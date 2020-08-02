@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 interface Props {
-  filterTitle: string,
-  onFilterItemClick: (filterTitle: string) => void,
-  isActive: boolean
-};
+  filterTitle: string;
+  onFilterItemClick: (filterTitle: string) => void;
+  isActive: boolean;
+}
 
 const FilterItem: React.FunctionComponent<Props> = (props: Props) => {
   const {

@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 interface Props {
-  isPlaying: boolean,
-  src: string,
-  poster: string,
-  width: number,
-  height: number,
-  loop: boolean
-};
+  isPlaying: boolean;
+  src: string;
+  poster: string;
+  width: number;
+  height: number;
+  loop: boolean;
+}
 
 class VideoPlayer extends React.PureComponent<Props, {}> {
   private videoRef: React.RefObject<HTMLVideoElement>

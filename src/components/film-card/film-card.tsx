@@ -1,15 +1,17 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import history from '../../history';
 import {AppRoute} from '../../const';
 import {Film} from '../../types';
 
 interface Props {
-  children: React.ReactNode | React.ReactNode[],
-  promoFilm: Film,
-  addPromoToFavorites: (id: string | number, inFavorite: boolean) => void,
-  favoriteFilms: Film[],
-};
+  children: React.ReactNode | React.ReactNode[];
+  promoFilm: Film;
+  addPromoToFavorites: (
+    id: string | number,
+    inFavorite: boolean
+  ) => void;
+  favoriteFilms: Film[];
+}
 
 const FilmCard: React.FunctionComponent<Props> = (props: Props) => {
   const {

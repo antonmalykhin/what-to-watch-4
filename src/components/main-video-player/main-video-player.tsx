@@ -5,15 +5,15 @@ import {getCurrentFilm} from '../../utils';
 import {Film, Match} from '../../types';
 
 interface Props {
-  films: Film[],
+  films: Film[];
   children: React.ReactNode | React.ReactNode[];
-  duration: number,
-  progress: number,
-  isPlaying: boolean,
-  onPlayButtonClick: () => void,
-  onFullscreenButtonClick: () => void,
-  match: Match
-};
+  duration: number;
+  progress: number;
+  isPlaying: boolean;
+  onPlayButtonClick: () => void;
+  onFullscreenButtonClick: () => void;
+  match: Match;
+}
 
 const MainVideoPlayer: React.FunctionComponent<Props> = (props: Props) => {
   const {

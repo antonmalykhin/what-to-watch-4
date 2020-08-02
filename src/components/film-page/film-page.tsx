@@ -23,15 +23,18 @@ const FilmDescriptionWrapped = withActiveItem(FilmDescription, `tabs`);
 const FilmListWrapped = withActiveItem(FilmList, `films`);
 
 interface Props {
-  authorizationStatus: string,
-  currentYear: number,
-  films: Film[],
-  favoriteFilms: Film[],
-  addFilmToFavorites: (id: string | number, inFavorite: boolean) => void,
-  comments: Comment[],
-  loadComments: (id: string | number) => void,
-  match: Match,
-};
+  authorizationStatus: string;
+  currentYear: number;
+  films: Film[];
+  favoriteFilms: Film[];
+  addFilmToFavorites: (
+    id: string | number,
+    inFavorite: boolean
+  ) => void;
+  comments: Comment[];
+  loadComments: (id: string | number) => void;
+  match: Match;
+}
 
 const FilmPage: React.FunctionComponent<Props> = (props: Props) => {
   const {

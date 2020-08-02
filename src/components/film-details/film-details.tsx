@@ -2,14 +2,14 @@ import * as React from 'react';
 import {formatTimeToDisplay} from '../../utils';
 
 interface Props {
-  genre: string,
-  release: number,
-  runtime: number,
+  genre: string;
+  release: number;
+  runtime: number;
   crew: {
-    director: string,
-    starring: string[]
-  }
-};
+    director: string;
+    starring: string[];
+  };
+}
 
 const FilmDetails: React.FunctionComponent<Props> = (props: Props) => {
   const {

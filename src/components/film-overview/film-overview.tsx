@@ -3,15 +3,15 @@ import {getRaringLevel} from '../../utils';
 
 interface Props {
   rating: {
-    score: number,
-    count: number
-  },
-  description: string,
+    score: number;
+    count: number;
+  };
+  description: string;
   crew: {
-    director: string,
-    starring: string[]
-  }
-};
+    director: string;
+    starring: string[];
+  };
+}
 
 const FilmOverview: React.FunctionComponent<Props> = (props: Props) => {
   const {

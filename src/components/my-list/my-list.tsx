@@ -6,10 +6,10 @@ import withActiveItem from '../../hocks/with-active-item/with-active-item';
 import {Film} from '../../types';
 
 interface Props {
-  currentYear: number,
-  favoriteFilms: Film[],
-  loadComments: (id: number | string) => void,
-};
+  currentYear: number;
+  favoriteFilms: Film[];
+  loadComments: (id: number | string) => void;
+}
 
 const MyList: React.FunctionComponent<Props> = (props: Props) => {
 

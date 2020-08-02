@@ -6,11 +6,11 @@ import Header from '../header/header';
 interface Props {
   login: (
     authData: {
-        login: string,
-        password: string
+        login: string;
+        password: string;
       }
-  ) => void,
-};
+  ) => void;
+}
 
 class SignIn extends React.PureComponent<Props, {}> {
   private emailRef: React.RefObject<HTMLInputElement>; ;

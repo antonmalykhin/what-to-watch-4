@@ -3,8 +3,8 @@ import {getFormattedDate} from '../../utils';
 import {Comment} from '../../types';
 
 interface Props {
-  review: Comment
-};
+  review: Comment;
+}
 
 const ReviewItem: React.FunctionComponent<Props> = (props: Props) => {
   const {review} = props;

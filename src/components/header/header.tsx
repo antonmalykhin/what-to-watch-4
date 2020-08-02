@@ -3,9 +3,9 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
 interface Props {
-  classNameModifier: String,
+  classNameModifier: string;
   children: React.ReactNode | React.ReactNode[];
-};
+}
 
 const Header: React.FunctionComponent<Props> = (props: Props) => {
   const {

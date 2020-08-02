@@ -8,13 +8,13 @@ import {Film, Comment} from '../../types';
 const REVIEWS_TAB = `Reviews`;
 
 interface Props {
-  tabs: string[],
-  film: Film,
-  activeItem: string,
-  onActiveItemChange: (tab: string) => void,
-  loadComments: (filmID: string | number) => void,
-  comments: Comment[]
-};
+  tabs: string[];
+  film: Film;
+  activeItem: string;
+  onActiveItemChange: (tab: string) => void;
+  loadComments: (filmID: string | number) => void;
+  comments: Comment[];
+}
 
 class FilmDescription extends React.PureComponent<Props, {}> {
   props: Props;

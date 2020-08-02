@@ -14,27 +14,30 @@ import {getShowedFilms} from '../../reducer/app/selectors';
 import {getFilterItems, getActiveFilter} from '../../reducer/data/selectors';
 import {AuthorizationStatus} from '../../reducer/user/user';
 import {AppRoute} from '../../const';
-import {Film, Comment} from '../../types';
+import {Film} from '../../types';
 
 const SHOWED_FILM_COUNT = 8;
 
 const FilmListWrapped = withActiveItem(FilmList, `films`);
 
 interface Props {
-  showedFilmCount: number,
-  activeFilterItem: string,
-  onShowMoreButtonClick: () => void,
-  promoFilm: Film,
-  films: Film[],
-  currentYear: number,
-  authorizationStatus: string,
-  filterItems: string[],
-  onFilterButtonClick: (genre: string) => void,
-  resetShowedFilms: () => void,
-  addPromoToFavorites: (filmID: string, data: number | boolean | string) => void,
-  favoriteFilms: Film[],
-  loadComments: (filmID: string | number) => void
-};
+  showedFilmCount: number;
+  activeFilterItem: string;
+  onShowMoreButtonClick: () => void;
+  promoFilm: Film;
+  films: Film[];
+  currentYear: number;
+  authorizationStatus: string;
+  filterItems: string[];
+  onFilterButtonClick: (genre: string) => void;
+  resetShowedFilms: () => void;
+  addPromoToFavorites: (
+    filmID: string,
+    data: number | boolean | string
+  ) => void;
+  favoriteFilms: Film[];
+  loadComments: (filmID: string | number) => void;
+}
 
 class Main extends React.PureComponent<Props, {}> {
   constructor(props) {
@@ -60,7 +63,7 @@ class Main extends React.PureComponent<Props, {}> {
     } = this.props;
 
 
-    let showedFilms = films.slice(0, showedFilmCount);
+    const showedFilms = films.slice(0, showedFilmCount);
 
     return (
       <React.Fragment>

@@ -4,12 +4,12 @@ import {Subtract} from 'utility-types';
 const DEFAULT_RATING_VALUE = 3;
 
 interface State {
-  rating: number
-};
+  rating: number;
+}
 
 interface InjectingProps {
-  onRatingCheck: (value: number) => void,
-  rating: number
+  onRatingCheck: (value: number) => void;
+  rating: number;
 }
 
 const withSetRating = (Component) => {

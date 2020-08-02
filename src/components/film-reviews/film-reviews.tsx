@@ -5,10 +5,10 @@ import {Comment} from '../../types';
 const NUM_SLICE_PART = 2;
 
 interface Props {
-  filmID: number | string,
-  comments: Comment[]
+  filmID: number | string;
+  comments: Comment[];
 
-};
+}
 
 const FilmReviews: React.FunctionComponent<Props> = (props: Props) => {
   const {

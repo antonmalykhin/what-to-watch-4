@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
 interface Props {
-  year:number
-};
+  year: number;
+}
 
 const Footer: React.FunctionComponent<Props> = (props: Props) => {
   const {year} = props;
