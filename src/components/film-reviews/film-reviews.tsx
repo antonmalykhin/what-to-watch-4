@@ -5,6 +5,7 @@ import {Comment} from '../../types';
 const NUM_SLICE_PART = 2;
 
 interface Props {
+  filmID: number | string,
   comments: Comment[]
 
 };

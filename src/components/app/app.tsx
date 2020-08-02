@@ -32,10 +32,10 @@ interface Props {
   authorizationStatus: string,
   login: (
     {
-      email,
+      login,
       password
     }: {
-      email: string,
+      login: string,
       password: string
     }
   ) => void,
