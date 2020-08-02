@@ -1,9 +1,9 @@
-import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import NavItem from './nav-item.jsx';
+import * as React from 'react';
+import {configure, shallow} from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
+import NavItem from './nav-item';
 
-Enzyme.configure({
+configure({
   adapter: new Adapter()
 });
 

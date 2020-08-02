@@ -1,6 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import FilterItem from './filter-item.jsx';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import FilterItem from './filter-item';
 
 it(`Should FilterItem render correctly`, () => {
   const tree = renderer

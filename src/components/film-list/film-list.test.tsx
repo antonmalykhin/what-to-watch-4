@@ -1,6 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import FilmList from './film-list.jsx';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import FilmList from './film-list';
 
 const films = [
   {

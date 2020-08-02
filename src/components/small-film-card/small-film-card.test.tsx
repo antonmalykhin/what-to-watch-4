@@ -1,6 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import SmallFilmCard from './small-film-card.jsx';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import SmallFilmCard from './small-film-card';
 
 const film = {
   id: 1,

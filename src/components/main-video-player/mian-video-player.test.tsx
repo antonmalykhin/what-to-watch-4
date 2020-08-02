@@ -1,6 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import MainVideoPlayer from './main-video-player.jsx';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import MainVideoPlayer from './main-video-player';
 
 const films = [
   {

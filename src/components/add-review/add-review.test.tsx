@@ -1,10 +1,10 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import AddReview from './add-review.jsx';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
 import {Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
-import history from '../../history.js';
+import AddReview from './add-review';
+import history from '../../history';
 
 const films = [
   {

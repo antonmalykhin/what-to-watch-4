@@ -1,6 +1,7 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import Filter from './filter.jsx';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import Filter from './filter';
+
 const filterItems = [
   `All genres`,
   `Comedy`,

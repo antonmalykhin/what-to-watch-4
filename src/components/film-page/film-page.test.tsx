@@ -1,8 +1,8 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import FilmPage from './film-page.jsx';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
 import {Router} from 'react-router-dom';
-import history from '../../history.js';
+import history from '../../history';
+import FilmPage from './film-page';
 
 const films = [
   {

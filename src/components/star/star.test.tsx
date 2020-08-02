@@ -1,6 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import Star from './star.jsx';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import Star from './star';
 
 it(`Star render correctly`, () => {
   const tree = renderer.create(

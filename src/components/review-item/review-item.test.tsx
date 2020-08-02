@@ -1,6 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import ReviewItem from './review-item.jsx';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import ReviewItem from './review-item';
 
 const comment = {
   comment: `This movie is perfect in all its categories: credits, sound track, production, casting, writing, photography, editing, acting, and direction.

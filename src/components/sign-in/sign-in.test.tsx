@@ -1,8 +1,8 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import SignIn from './sign-in.jsx';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
 import {Router} from 'react-router-dom';
-import history from '../../history.js';
+import history from '../../history';
+import SignIn from './sign-in';
 
 
 it(`SignIn render correctly`, () => {

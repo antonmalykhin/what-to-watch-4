@@ -1,6 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import FilmOverview from './film-overview.jsx';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import FilmOverview from './film-overview';
 
 const film = {
   id: 1,

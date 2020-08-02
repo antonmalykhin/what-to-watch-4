@@ -1,6 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import NavItem from './nav-item.jsx';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import NavItem from './nav-item';
 
 it(`Should NavItem render correctly`, () => {
   const tree = renderer
