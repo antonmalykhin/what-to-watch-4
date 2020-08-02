@@ -9,6 +9,7 @@ import MainVideoPlayer from '../main-video-player/main-video-player';
 import MyList from '../my-list/my-list';
 import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
+import Error400 from '../error-404/error-404';
 import {Operation as DataOperation} from '../../reducer/data/data';
 import {ActionCreator as AppActionCreator} from '../../reducer/app/app';
 import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user';
@@ -183,6 +184,7 @@ class App extends React.PureComponent<Props, {}> {
               );
             }}
           />
+          <Route component={Error400}/>
         </Switch>
       </Router>
     );
