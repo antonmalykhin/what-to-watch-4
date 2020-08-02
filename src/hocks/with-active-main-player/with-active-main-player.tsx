@@ -1,6 +1,6 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import {getCurrentFilm} from '../../utils.js';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import {getCurrentFilm} from '../../utils';
 
 
 const withActiveMainPlayer = (Component) => {

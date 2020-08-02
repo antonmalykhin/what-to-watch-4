@@ -1,21 +1,21 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import FilmList from '../film-list/film-list.jsx';
-import Filter from '../filter/filter.jsx';
-import ShowMoreButton from '../show-more-button/show-more-button.jsx';
-import withActiveItem from '../../hocks/with-active-item/with-active-item.js';
-import FilmCard from '../film-card/film-card.jsx';
-import Header from '../header/header.jsx';
-import Footer from '../footer/footer.jsx';
-import LoadingMessage from '../loading-message/loading-message.jsx';
-import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
-import {ActionCreator as DataActionCreator} from '../../reducer/data/data.js';
-import {getShowedFilms} from '../../reducer/app/selectors.js';
-import {getFilterItems, getActiveFilter} from '../../reducer/data/selectors.js';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {AppRoute} from '../../const.js';
+import FilmList from '../film-list/film-list';
+import Filter from '../filter/filter';
+import ShowMoreButton from '../show-more-button/show-more-button';
+import withActiveItem from '../../hocks/with-active-item/with-active-item';
+import FilmCard from '../film-card/film-card';
+import Header from '../header/header';
+import Footer from '../footer/footer';
+import LoadingMessage from '../loading-message/loading-message';
+import {ActionCreator as AppActionCreator} from '../../reducer/app/app';
+import {ActionCreator as DataActionCreator} from '../../reducer/data/data';
+import {getShowedFilms} from '../../reducer/app/selectors';
+import {getFilterItems, getActiveFilter} from '../../reducer/data/selectors';
+import {AuthorizationStatus} from '../../reducer/user/user';
+import {AppRoute} from '../../const';
 
 
 const SHOWED_FILM_COUNT = 8;

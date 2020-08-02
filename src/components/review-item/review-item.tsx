@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {getFormattedDate} from '../../utils.js';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import {getFormattedDate} from '../../utils';
 
 const ReviewItem = (props) => {
   const {review} = props;

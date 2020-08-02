@@ -1,7 +1,7 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import Footer from '../footer/footer.jsx';
-import Header from '../header/header.jsx';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import Footer from '../footer/footer';
+import Header from '../header/header';
 
 class SignIn extends PureComponent {
   constructor(props) {

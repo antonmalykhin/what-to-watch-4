@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {formatTime} from '../../utils.js';
-import history from '../../history.js';
-import {getCurrentFilm} from '../../utils.js';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import {formatTime} from '../../utils';
+import history from '../../history';
+import {getCurrentFilm} from '../../utils';
 
 
 const MainVideoPlayer = (props) => {

@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import SmallFilmCard from '../small-film-card/small-film-card.jsx';
-import withActivePlayer from '../../hocks/with-active-player/with-active-player.js';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import SmallFilmCard from '../small-film-card/small-film-card';
+import withActivePlayer from '../../hocks/with-active-player/with-active-player';
 
 const SmallFilmCardWrapped = withActivePlayer(SmallFilmCard);
 

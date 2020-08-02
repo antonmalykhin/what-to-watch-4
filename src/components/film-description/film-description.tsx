@@ -1,9 +1,9 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import NavItem from '../nav-item/nav-item.jsx';
-import FilmOverview from '../film-overview/film-overview.jsx';
-import FilmDetails from '../film-details/film-details.jsx';
-import FilmReviews from '../film-reviews/film-reviews.jsx';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import NavItem from '../nav-item/nav-item';
+import FilmOverview from '../film-overview/film-overview';
+import FilmDetails from '../film-details/film-details';
+import FilmReviews from '../film-reviews/film-reviews';
 
 const REVIEWS_TAB = `Reviews`;
 

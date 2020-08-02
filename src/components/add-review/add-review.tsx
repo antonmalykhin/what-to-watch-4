@@ -1,14 +1,14 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import Header from '../header/header.jsx';
-import Star from '../star/star.jsx';
+import Header from '../header/header';
+import Star from '../star/star';
 import history from '../../history';
 import {Link} from 'react-router-dom';
-import {getCurrentFilm} from '../../utils.js';
-import {AppRoute} from '../../const.js';
-import {getIsCommentSend} from '../../reducer/data/selectors.js';
-import {ActionCreator} from '../../reducer/data/data.js';
+import {getCurrentFilm} from '../../utils';
+import {AppRoute} from '../../const';
+import {getIsCommentSend} from '../../reducer/data/selectors';
+import {ActionCreator} from '../../reducer/data/data';
 
 const RATING_STAR_COUNT = 5;
 const STARTING_INPUT_VALUE = 1;

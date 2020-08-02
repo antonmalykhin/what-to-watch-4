@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Header from '../header/header.jsx';
-import Footer from '../footer/footer.jsx';
-import FilmList from '../film-list/film-list.jsx';
-import withActiveItem from '../../hocks/with-active-item/with-active-item.js';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import Header from '../header/header';
+import Footer from '../footer/footer';
+import FilmList from '../film-list/film-list';
+import withActiveItem from '../../hocks/with-active-item/with-active-item';
 
 const MyList = (props) => {
 

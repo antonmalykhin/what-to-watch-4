@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import FilterItem from '../filter-item/filter-item.jsx';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import FilterItem from '../filter-item/filter-item';
 
 
 const Filter = (props) => {

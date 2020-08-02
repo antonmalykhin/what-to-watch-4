@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import FilmList from '../film-list/film-list.jsx';
-import FilmDescription from '../film-description/film-description.jsx';
-import Header from '../header/header.jsx';
-import Footer from '../footer/footer.jsx';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
-import withActiveItem from '../../hocks/with-active-item/with-active-item.js';
-import {getLikeThisFilms, getCurrentFilm} from '../../utils.js';
-import {AppRoute} from '../../const.js';
-import history from '../../history.js';
+import FilmList from '../film-list/film-list';
+import FilmDescription from '../film-description/film-description';
+import Header from '../header/header';
+import Footer from '../footer/footer';
+import {AuthorizationStatus} from '../../reducer/user/user';
+import withActiveItem from '../../hocks/with-active-item/with-active-item';
+import {getLikeThisFilms, getCurrentFilm} from '../../utils';
+import {AppRoute} from '../../const';
+import history from '../../history';
 
 const MORE_LIKE_THIS_FILM_COUNT = 4;
 

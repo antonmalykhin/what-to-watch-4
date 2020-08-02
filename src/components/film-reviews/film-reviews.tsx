@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ReviewItem from '../review-item/review-item.jsx';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import ReviewItem from '../review-item/review-item';
 
 const NUM_SLICE_PART = 2;
 
