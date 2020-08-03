@@ -1477,3 +1477,49 @@ main {
     transform: translate(24px, 0);
   }
 }
+
+/* Error 404 */
+
+.error {
+  height: 100vh;
+  width: 100vw;
+  background-image: linear-gradient(-180deg, #180202 0%, #000000 100%);
+  padding-top: 10rem;
+}
+
+.error__title {
+  color: #D9CA74;
+  text-align: center;
+  font-weight: 800;
+  font-size: 90px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.error__text {
+  color: #D9CA74;
+  text-align: center;
+  font-weight: 800;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.error__link {
+  display: block;
+  width: 280px;
+  margin: 60px auto 10px;
+  color: #D9CA74;
+  text-align: center;
+  font-weight: 800;
+  font-size: 24px;
+}
+
+.error__link:hover,
+.error__link:focus {
+  opacity: 0.7;
+}
+
+.error__link:active {
+  opacity: 0.5;
+}
+
