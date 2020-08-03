@@ -1,7 +1,14 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import Header from '../header/header.jsx';
 import Star from '../star/star.jsx';
+import history from '../../history';
+import {Link} from 'react-router-dom';
+import {getCurrentFilm} from '../../utils.js';
+import {AppRoute} from '../../const.js';
+import {getIsCommentSend} from '../../reducer/data/selectors.js';
+import {ActionCreator} from '../../reducer/data/data.js';
 
 const RATING_STAR_COUNT = 5;
 const STARTING_INPUT_VALUE = 1;
@@ -18,22 +25,37 @@ class AddReview extends PureComponent {
     this.comment = React.createRef();
     this.form = React.createRef();
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleFormDisable = this.handleFormDisable.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleFormDisable = this._handleFormDisable.bind(this);
   }
 
-  handleSubmit(evt) {
-    const {filmID, onSubmit, rating} = this.props;
+  _handleSubmit(evt) {
+    const {
+      films,
+      onSubmit,
+      rating,
+      match,
+    } = this.props;
+
+    const currentFilm = getCurrentFilm(films, match.params.id);
+    const {id} = currentFilm;
 
     evt.preventDefault();
 
-    onSubmit(filmID, this.handleFormDisable, {
+    onSubmit(id, {
       rating,
       comment: this.comment.current.value
+    },
+    () => {
+      this._handleFormDisable(false);
+      history.push(`${AppRoute.FILMS}/${id}`);
+    },
+    () => {
+      this._handleFormDisable(false);
     });
   }
 
-  handleFormDisable(status) {
+  _handleFormDisable(status) {
     const form = this.form.current;
 
     const inputs = form.querySelectorAll(`input`);
@@ -50,13 +72,29 @@ class AddReview extends PureComponent {
   }
 
   render() {
-    const {onRatingCheck, rating, isCommentSend, resetWarning} = this.props;
+    const {
+      films,
+      onRatingCheck,
+      rating,
+      isCommentSend,
+      match,
+      resetErrorMessage
+    } = this.props;
+
+    const currentFilm = getCurrentFilm(films, match.params.id);
+
+    const {
+      id,
+      title,
+      background,
+      poster
+    } = currentFilm;
 
     return (
       <section className="movie-card movie-card--full">
         <div className="movie-card__header">
           <div className="movie-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img src={background} alt={title} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -65,7 +103,12 @@ class AddReview extends PureComponent {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <a href="movie-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                  <a href="movie-page.html" className="breadcrumbs__link"
+                    onClick={(evt) => {
+                      evt.preventDefault();
+                      history.push(`${AppRoute.FILMS}/${id}`);
+                    }}
+                  >{title}</a>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>
@@ -75,13 +118,15 @@ class AddReview extends PureComponent {
 
             <div className="user-block">
               <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                <Link to={AppRoute.MY_LIST}>
+                  <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                </Link>
               </div>
             </div>
           </Header>
 
           <div className="movie-card__poster movie-card__poster--small">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+            <img src={poster} alt={title} width="218" height="327" />
           </div>
         </div>
 
@@ -91,8 +136,8 @@ class AddReview extends PureComponent {
             action="#"
             className="add-review__form"
             onSubmit={(evt) => {
-              this.handleSubmit(evt);
-              this.handleFormDisable(true);
+              this._handleSubmit(evt);
+              this._handleFormDisable(true);
             }}
           >
             <div className="rating">
@@ -119,7 +164,9 @@ class AddReview extends PureComponent {
                 maxLength={Comment.MAX_LENGTH}
                 placeholder="Review text"
                 ref={this.comment}
-                onInput={() => resetWarning()}
+                onInput={() => {
+                  resetErrorMessage();
+                }}
                 required
               ></textarea>
 
@@ -129,7 +176,7 @@ class AddReview extends PureComponent {
             </div>
           </form>
 
-          {!isCommentSend ? <p>Review has not been sent. Try again.</p> : null}
+          {!isCommentSend ? <p>Review has not been sent. Try again later.</p> : null}
 
         </div>
 
@@ -139,12 +186,24 @@ class AddReview extends PureComponent {
 }
 
 AddReview.propTypes = {
-  filmID: PropTypes.number.isRequired,
+  films: PropTypes.array.isRequired,
   onSubmit: PropTypes.func.isRequired,
   rating: PropTypes.number.isRequired,
   onRatingCheck: PropTypes.func.isRequired,
   isCommentSend: PropTypes.bool.isRequired,
-  resetWarning: PropTypes.func.isRequired
+  resetErrorMessage: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired
 };
 
-export default AddReview;
+const mapStateToProps = (state) => ({
+  isCommentSend: getIsCommentSend(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  resetErrorMessage() {
+    dispatch(ActionCreator.sendComment(true));
+  }
+});
+
+export {AddReview};
+export default connect(mapStateToProps, mapDispatchToProps)(AddReview);

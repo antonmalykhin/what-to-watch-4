@@ -2,7 +2,6 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Footer from '../footer/footer.jsx';
 import Header from '../header/header.jsx';
-import history from '../../history';
 
 class SignIn extends PureComponent {
   constructor(props) {
@@ -15,11 +14,10 @@ class SignIn extends PureComponent {
   }
 
   handleSubmit(evt) {
-    const {onSubmit} = this.props;
-
+    const {login} = this.props;
     evt.preventDefault();
 
-    onSubmit({
+    login({
       login: this.emailRef.current.value,
       password: this.passwordRef.current.value,
     });
@@ -40,7 +38,6 @@ class SignIn extends PureComponent {
             className="sign-in__form"
             onSubmit={(evt) => {
               this.handleSubmit(evt);
-              history.push(`/`);
             }
             }
           >
@@ -72,7 +69,7 @@ class SignIn extends PureComponent {
 }
 
 SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
 };
 
 export default SignIn;

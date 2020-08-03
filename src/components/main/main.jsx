@@ -34,6 +34,7 @@ class Main extends PureComponent {
       authorizationStatus,
       currentYear,
       films,
+      favoriteFilms,
       promoFilm,
       filterItems,
       activeFilterItem,
@@ -41,10 +42,10 @@ class Main extends PureComponent {
       onShowMoreButtonClick,
       onFilterButtonClick,
       resetShowedFilms,
-      onFilmClick,
-      onPlayClick,
-      addPromoToFavorites
+      addPromoToFavorites,
+      loadComments
     } = this.props;
+
 
     let showedFilms = films.slice(0, showedFilmCount);
 
@@ -52,8 +53,8 @@ class Main extends PureComponent {
       <React.Fragment>
 
         <FilmCard
+          favoriteFilms={favoriteFilms}
           promoFilm={promoFilm}
-          onPlayClick={onPlayClick}
           addPromoToFavorites={addPromoToFavorites}
         >
           <Header classNameModifier={`movie-card`}>
@@ -80,7 +81,7 @@ class Main extends PureComponent {
 
             {<FilmListWrapped
               films={showedFilms}
-              onFilmClick={onFilmClick}
+              loadComments={loadComments}
             />}
 
             {(showedFilms.length === films.length || showedFilms.length < SHOWED_FILM_COUNT) ? null : <ShowMoreButton
@@ -105,19 +106,19 @@ Main.propTypes = {
   films: PropTypes.array.isRequired,
   currentYear: PropTypes.number.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  onFilmClick: PropTypes.func.isRequired,
   filterItems: PropTypes.array.isRequired,
   onFilterButtonClick: PropTypes.func.isRequired,
-  onPlayClick: PropTypes.func.isRequired,
   resetShowedFilms: PropTypes.func.isRequired,
-  addPromoToFavorites: PropTypes.func.isRequired
+  addPromoToFavorites: PropTypes.func.isRequired,
+  favoriteFilms: PropTypes.array.isRequired,
+  loadComments: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
     showedFilmCount: getShowedFilms(state),
     filterItems: getFilterItems(state),
-    activeFilterItem: getActiveFilter(state)
+    activeFilterItem: getActiveFilter(state),
   };
 };
 

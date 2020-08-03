@@ -83,7 +83,7 @@ exports[`FilmCard render 1`] = `
               width="19"
             >
               <use
-                xlinkHref="#add"
+                xlinkHref="#in-list"
               />
             </svg>
             <span>

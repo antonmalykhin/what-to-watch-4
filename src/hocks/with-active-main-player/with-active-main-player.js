@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {getCurrentFilm} from '../../utils.js';
 
 
 const withActiveMainPlayer = (Component) => {
@@ -20,14 +21,14 @@ const withActiveMainPlayer = (Component) => {
 
     componentDidMount() {
       const film = this._videoRef.current;
-      const {video, background} = this.props.film;
+
+      const {films, match} = this.props;
+      const currentFilm = getCurrentFilm(films, match.params.id);
+
+      const {background, video} = currentFilm;
 
       film.poster = background;
       film.src = video;
-
-      film.oncanplaythrough = () => this.setState({
-        isPlaying: true
-      });
 
       film.onloadedmetadata = () => this.setState({
         duration: Math.floor(film.duration)
@@ -88,6 +89,7 @@ const withActiveMainPlayer = (Component) => {
           <video
             className="player__video"
             ref={this._videoRef}
+            autoPlay={true}
           />
         </Component>
       );
@@ -95,8 +97,8 @@ const withActiveMainPlayer = (Component) => {
   }
 
   WithActiveMainPlayer.propTypes = {
-    film: PropTypes.object,
-    onExitClick: PropTypes.func.isRequired
+    films: PropTypes.array,
+    match: PropTypes.object.isRequired
   };
 
   return WithActiveMainPlayer;
