@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error page render correctly 1`] = `
+<div
+  className="error"
+>
+  <p
+    className="error__title"
+  >
+    404
+  </p>
+  <p
+    className="error__text"
+  >
+    Page is not found
+  </p>
+  <a
+    className="error__link"
+    href="/"
+    onClick={[Function]}
+  >
+    Back to the main page
+  </a>
+</div>
+`;

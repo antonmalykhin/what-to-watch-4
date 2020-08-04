@@ -71,3 +71,7 @@ export const getFormattedDate = (date) => {
 export const getCurrentFilm = (films, prop) => {
   return films.find((film) => film.id === parseInt(prop, 10));
 };
+
+export const noop = () => {
+  // do nothing
+};
