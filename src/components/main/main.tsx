@@ -9,7 +9,7 @@ import FilmCard from '../film-card/film-card';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import {ActionCreator as AppActionCreator} from '../../reducer/app/app';
-import {ActionCreator as DataActionCreator} from '../../reducer/data/data';
+import {ActionCreator as DataActionCreator, Operation as DataOperation} from '../../reducer/data/data';
 import {getShowedFilms} from '../../reducer/app/selectors';
 import {getFilterItems, getActiveFilter} from '../../reducer/data/selectors';
 import {AuthorizationStatus} from '../../reducer/user/user';
@@ -37,12 +37,27 @@ interface Props {
   ) => void;
   favoriteFilms: Film[];
   loadComments: (filmID: string | number) => void;
+  loadFavoriteFilms: () => void;
+  user: {
+    id: number | string;
+    name: string;
+    email: string;
+    avatar: string;
+  };
 }
 
 class Main extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
 
+  }
+
+  componentDidMount() {
+    const {authorizationStatus, loadFavoriteFilms} = this.props;
+
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      loadFavoriteFilms();
+    }
   }
 
   render() {
@@ -59,9 +74,9 @@ class Main extends React.PureComponent<Props, {}> {
       onFilterButtonClick,
       resetShowedFilms,
       addPromoToFavorites,
-      loadComments
+      loadComments,
+      user
     } = this.props;
-
 
     const showedFilms = films.slice(0, showedFilmCount);
 
@@ -69,16 +84,17 @@ class Main extends React.PureComponent<Props, {}> {
       <React.Fragment>
 
         <FilmCard
+          authorizationStatus={authorizationStatus}
           favoriteFilms={favoriteFilms}
           promoFilm={promoFilm}
           addPromoToFavorites={addPromoToFavorites}
         >
           <Header classNameModifier={`movie-card`}>
+
             <div className="user-block">
-
-              {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={AppRoute.MY_LIST}><div className="user-block__avatar"><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></div></Link> : <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>}
-
+              {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={AppRoute.MY_LIST}><div className="user-block__avatar"><img src={user.avatar} alt={user.name} width="63" height="63" /></div></Link> : <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>}
             </div>
+
           </Header>
         </FilmCard>
 
@@ -134,6 +150,10 @@ const mapDispatchToProps = (dispatch) => {
 
     onFilterButtonClick(genre) {
       dispatch(DataActionCreator.changeGenreFilter(genre));
+    },
+
+    loadFavoriteFilms() {
+      dispatch(DataOperation.loadFavoriteFilms());
     }
   };
 };

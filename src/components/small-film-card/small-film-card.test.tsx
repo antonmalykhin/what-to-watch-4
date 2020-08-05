@@ -35,7 +35,6 @@ it(`Should SmallFilmCard render correctly`, () => {
           loadComments={noop}
           onFilmMouseOver={noop}
           onPlayVideo={noop}
-          onStopVideo={noop}
           isPlaying={false}
         />, {
           createNodeMock: () => {

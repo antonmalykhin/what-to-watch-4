@@ -108,6 +108,7 @@ it(`Should add to list button click`, () => {
   const addPromoList = jest.fn();
   const filmCard = mount(
       <FilmCard
+        authorizationStatus={`AUTH`}
         promoFilm={promoFilm}
         favoriteFilms={favoriteFilms}
         addPromoToFavorites={addPromoList}

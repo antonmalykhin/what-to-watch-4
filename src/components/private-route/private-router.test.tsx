@@ -25,7 +25,8 @@ it(`PrivateRouter render`, () => {
       promoFilm: {}
     },
     USER: {
-      authorizationStatus: `AUTH`
+      authorizationStatus: `AUTH`,
+      user: {}
     }
   });
 

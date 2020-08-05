@@ -283,6 +283,13 @@ const match = {
   }
 };
 
+const user = {
+  avatar: `/wtw/static/avatar/6.jpg`,
+  email: `asd@asd.ru`,
+  id: 1,
+  name: `asd`,
+};
+
 it(`Should FilmPage render correctly`, () => {
   const tree = renderer
     .create(
@@ -296,6 +303,7 @@ it(`Should FilmPage render correctly`, () => {
             comments={comments}
             loadComments={noop}
             match={match}
+            user={user}
           />
         </Router>, {
           createNodeMock: () => {

@@ -42,12 +42,11 @@ it(`Film data passed to callback when mouse over film card`, () => {
         onFilmMouseOver={onCardMouseOver}
         isPlaying={false}
         onPlayVideo={noop}
-        onStopVideo={noop}
       />
   );
 
   const filmCard = smallFilmCard.find(`.small-movie-card`);
-  filmCard.simulate(`mouseover`);
+  filmCard.simulate(`mouseenter`);
 
   expect(onCardMouseOver).toHaveBeenCalledTimes(1);
 });

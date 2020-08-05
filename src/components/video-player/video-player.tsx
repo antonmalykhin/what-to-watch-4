@@ -4,13 +4,11 @@ interface Props {
   isPlaying: boolean;
   src: string;
   poster: string;
-  width: number;
-  height: number;
-  loop: boolean;
 }
 
 class VideoPlayer extends React.PureComponent<Props, {}> {
   private videoRef: React.RefObject<HTMLVideoElement>
+
   constructor(props) {
     super(props);
 
@@ -19,8 +17,7 @@ class VideoPlayer extends React.PureComponent<Props, {}> {
 
   componentDidMount() {
     const video = this.videoRef.current;
-    const {src} = this.props;
-    video.src = src;
+
     video.muted = true;
   }
 
@@ -28,11 +25,14 @@ class VideoPlayer extends React.PureComponent<Props, {}> {
     const video = this.videoRef.current;
     video.src = ``;
     video.muted = null;
+    video.onplay = null;
   }
 
   componentDidUpdate() {
-    const {isPlaying} = this.props;
+    const {src, isPlaying} = this.props;
     const video = this.videoRef.current;
+
+    video.src = src;
 
     if (isPlaying) {
       video.play();
@@ -42,16 +42,14 @@ class VideoPlayer extends React.PureComponent<Props, {}> {
   }
 
   render() {
-    const {src, poster, width, height, loop} = this.props;
+    const {poster} = this.props;
 
     return (
       <video
-        width={width}
-        height={height}
+        width="280"
+        height="175"
         ref={this.videoRef}
-        src={src}
         poster={poster}
-        loop={loop}
       />
     );
   }

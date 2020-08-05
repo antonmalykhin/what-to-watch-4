@@ -103,6 +103,7 @@ const children = <div />;
 it(`FilmCard render`, () => {
   const tree = renderer.create(
       <FilmCard
+        authorizationStatus={`AUTH`}
         promoFilm={promoFilm}
         favoriteFilms={favoriteFilms}
         addPromoToFavorites={noop}

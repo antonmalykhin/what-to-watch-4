@@ -9,74 +9,80 @@ interface Props {
   loadComments: (filmID: string | number) => void;
   onFilmMouseOver: () => void;
   isPlaying: boolean;
-  onPlayVideo: () => void;
-  onStopVideo: () => void;
+  onPlayVideo: (arg: boolean) => void;
 }
 
-const filmPreviewSettings = {
-  WIDTH: 280,
-  HEIGHT: 175,
-  LOOP: true
-};
 
+class SmallFilmCard extends React.PureComponent<Props> {
+  private timeoutID: NodeJS.Timeout;
 
-const SmallFilmCard: React.FunctionComponent<Props> = (props: Props) => {
-  const {
-    film,
-    loadComments,
-    onFilmMouseOver,
-    isPlaying,
-    onPlayVideo,
-    onStopVideo
-  } = props;
+  constructor(props) {
+    super(props);
 
-  const {
-    id,
-    title,
-    image,
-    preview
-  } = film;
+    this.timeoutID = null;
+  }
 
-  return (
-    <article
-      className="small-movie-card catalog__movies-card"
-      onMouseOver={() => {
-        onFilmMouseOver();
-      }}
-    >
+  componentWillUnmount() {
+    clearTimeout(this.timeoutID);
+  }
 
-      <div
-        className="small-movie-card__image"
-        onClick={() => {
-          loadComments(id);
-          history.push(`${AppRoute.FILMS}/${id}`);
+  render() {
+    const {
+      film,
+      loadComments,
+      onFilmMouseOver,
+      isPlaying,
+      onPlayVideo,
+    } = this.props;
+
+    const {
+      id,
+      title,
+      image,
+      preview
+    } = film;
+
+    return (
+      <article
+        className="small-movie-card catalog__movies-card"
+        onMouseEnter={() => {
+          this.timeoutID = setTimeout(() => onPlayVideo(true), 1000);
+          onFilmMouseOver();
         }}
-        onMouseOver={() => onPlayVideo()}
-        onMouseOut={() => onStopVideo()}
+        onMouseLeave={() => {
+          clearTimeout(this.timeoutID);
+          onPlayVideo(false);
+        }}
       >
-        <VideoPlayer
-          width={filmPreviewSettings.WIDTH}
-          height={filmPreviewSettings.HEIGHT}
-          src={preview}
-          poster={image}
-          loop={filmPreviewSettings.LOOP}
-          isPlaying={isPlaying}
-        />
-        <img src={image} alt={title} width="280" height="175" />
-      </div>
 
-      <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html"
-          onClick={(evt) => {
-            evt.preventDefault();
+        <div
+          className="small-movie-card__image"
+          onClick={() => {
             loadComments(id);
             history.push(`${AppRoute.FILMS}/${id}`);
-          }}>
-          {title}
-        </a>
-      </h3>
-    </article>
-  );
-};
+          }}
+        >
+          <VideoPlayer
+            src={preview}
+            poster={image}
+            isPlaying={isPlaying}
+          />
+          <img src={image} alt={title} width="280" height="175" />
+        </div>
+
+        <h3 className="small-movie-card__title">
+          <a className="small-movie-card__link" href="movie-page.html"
+            onClick={(evt) => {
+              evt.preventDefault();
+              loadComments(id);
+              history.push(`${AppRoute.FILMS}/${id}`);
+            }}>
+            {title}
+          </a>
+        </h3>
+      </article>
+    );
+  }
+}
 
 export default SmallFilmCard;
