@@ -24,17 +24,17 @@ const store = createStore(
     )
 );
 
+store.dispatch(UserOperation.checkAuth());
+
 const loadData = () => {
   store.dispatch(AppActionCreator.changeLoadingStatus(true));
   const loadFilms = store.dispatch(DataOperation.loadFilms());
   const loadPromo = store.dispatch(DataOperation.loadPromoFilm());
-  const loadFavorites = store.dispatch(DataOperation.loadFavoriteFilms());
   const getYear = store.dispatch(AppOperation.getCurrentYear());
 
-  return Promise.all([loadFilms, loadPromo, loadFavorites, getYear])
+  return Promise.all([loadFilms, loadPromo, getYear])
     .then(() => {
       store.dispatch(AppActionCreator.changeLoadingStatus(false));
-      store.dispatch(UserOperation.checkAuth());
     })
     .catch((error) => {
       throw error;

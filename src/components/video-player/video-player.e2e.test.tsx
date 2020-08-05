@@ -8,9 +8,6 @@ configure({
 });
 
 const filmPreviewSettings = {
-  WIDTH: 280,
-  HEIGHT: 175,
-  LOOP: true,
   SRC: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   POSTER: `img/the-grand-budapest-hotel-poster.jpg`,
 };
@@ -18,11 +15,8 @@ const filmPreviewSettings = {
 it(`Should video play`, () => {
   const videoPlayer = mount(
       <VideoPlayer
-        width={filmPreviewSettings.WIDTH}
-        height={filmPreviewSettings.HEIGHT}
         src={filmPreviewSettings.SRC}
         poster={filmPreviewSettings.POSTER}
-        loop={filmPreviewSettings.LOOP}
         isPlaying={true}
       />
   );
@@ -35,11 +29,8 @@ it(`Should video play`, () => {
 it(`Should video pause`, () => {
   const videoPlayer = mount(
       <VideoPlayer
-        width={filmPreviewSettings.WIDTH}
-        height={filmPreviewSettings.HEIGHT}
         src={filmPreviewSettings.SRC}
         poster={filmPreviewSettings.POSTER}
-        loop={filmPreviewSettings.LOOP}
         isPlaying={false}
       />
   );

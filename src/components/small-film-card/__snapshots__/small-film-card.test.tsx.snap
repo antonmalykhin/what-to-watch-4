@@ -3,20 +3,17 @@
 exports[`Should SmallFilmCard render correctly 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
-  onMouseOver={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
 >
   <div
     className="small-movie-card__image"
     onClick={[Function]}
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
   >
     <video
-      height={175}
-      loop={true}
+      height="175"
       poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-      src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
-      width={280}
+      width="280"
     />
     <img
       alt="Fantastic Beasts: The Crimes of Grindelwald"

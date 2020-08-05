@@ -36,6 +36,12 @@ interface Props {
   isCommentSend: boolean;
   resetErrorMessage: () => void;
   match: Match;
+  user: {
+    id: number | string;
+    name: string;
+    email: string;
+    avatar: string;
+  };
 }
 
 class AddReview extends React.PureComponent<Props, {}> {
@@ -103,7 +109,8 @@ class AddReview extends React.PureComponent<Props, {}> {
       rating,
       isCommentSend,
       match,
-      resetErrorMessage
+      resetErrorMessage,
+      user
     } = this.props;
 
     const currentFilm = getCurrentFilm(films, match.params.id);
@@ -112,7 +119,7 @@ class AddReview extends React.PureComponent<Props, {}> {
       id,
       title,
       background,
-      poster
+      poster,
     } = currentFilm;
 
     return (
@@ -144,7 +151,7 @@ class AddReview extends React.PureComponent<Props, {}> {
             <div className="user-block">
               <div className="user-block__avatar">
                 <Link to={AppRoute.MY_LIST}>
-                  <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                  <img src={user.avatar} alt={user.name} width="63" height="63" />
                 </Link>
               </div>
             </div>

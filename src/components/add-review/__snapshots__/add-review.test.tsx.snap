@@ -92,9 +92,9 @@ exports[`AddReview render correctly 1`] = `
             onClick={[Function]}
           >
             <img
-              alt="User avatar"
+              alt="asd"
               height="63"
-              src="/img/avatar.jpg"
+              src="/wtw/static/avatar/6.jpg"
               width="63"
             />
           </a>

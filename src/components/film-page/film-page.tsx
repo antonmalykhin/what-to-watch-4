@@ -34,6 +34,12 @@ interface Props {
   comments: Comment[];
   loadComments: (id: string | number) => void;
   match: Match;
+  user: {
+    id: number | string;
+    name: string;
+    email: string;
+    avatar: string;
+  };
 }
 
 const FilmPage: React.FunctionComponent<Props> = (props: Props) => {
@@ -45,7 +51,8 @@ const FilmPage: React.FunctionComponent<Props> = (props: Props) => {
     addFilmToFavorites,
     comments,
     loadComments,
-    match
+    match,
+    user
   } = props;
 
   const currentFilm = getCurrentFilm(films, match.params.id);
@@ -82,7 +89,7 @@ const FilmPage: React.FunctionComponent<Props> = (props: Props) => {
           {<Header classNameModifier={`movie-card`}>
             <div className="user-block">
 
-              {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={AppRoute.MY_LIST}><div className="user-block__avatar"><img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" /></div></Link> : <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>}
+              {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={AppRoute.MY_LIST}><div className="user-block__avatar"><img src={user.avatar} alt={user.name} width="63" height="63" /></div></Link> : <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>}
 
             </div>
           </Header>}
@@ -108,7 +115,12 @@ const FilmPage: React.FunctionComponent<Props> = (props: Props) => {
                 </button>
 
                 <button className="btn btn--list movie-card__button" type="button"
-                  onClick={() => addFilmToFavorites(id, inFavorite)}
+                  onClick={() => {
+                    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+                      history.push(AppRoute.LOGIN);
+                    }
+                    addFilmToFavorites(id, inFavorite);
+                  }}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref={`#${inFavorite ? `add` : `in-list`}`}></use>

@@ -75,6 +75,13 @@ const favoriteFilms = [
   }
 ];
 
+const user = {
+  avatar: `/wtw/static/avatar/6.jpg`,
+  email: `asd@asd.ru`,
+  id: 1,
+  name: `asd`,
+};
+
 it(`Should MyList render`, () => {
   const tree = renderer
     .create(
@@ -83,6 +90,7 @@ it(`Should MyList render`, () => {
             currentYear={2020}
             favoriteFilms={favoriteFilms}
             loadComments={noop}
+            user={user}
           />
         </Router>, {
           createNodeMock: () => {

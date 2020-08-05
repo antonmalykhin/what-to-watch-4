@@ -15,7 +15,7 @@ import {ActionCreator as AppActionCreator} from '../../reducer/app/app';
 import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user';
 import {getFilteredFilms, getPromoFilm, getFavoriteFilms, getComments, getIsCommentSend} from '../../reducer/data/selectors';
 import {getCurrentYear, getLoadingStatus} from '../../reducer/app/selectors';
-import {getAuthorizationStatus} from '../../reducer/user/selectors';
+import {getAuthorizationStatus, getUserData} from '../../reducer/user/selectors';
 import withActiveMainPlayer from '../../hocks/with-active-main-player/with-active-main-player';
 import withSetRating from '../../hocks/with-set-rating/with-set-rating';
 import history from '../../history';
@@ -69,6 +69,12 @@ interface Props {
   isLoading: boolean;
   loadComments: (filmID: number) => void;
   comments: Comment[];
+  user: {
+    id: number | string;
+    name: string;
+    email: string;
+    avatar: string;
+  };
 }
 
 class App extends React.PureComponent<Props, {}> {
@@ -92,7 +98,8 @@ class App extends React.PureComponent<Props, {}> {
       postReview,
       isCommentSend,
       comments,
-      loadComments
+      loadComments,
+      user
     } = this.props;
 
     return (
@@ -114,6 +121,7 @@ class App extends React.PureComponent<Props, {}> {
                     films={films}
                     addPromoToFavorites={addFilmToFavorites}
                     loadComments={loadComments}
+                    user={user}
                   />
               );
             }}
@@ -139,6 +147,7 @@ class App extends React.PureComponent<Props, {}> {
                     addFilmToFavorites={addFilmToFavorites}
                     comments={comments}
                     loadComments={loadComments}
+                    user={user}
                   />
               );
             }}
@@ -153,6 +162,7 @@ class App extends React.PureComponent<Props, {}> {
                   films={films}
                   onSubmit={postReview}
                   isCommentSend={isCommentSend}
+                  user={user}
 
                 />
               );
@@ -180,6 +190,7 @@ class App extends React.PureComponent<Props, {}> {
                   currentYear={currentYear}
                   favoriteFilms={favoriteFilms}
                   loadComments={loadComments}
+                  user={user}
                 />
               );
             }}
@@ -199,7 +210,8 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
   isLoading: getLoadingStatus(state),
   comments: getComments(state),
-  isCommentSend: getIsCommentSend(state)
+  isCommentSend: getIsCommentSend(state),
+  user: getUserData(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

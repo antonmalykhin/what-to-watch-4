@@ -1,10 +1,12 @@
 import * as React from 'react';
+import {AuthorizationStatus} from '../../reducer/user/user';
 import history from '../../history';
 import {AppRoute} from '../../const';
 import {Film} from '../../types';
 
 interface Props {
   children: React.ReactNode | React.ReactNode[];
+  authorizationStatus: string;
   promoFilm: Film;
   addPromoToFavorites: (
     id: string | number,
@@ -16,6 +18,7 @@ interface Props {
 const FilmCard: React.FunctionComponent<Props> = (props: Props) => {
   const {
     children,
+    authorizationStatus,
     promoFilm,
     addPromoToFavorites,
     favoriteFilms
@@ -72,7 +75,12 @@ const FilmCard: React.FunctionComponent<Props> = (props: Props) => {
               </button>
 
               <button className="btn btn--list movie-card__button" type="button"
-                onClick={() => addPromoToFavorites(id, inFavorite)}
+                onClick={() => {
+                  if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+                    history.push(AppRoute.LOGIN);
+                  }
+                  addPromoToFavorites(id, inFavorite);
+                }}
               >
                 <svg viewBox="0 0 19 20" width="19" height="20">
                   <use xlinkHref={`#${inFavorite ? `add` : `in-list` }`}></use>

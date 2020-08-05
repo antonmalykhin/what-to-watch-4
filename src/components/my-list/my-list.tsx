@@ -9,6 +9,12 @@ interface Props {
   currentYear: number;
   favoriteFilms: Film[];
   loadComments: (id: number | string) => void;
+  user: {
+    id: number | string;
+    name: string;
+    email: string;
+    avatar: string;
+  };
 }
 
 const MyList: React.FunctionComponent<Props> = (props: Props) => {
@@ -16,7 +22,8 @@ const MyList: React.FunctionComponent<Props> = (props: Props) => {
   const {
     currentYear,
     favoriteFilms,
-    loadComments
+    loadComments,
+    user
   } = props;
 
   const FilmListWrapped = withActiveItem(FilmList, `films`);
@@ -29,7 +36,7 @@ const MyList: React.FunctionComponent<Props> = (props: Props) => {
 
         <div className="user-block">
           <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+            <img src={user.avatar} alt={user.name} width="63" height="63" />
           </div>
         </div>
       </Header>

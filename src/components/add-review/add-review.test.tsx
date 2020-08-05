@@ -193,6 +193,13 @@ const match = {
   }
 };
 
+const user = {
+  avatar: `/wtw/static/avatar/6.jpg`,
+  email: `asd@asd.ru`,
+  id: 1,
+  name: `asd`,
+};
+
 it(`AddReview render correctly`, () => {
   const mockStore = configureStore([]);
 
@@ -212,7 +219,8 @@ it(`AddReview render correctly`, () => {
       promoFilm: {}
     },
     USER: {
-      authorizationStatus: `AUTH`
+      authorizationStatus: `AUTH`,
+      user: {}
     }
   });
 
@@ -227,6 +235,7 @@ it(`AddReview render correctly`, () => {
             isCommentSend={true}
             resetWarning={noop}
             match={match}
+            user={user}
           />
         </Provider>
       </Router>

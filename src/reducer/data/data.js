@@ -121,7 +121,6 @@ export const Operation = {
     return api.post(`/favorite/${filmID}/${adaptedData}`)
       .then((response) => {
         const favoriteFilm = filmAdapter(response.data);
-
         if (favoriteFilm.isFavorite) {
           dispatch(ActionCreator.addToFavorites(favoriteFilm));
         } else {

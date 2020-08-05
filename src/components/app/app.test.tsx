@@ -303,6 +303,13 @@ const comments = [
   }
 ];
 
+const user = {
+  avatar: `/wtw/static/avatar/6.jpg`,
+  email: `asd@asd.ru`,
+  id: 1,
+  name: `asd`,
+};
+
 it(`Render App`, () => {
   const store = mockStore({
     APP: {
@@ -331,6 +338,7 @@ it(`Render App`, () => {
             comments={comments}
             loadComments={noop}
             isLoading={true}
+            user={user}
           />
         </Provider>, {
           createNodeMock: () => {

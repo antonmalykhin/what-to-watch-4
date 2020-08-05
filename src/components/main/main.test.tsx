@@ -291,6 +291,14 @@ const favoriteFilms = [
   }
 ];
 
+const user = {
+  avatar: `/wtw/static/avatar/6.jpg`,
+  email: `asd@asd.ru`,
+  id: 1,
+  name: `asd`,
+};
+
+
 it(`Should Main render correctly`, () => {
   const tree = renderer
     .create(
@@ -309,6 +317,8 @@ it(`Should Main render correctly`, () => {
             resetShowedFilms={noop}
             addPromoToFavorites={noop}
             loadComments={noop}
+            loadFavoriteFilms={noop}
+            user={user}
           />
         </Router>, {
           createNodeMock: () => {
