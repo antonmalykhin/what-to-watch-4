@@ -1394,7 +1394,7 @@ main {
           transform: translateY(-50%); }
 
 
-/* Loader */
+/* Loader screen */
 .loader {
   height: 100vh;
   width: 100vw;
@@ -1478,7 +1478,7 @@ main {
   }
 }
 
-/* Error 404 */
+/* Error 404 screen */
 
 .error {
   height: 100vh;
